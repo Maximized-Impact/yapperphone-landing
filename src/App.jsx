@@ -224,7 +224,7 @@ export default function App() {
             <p className="hero-sub hero-animate" style={{opacity:0}}>You know that feeling when a call goes 40 minutes and you had no idea? Or when you can't figure out how to end it? <strong>That's not a character flaw.</strong> Your phone was never designed for your brain. Yapper was.</p>
             <div className="hero-cta-group hero-animate" style={{opacity:0}}>{heroCta}</div>
           </div>
-          <div className="hero-phone hero-animate" style={{opacity:0,paddingTop:'2rem'}}>
+          <div className="hero-phone hero-animate" style={{opacity:0}}>
             <div className="phone-frame"><img src="/screenshot-in-call.jpg" alt="Yapper Phone in-call screen showing countdown timer" loading="eager" /></div>
           </div>
         </div>

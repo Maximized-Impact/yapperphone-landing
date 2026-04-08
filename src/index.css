@@ -221,7 +221,7 @@ body {
   min-height: 100dvh;
   display: flex;
   align-items: flex-start;
-  padding: 7rem 1.5rem 4rem;
+  padding: 6.75rem 1.5rem 4rem;
   position: relative;
   overflow: hidden;
   background: var(--dark);
@@ -243,7 +243,7 @@ body {
   gap: 3rem;
   align-items: start;
 }
-.hero-text { padding-top: 0; }
+.hero-text { padding-top: 0; margin-top: 0; }
 .hero-headline {
   font-family: var(--font-display);
   font-weight: 800;
@@ -251,6 +251,7 @@ body {
   line-height: 1.08;
   letter-spacing: -0.03em;
   color: var(--text-primary);
+  margin-top: -0.1em;
   margin-bottom: 1.5rem;
 }
 .hero-headline .accent { color: var(--yapper-green); }
@@ -280,11 +281,11 @@ body {
 .hero-phone {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 @media (max-width: 768px) {
-  .hero { padding: 5.75rem 1.25rem 3rem; align-items: flex-start; }
+  .hero { padding: 5.5rem 1.25rem 3rem; align-items: flex-start; }
   .hero-content { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
   .hero-text { padding-bottom: 0; order: 2; }
   .hero-phone { order: 1; }
@@ -341,6 +342,7 @@ body {
 .btn-primary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   background: var(--yapper-green);
   color: var(--dark);
@@ -355,6 +357,8 @@ body {
   transition: transform 0.3s var(--ease-spring), box-shadow 0.3s;
   position: relative;
   overflow: hidden;
+  justify-content: center;
+  text-align: center;
 }
 .btn-primary:hover {
   transform: scale(1.03);
