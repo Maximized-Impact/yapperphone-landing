@@ -220,8 +220,8 @@ body {
 .hero {
   min-height: 100dvh;
   display: flex;
-  align-items: flex-end;
-  padding: 0 1.5rem 4rem;
+  align-items: flex-start;
+  padding: 7rem 1.5rem 4rem;
   position: relative;
   overflow: hidden;
   background: var(--dark);
@@ -241,9 +241,9 @@ body {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 3rem;
-  align-items: end;
+  align-items: start;
 }
-.hero-text { padding-bottom: 2rem; }
+.hero-text { padding-top: 0; }
 .hero-headline {
   font-family: var(--font-display);
   font-weight: 800;
@@ -284,7 +284,7 @@ body {
 }
 
 @media (max-width: 768px) {
-  .hero { padding: 0 1.25rem 3rem; align-items: center; }
+  .hero { padding: 5.75rem 1.25rem 3rem; align-items: flex-start; }
   .hero-content { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
   .hero-text { padding-bottom: 0; order: 2; }
   .hero-phone { order: 1; }

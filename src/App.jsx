@@ -173,14 +173,14 @@ export default function App() {
   const heroCta = cd.launched ? (
     <>
       <a href={PLAY_STORE} className="btn-primary" target="_blank" rel="noopener noreferrer">Try Free for 7 Days</a>
-      <a href={SAMSUNG_STORE} className="secondary-link" target="_blank" rel="noopener noreferrer">Also on Samsung Galaxy Store →</a>
+      <a href={SAMSUNG_STORE} className="secondary-link" target="_blank" rel="noopener noreferrer">Coming to Samsung Galaxy Store →</a>
       <span className="micro-text">No credit card required · €2.99/month after trial</span>
     </>
   ) : (
     <>
       <Countdown cd={cd} />
       <a href={PLAY_STORE} className="btn-primary" target="_blank" rel="noopener noreferrer">Pre-register on Google Play</a>
-      <a href={SAMSUNG_STORE} className="secondary-link" target="_blank" rel="noopener noreferrer">Also on Samsung Galaxy Store →</a>
+      <a href={SAMSUNG_STORE} className="secondary-link" target="_blank" rel="noopener noreferrer">Coming to Samsung Galaxy Store →</a>
       <span className="micro-text">Launching April 16 · €2.99/month · 7-day free trial</span>
     </>
   )
@@ -216,7 +216,7 @@ export default function App() {
           : <a href="#originals" className="navbar-cta">Get Originals</a>}
       </nav>
 
-      <section className="hero" id="main-content" style={{paddingTop:"8rem"}}>
+      <section className="hero" id="main-content">
         <div className="hero-bg" aria-hidden="true" />
         <div className="hero-content">
           <div className="hero-text">
