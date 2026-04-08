@@ -45,25 +45,20 @@ function Countdown({cd}) {
   )
 }
 
-
 function GiftSection() {
   const [tier, setTier] = useState('annual')
   const [months, setMonths] = useState(3)
   const [form, setForm] = useState({gifterName:'',gifterEmail:'',recipientName:'',recipientEmail:'',message:''})
-
   const monthlyTotal = (2.99 * months).toFixed(2)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // TODO: Call Firebase Cloud Function createGiftCheckout
-    // For now, show alert
     alert('Gift checkout coming soon! Stripe integration in progress.')
   }
 
   return (
     <section className="section section-dark gift-section" id="gift">
       <div className="section-inner">
-        {/* Painting Hero */}
         <div className="gift-painting-wrap reveal">
           <img src="/wilda-painting.webp" alt="Sydämiä ja Tähdenlentoja — abstract painting with hearts in red, green, and black, blue circles, and yellow sunbursts on white canvas" loading="lazy" />
           <div className="gift-painting-caption">
@@ -73,12 +68,8 @@ function GiftSection() {
             <div className="gift-painting-tagline">Yapper was built for minds like hers.</div>
           </div>
         </div>
-
-        {/* Headline */}
         <h2 className="gift-headline reveal">Give a Better Call</h2>
         <p className="gift-subheadline reveal">Give someone you love a phone call that finally works for their brain.</p>
-
-        {/* Tier Cards */}
         <div className="gift-tiers reveal">
           <div className={`gift-tier ${tier === 'monthly' ? 'selected' : ''}`} onClick={() => setTier('monthly')}>
             <h4>Gift Monthly</h4>
@@ -86,7 +77,7 @@ function GiftSection() {
             <div className="gift-tier-detail">{months} month{months > 1 ? 's' : ''} of Pro</div>
             {tier === 'monthly' && (
               <div className="gift-months-selector">
-                {[1,3,6,12].map(m => (
+                {[1,3,6].map(m => (
                   <button key={m} className={`gift-month-btn ${months === m ? 'active' : ''}`} onClick={(e) => { e.stopPropagation(); setMonths(m) }}>{m}mo</button>
                 ))}
               </div>
@@ -105,8 +96,6 @@ function GiftSection() {
             <div className="gift-tier-detail">Lifetime Pro · Forever</div>
           </div>
         </div>
-
-        {/* Gift Form */}
         <form className="gift-form reveal" onSubmit={handleSubmit}>
           <div className="gift-form-row">
             <div className="gift-input-group">
@@ -120,11 +109,11 @@ function GiftSection() {
           </div>
           <div className="gift-form-row">
             <div className="gift-input-group">
-              <label>Recipient's name</label>
+              <label>{"Recipient's name"}</label>
               <input type="text" required value={form.recipientName} onChange={e => setForm({...form, recipientName: e.target.value})} placeholder="Their name" />
             </div>
             <div className="gift-input-group">
-              <label>Recipient's email</label>
+              <label>{"Recipient's email"}</label>
               <input type="email" required value={form.recipientEmail} onChange={e => setForm({...form, recipientEmail: e.target.value})} placeholder="them@email.com" />
             </div>
           </div>
@@ -173,7 +162,7 @@ export default function App() {
   const heroCta = cd.launched ? (
     <>
       <a href={PLAY_STORE} className="btn-primary" target="_blank" rel="noopener noreferrer">Try Free for 7 Days</a>
-      <a href={SAMSUNG_STORE} className="secondary-link" target="_blank" rel="noopener noreferrer">Coming to Samsung Galaxy Store →</a>
+      <a href={SAMSUNG_STORE} className="secondary-link" target="_blank" rel="noopener noreferrer">Also on Samsung Galaxy Store →</a>
       <span className="micro-text">No credit card required · €2.99/month after trial</span>
     </>
   ) : (
@@ -196,11 +185,13 @@ export default function App() {
       <a href="#main-content" className="skip-link">Skip to content</a>
       <div className="noise-overlay" aria-hidden="true" />
 
+      {/* ORIGINALS BANNER */}
       <div className={`originals-banner ${bannerHidden ? 'hidden' : ''}`} role="banner">
         <span>🟢 YAPPER ORIGINALS — First 1,000. Lifetime Pro. €67.{!cd.launched && ' Now.'}</span>
         <a href="#originals">Learn More ↓</a>
       </div>
 
+      {/* NAVBAR */}
       <nav className={`navbar ${navScrolled ? 'scrolled' : 'transparent'}`} aria-label="Main navigation">
         <a href="#" className="navbar-logo">
           <img src="/yapper_logo.svg" alt="Yapper Phone" width="28" height="28" style={{background:'none'}} />
@@ -209,6 +200,7 @@ export default function App() {
         <ul className="navbar-links">
           <li><a href="#features">Features</a></li>
           <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#gift">Gift</a></li>
           <li><a href="#originals">Originals</a></li>
         </ul>
         {cd.launched
@@ -216,6 +208,7 @@ export default function App() {
           : <a href="#originals" className="navbar-cta">Get Originals</a>}
       </nav>
 
+      {/* SECTION 1: HERO */}
       <section className="hero" id="main-content">
         <div className="hero-bg" aria-hidden="true" />
         <div className="hero-content">
@@ -225,12 +218,13 @@ export default function App() {
             <div className="hero-cta-group hero-animate" style={{opacity:0}}>{heroCta}</div>
           </div>
           <div className="hero-phone hero-animate" style={{opacity:0}}>
-            <div className="phone-frame"><img src="/screenshot-in-call.jpg" alt="Yapper Phone in-call screen showing countdown timer" loading="eager" /></div>
+            <div className="phone-frame"><img src="/screenshot-in-call.jpg" alt="Yapper Phone in-call screen showing countdown timer at 04:08 with 6 seconds elapsed, green Connected status and agenda topic" loading="eager" /></div>
           </div>
         </div>
         <div className="scroll-indicator" aria-hidden="true"><span>SCROLL</span><div className="scroll-chevron" /></div>
       </section>
 
+      {/* CHARACTER STRIP */}
       <div className="section-dark" style={{padding:'1.5rem 0'}}>
         <div className="character-strip" aria-label="Yapper character mascots">
           <div className="character-track">
@@ -239,14 +233,18 @@ export default function App() {
         </div>
       </div>
 
+      {/* SECTION 2: THE PROBLEM */}
       <section className="section section-light" id="problem">
-        <div className="section-inner"><div className="problem-text reveal">
-          <p className="lead">For 150 years, the phone call has been built for the average brain.</p>
-          <p className="stats"><strong>70% of young adults</strong> feel anxious when the phone rings. One in four UK adults under 35 have <strong>never answered a call</strong> to their mobile. One in five people worldwide are <strong>neurodivergent</strong>. The average brain is a myth.</p>
-          <p className="bridge">Yapper is the first phone call redesigned for how humans actually think, feel, and communicate.</p>
-        </div></div>
+        <div className="section-inner">
+          <div className="problem-text reveal">
+            <p className="lead">For 150 years, the phone call has been built for the average brain.</p>
+            <p className="stats"><strong>70% of young adults</strong> feel anxious when the phone rings. One in four UK adults under 35 have <strong>never answered a call</strong> to their mobile. One in five people worldwide are <strong>neurodivergent</strong>. The average brain is a myth.</p>
+            <p className="bridge">Yapper is the first phone call redesigned for how humans actually think, feel, and communicate.</p>
+          </div>
+        </div>
       </section>
 
+      {/* SECTION 3: THE CONSENT INNOVATION */}
       <section className="section section-dark">
         <div className="section-inner">
           <div className="consent-text reveal">
@@ -255,49 +253,128 @@ export default function App() {
             <p className="closer">This is bilateral duration negotiation — and no phone on Earth has ever done it.</p>
           </div>
           <div style={{display:'flex',justifyContent:'center',gap:'1.5rem',marginTop:'3rem',flexWrap:'wrap'}}>
-            <div className="phone-frame reveal" style={{width:180}}><img src="/screenshot-setup.jpg" alt="Yapper pre-call setup" loading="lazy" /></div>
-            <div className="phone-frame reveal" style={{width:180}}><img src="/screenshot-agenda.jpg" alt="Yapper in-call timer" loading="lazy" /></div>
+            <div className="phone-frame reveal" style={{width:160}}><img src="/screenshot-incoming.jpg" alt="Yapper incoming call screen showing caller avatar, agenda topic, and duration options — Long Call, Short Call, Custom Cap, and caller's Requested time" loading="lazy" /></div>
+            <div className="phone-frame reveal" style={{width:160}}><img src="/screenshot-setup.jpg" alt="Yapper pre-call setup showing duration picker with Agenda mode selected" loading="lazy" /></div>
+            <div className="phone-frame reveal" style={{width:160}}><img src="/screenshot-agenda.jpg" alt="Yapper in-call screen showing timer counting down with agenda topic displayed" loading="lazy" /></div>
           </div>
         </div>
       </section>
 
+      {/* SECTION 4: SEVEN FEATURES */}
       <section className="section section-darker" id="features">
         <div className="section-inner">
           <div className="features-header reveal"><h2>What Yapper does.</h2></div>
           <div className="features-grid">
-            <div className="feature-card reveal"><span className="feature-icon">⏱</span><h3>Set the time before the call starts.</h3><p>Both people agree on call duration before connecting. A synchronised countdown timer on both devices — colour-coded from green to orange to red. When the time is up, both of you know.</p><p className="feature-proof">Addresses documented ADHD time perception deficits (Ptacek et al., 2019)</p></div>
-            <div className="feature-card reveal"><span className="feature-icon">🎧</span><h3>Brown noise, right in your call.</h3><p>Ambient focus sound mixed directly into your phone call. Separate volume controls. Hearing-safe levels. Unlike any other phone app on Earth.</p></div>
-            <div className="feature-card reveal"><span className="feature-icon">🔔</span><h3>Gentle reminders — so you never lose track.</h3><p>Soft chimes at intervals you choose — every 5, 10, or 15 minutes. Your external clock for when the internal one goes quiet.</p></div>
-            <div className="feature-card reveal"><span className="feature-icon">📐</span><h3>Every call has a shape.</h3><p>Standard. Agenda. Body Double. ICE Emergency. ICE Checkup. Custom. One app, six ways to call.</p></div>
-            <div className="feature-card feature-card-with-phone reveal" style={{borderColor:'rgba(229,57,53,0.2)'}}>
-              <div><span className="feature-icon">🆘</span><h3>The call that always gets through.</h3><p>If you are someone's ICE contact, you need one thing: to wake up when they need you. Not tomorrow. Not when you check your phone. Now. And if you are the person living with diabetes, epilepsy, a heart condition — you need to know that the one person you are counting on will actually hear you. ICE calls bypass Do Not Disturb. They bypass silent mode. They ring at maximum volume. The worry is the same on both sides of the call. Yapper makes sure the phone is never the reason it went unanswered.</p><p className="feature-proof">Addresses documented caregiver communication anxiety and patient isolation (Schulz & Sherwood, 2008)</p></div>
-              <div className="phone-frame"><img src="/screenshot-emergency.jpg" alt="Emergency Info screen" loading="lazy" /></div>
+
+            {/* Feature 1 — Time-Bound Calls */}
+            <div className="feature-card reveal">
+              <span className="feature-icon">⏱</span>
+              <h3>Set the time before the call starts.</h3>
+              <p>Both people agree on call duration before connecting. A synchronised countdown timer on both devices — colour-coded from green to orange to red. When the time is up, both of you know. No more calls that spiral into an hour you didn't have.</p>
+              <p className="feature-proof">Addresses documented ADHD time perception deficits (Ptacek et al., 2019)</p>
             </div>
-            <div className="feature-card reveal"><span className="feature-icon">💚</span><h3>Not a guilt trip. A gentle nudge.</h3><p>ADHD brains don't forget people on purpose. Yapper surfaces fading connections gently. Shame-free, by design.</p></div>
-            <div className="feature-card reveal"><span className="feature-icon">📊</span><h3>Understand how you communicate.</h3><p>Your call patterns, social rhythms, and relationship health. All processing on your device.</p></div>
+
+            {/* Feature 2 — Focus Sound (Janne's corrected copy) */}
+            <div className="feature-card reveal">
+              <span className="feature-icon">🎧</span>
+              <h3>Focus sound, right in your call.</h3>
+              <p>Ambient focus sound — brown noise at launch, with pink noise, white noise, and other sounds to help you focus and relax coming in a later update — mixed directly into your phone call. Also playing system-wide. Separate volume controls. Hearing-safe levels. Unlike any other phone app on Earth — because until now, no one built the phone call for the brain that needs background noise to focus.</p>
+            </div>
+
+            {/* Feature 3 — Time Signals (Janne's corrected copy) */}
+            <div className="feature-card reveal">
+              <span className="feature-icon">🔔</span>
+              <h3>Time signals — gentle reminders so you never lose track of time.</h3>
+              <p>Soft chimes at intervals you choose — from 10 seconds to 30 minutes. Visual, audible, and haptic. Designed to coexist with deep focus, not interrupt it. Your external clock for when the internal one goes quiet.</p>
+            </div>
+
+            {/* Feature 4 — Six Call Types */}
+            <div className="feature-card reveal">
+              <span className="feature-icon">📐</span>
+              <h3>Every call has a shape.</h3>
+              <p>Standard for everyday. Agenda for when you need to stay on topic — the subject line sits under the timer so both of you see it. Body Double for silent companionship while you work. ICE Emergency and ICE Checkup for when lives are at stake. Custom for everything else. The entire interface transforms for each type — colour, layout, purpose. One app, six ways to call.</p>
+            </div>
+
+            {/* Feature 5 — ICE Emergency (two-direction rewrite) */}
+            <div className="feature-card feature-card-with-phone reveal" style={{borderColor:'rgba(229,57,53,0.2)'}}>
+              <div>
+                <span className="feature-icon">🆘</span>
+                <h3>The call that always gets through.</h3>
+                <p>{"If you are someone's ICE contact, you need one thing: to wake up when they need you. Not tomorrow. Not when you check your phone. Now. And if you are the person living with diabetes, epilepsy, a heart condition — you need to know that the one person you are counting on will actually hear you. ICE calls bypass Do Not Disturb. They bypass silent mode. They ring at maximum volume. The worry is the same on both sides of the call. Yapper makes sure the phone is never the reason it went unanswered."}</p>
+                <p className="feature-proof">Addresses documented caregiver communication anxiety and patient isolation (Schulz & Sherwood, 2008)</p>
+              </div>
+              <div className="phone-frame"><img src="/screenshot-emergency.jpg" alt="Yapper Emergency Info screen showing medical information, conditions, medications, and ICE contacts" loading="lazy" /></div>
+            </div>
+
+            {/* Feature 6 — People Missing You */}
+            <div className="feature-card reveal">
+              <span className="feature-icon">💚</span>
+              <h3>Not a guilt trip. A gentle nudge.</h3>
+              <p>{"ADHD brains don't forget people on purpose. When someone drops out of your call pattern — a friend you haven't spoken to in months, a parent you keep meaning to call — Yapper surfaces them gently. Not as a failure. Not as a streak that broke. As a person who would love to hear from you. Shame-free, by design."}</p>
+              <p className="feature-proof">Designed around the shame-guilt-avoidance cycle documented in ADHD relationship research</p>
+            </div>
+
+            {/* Feature 7 — Communication Patterns */}
+            <div className="feature-card reveal">
+              <span className="feature-icon">📊</span>
+              <h3>Understand how you communicate. On your terms.</h3>
+              <p>{"A multi-domain dashboard showing your call patterns, social rhythms, and relationship health — with warm, plain-language summaries (\"You're a Night Owl caller\") alongside the raw data. Export everything. All processing happens on your device. Your patterns, your data, your insight."}</p>
+            </div>
+
+            {/* Feature 8 — Battery Intelligence */}
+            <div className="feature-card full-width reveal">
+              <span className="feature-icon">🔋</span>
+              <h3>{"Your phone’s battery warning was designed to be dismissed. This one was designed to make you act."}</h3>
+              <p>{"Full-screen alerts that cut through everything — lock screen, Do Not Disturb, silent mode. Colour-coded from green to orange to red as battery drops. Estimated time remaining. And alert tones that descend in pitch as your battery drains — so even if you’re not looking, you can hear that it’s getting worse. Designed from medical alarm research to cut through hyperfocus without startling you."}</p>
+              <p style={{marginTop:'1rem',color:'var(--text-primary)',fontWeight:600}}>A dead phone isn't just an inconvenience. For some people, staying reachable is staying alive.</p>
+              <div className="battery-strip">
+                <div className="phone-frame"><img src="/battery-full.jpg" alt="Full battery alert at 100% with green colour scheme" loading="lazy" /></div>
+                <div className="phone-frame"><img src="/battery-low.jpg" alt="Low battery alert at 20% with orange colour scheme showing Getting Low warning" loading="lazy" /></div>
+                <div className="phone-frame"><img src="/battery-critical.jpg" alt="Critical battery alert at 3% with red colour scheme showing Charge now! warning" loading="lazy" /></div>
+              </div>
+              <div className="battery-color-legend">
+                <span><span className="battery-dot" style={{background:'#00C853'}}></span> Full</span>
+                <span><span className="battery-dot" style={{background:'#F57C00'}}></span> Getting low</span>
+                <span><span className="battery-dot" style={{background:'#E53935'}}></span> Critical</span>
+              </div>
+              <p className="feature-proof">Battery intelligence with configurable thresholds — a system-level capability only a true dialer replacement can deliver</p>
+            </div>
+
           </div>
         </div>
       </section>
 
+      {/* SECTION 5: THE CURB-CUT MOMENT */}
       <section className="section section-light">
         <div className="section-inner curb-cut-section reveal">
           <h2>Designed for neurodivergent brains. Better for every brain.</h2>
-          <p style={{maxWidth:640,margin:'0 auto 1.5rem',color:'var(--text-secondary)',fontSize:'1.05rem',lineHeight:1.7}}>When JPMorgan Chase designed roles for autistic employees, those employees were 90–140% more productive. This is the curb-cut effect — and Yapper applies it to the phone call.</p>
+          <p style={{maxWidth:640,margin:'0 auto 1.5rem',color:'var(--text-secondary)',fontSize:'1.05rem',lineHeight:1.7}}>When JPMorgan Chase designed roles for autistic employees, those employees were 90–140% more productive. When environments are built for the most demanding users, everyone performs better. This is the curb-cut effect — and Yapper applies it to the phone call.</p>
           <div className="curb-cut-examples">
-            <div className="curb-example"><p className="designed">Designed for ADHD</p><p>Time-bound calls rescue every professional trapped on a "quick call."</p></div>
-            <div className="curb-example"><p className="designed">Designed for caregivers</p><p>Emergency bypass gives every parent peace of mind.</p></div>
-            <div className="curb-example"><p className="designed">Designed for connection</p><p>A gentle nudge serves anyone whose life got too busy.</p></div>
+            <div className="curb-example">
+              <p className="designed">Designed for ADHD</p>
+              <p>{"Time-bound calls designed for ADHD time blindness? They also rescue every professional trapped on a calendar-wrecking \"quick call.\""}</p>
+            </div>
+            <div className="curb-example">
+              <p className="designed">Designed for caregivers</p>
+              <p>{"Emergency bypass designed for a diabetic child's caregiver? It gives every parent peace of mind."}</p>
+            </div>
+            <div className="curb-example">
+              <p className="designed">Designed for connection</p>
+              <p>{"A gentle nudge about friends you haven't called? That serves anyone whose life got too busy to keep up."}</p>
+            </div>
           </div>
           <p className="curb-cta">You don't need a diagnosis to need a better phone call.</p>
         </div>
       </section>
 
+      {/* SECTION 6: THE ADHERENCE ARGUMENT */}
       <section className="section section-dark adherence">
         <p className="line1 reveal">Other ADHD apps need you to remember to open them.</p>
-        <p className="line2 reveal">Yapper works because your phone rings.</p>
+        <p className="line2 reveal">Yapper works because eventually your phone rings.</p>
         <p className="micro reveal">Mental health apps have a median 15-day retention of 3.9%. Yapper is built into the infrastructure your life already uses.</p>
       </section>
 
+      {/* SECTION 7: YAPPER ORIGINALS */}
       <section className="section section-darker" id="originals">
         <div className="section-inner originals-section reveal">
           <div className="originals-card">
@@ -307,7 +384,7 @@ export default function App() {
             <h2>Yapper Originals</h2>
             <p className="originals-subtitle">The Founding 1,000</p>
             <p className="originals-price">€67 <span>one-time</span></p>
-            <p className="originals-desc">This is for the people who see what Yapper is before the world catches up. The founding members who make the mission real.</p>
+            <p className="originals-desc">This is for the people who see what Yapper is before the world catches up. The ones who know that phone calls needed this twenty years ago. The founding members who make the mission real.</p>
             <ul className="originals-perks">
               <li>Lifetime Pro access — every feature, every update, forever</li>
               <li>Your name permanently displayed on the Founders screen inside the app</li>
@@ -320,26 +397,62 @@ export default function App() {
         </div>
       </section>
 
+      {/* SECTION 8: PRICING */}
       <section className="section section-dark" id="pricing">
         <div className="section-inner">
           <h2 className="section-heading reveal">Simple pricing. Full app.</h2>
           {!cd.launched && <p style={{textAlign:'center',color:'var(--text-secondary)',marginBottom:'2rem',fontSize:'0.95rem'}}>Launching April 16. Pre-register now — or <a href="#originals" style={{color:'var(--yapper-green)'}}>grab Originals today</a>.</p>}
           <div className="pricing-grid">
-            <div className="pricing-card reveal"><h3>Free Trial</h3><p className="pricing-amount">7 Days</p><p className="pricing-period">€0 — no credit card</p><ul className="pricing-features"><li>Full app, all features</li><li>All six call types</li><li>ICE Emergency included</li><li>No commitment</li></ul>{pBtn('Try Free',true)}</div>
-            <div className="pricing-card featured reveal"><span className="pricing-badge">Best Value</span><h3>Annual</h3><p className="pricing-amount">€19.99<span style={{fontSize:'0.9rem',fontWeight:400}}>/year</span></p><p className="pricing-period">Effective €1.67/month · Save 44%</p><ul className="pricing-features"><li>Full app, all features</li><li>All six call types</li><li>ICE Emergency included</li><li>29 languages</li></ul>{pBtn('Subscribe & Save',true)}</div>
-            <div className="pricing-card reveal"><h3>Monthly</h3><p className="pricing-amount">€2.99<span style={{fontSize:'0.9rem',fontWeight:400}}>/mo</span></p><p className="pricing-period">Cancel anytime</p><ul className="pricing-features"><li>Full app, all features</li><li>All six call types</li><li>ICE Emergency included</li><li>29 languages</li></ul>{pBtn('Subscribe',false)}</div>
+            <div className="pricing-card reveal">
+              <h3>Free Trial</h3>
+              <p className="pricing-amount">7 Days</p>
+              <p className="pricing-period">€0 — no credit card</p>
+              <ul className="pricing-features">
+                <li>Full app, all features</li>
+                <li>All six call types</li>
+                <li>ICE Emergency included</li>
+                <li>No commitment</li>
+              </ul>
+              {pBtn('Try Free', true)}
+            </div>
+            <div className="pricing-card featured reveal">
+              <span className="pricing-badge">Best Value</span>
+              <h3>Annual</h3>
+              <p className="pricing-amount">€19.99<span style={{fontSize:'0.9rem',fontWeight:400}}>/year</span></p>
+              <p className="pricing-period">Effective €1.67/month · Save 44%</p>
+              <ul className="pricing-features">
+                <li>Full app, all features</li>
+                <li>All six call types</li>
+                <li>ICE Emergency included</li>
+                <li>29 languages</li>
+              </ul>
+              {pBtn('Subscribe & Save', true)}
+            </div>
+            <div className="pricing-card reveal">
+              <h3>Monthly</h3>
+              <p className="pricing-amount">€2.99<span style={{fontSize:'0.9rem',fontWeight:400}}>/mo</span></p>
+              <p className="pricing-period">Cancel anytime</p>
+              <ul className="pricing-features">
+                <li>Full app, all features</li>
+                <li>All six call types</li>
+                <li>ICE Emergency included</li>
+                <li>29 languages</li>
+              </ul>
+              {pBtn('Subscribe', false)}
+            </div>
           </div>
           <p className="pricing-note reveal">Finnish Type 1 diabetics receive free lifetime Pro access. <a href="mailto:janne@maximized-impact.org">Contact us →</a></p>
         </div>
       </section>
 
-      {/* ═══ GIFT SECTION ═══ */}
+      {/* GIFT SECTION */}
       <GiftSection />
 
+      {/* SECTION 9: THE MISSION */}
       <section className="section section-darker">
         <div className="section-inner mission-text reveal">
-          <div style={{textAlign:"center",marginBottom:"2rem"}}>
-            <img src="/maximized_impact_institute_logo.png" alt="Institute for The Study Of Humanity and Maximized Impact" style={{height:"60px",width:"auto",opacity:0.85}} />
+          <div style={{textAlign:'center',marginBottom:'2rem'}}>
+            <img src="/maximized_impact_institute_logo.png" alt="Institute for The Study Of Humanity and Maximized Impact" style={{height:'60px',width:'auto',opacity:0.85}} />
           </div>
           <p className="mission-pillars">NO EXIT · NO INVESTORS · NO CORPORATE CAPTURE · NO MARTYRDOM</p>
           <p className="mission-body">A substantial portion of all profits funds the Institute for The Study Of Humanity and Maximized Impact — a permanent Finnish research institute studying human communication, neurodiversity, and the human mind. The creators who build the ecosystem are compensated generously. Both of these are true simultaneously.</p>
@@ -347,6 +460,7 @@ export default function App() {
         </div>
       </section>
 
+      {/* SECTION 10: TRUST FOOTER */}
       <section className="section section-dark trust-section">
         <div className="section-inner reveal">
           <h2 className="trust-headline">Your phone call, finally on your terms.</h2>
@@ -366,6 +480,7 @@ export default function App() {
         </div>
       </section>
 
+      {/* SECTION 11: FOOTER */}
       <footer className="footer">
         <div className="footer-grid">
           <div className="footer-brand">
@@ -396,6 +511,7 @@ export default function App() {
         </div>
       </footer>
 
+      {/* STICKY MOBILE CTA */}
       <div className={`sticky-cta ${stickyCta ? 'visible' : ''}`}>
         {cd.launched
           ? <a href={PLAY_STORE} className="btn-primary" target="_blank" rel="noopener noreferrer">Try Free</a>
