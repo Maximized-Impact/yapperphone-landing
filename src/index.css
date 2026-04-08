@@ -221,7 +221,7 @@ body {
   min-height: 100dvh;
   display: flex;
   align-items: flex-end;
-  padding: 0 1.5rem 6rem;
+  padding: 0 1.5rem 4rem;
   position: relative;
   overflow: hidden;
   background: var(--dark);
@@ -1190,4 +1190,11 @@ body {
   .gift-form-row { grid-template-columns: 1fr; }
   .gift-painting-wrap { max-width: 100%; border-radius: var(--radius-md); }
   .gift-painting-title { font-size: 1.3rem; }
+}
+
+/* Fix SVG logo display */
+.navbar-logo img,
+.footer-brand img {
+  background: none !important;
+  mix-blend-mode: normal;
 }

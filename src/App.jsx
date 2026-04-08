@@ -203,7 +203,7 @@ export default function App() {
 
       <nav className={`navbar ${navScrolled ? 'scrolled' : 'transparent'}`} aria-label="Main navigation">
         <a href="#" className="navbar-logo">
-          <img src="/yapper_logo.svg" alt="Yapper Phone" width="28" height="28" style={{background:'transparent'}} />
+          <img src="/yapper_logo.svg" alt="Yapper Phone" width="28" height="28" style={{background:'none'}} />
           <span>Yapper</span>
         </a>
         <ul className="navbar-links">
@@ -216,7 +216,7 @@ export default function App() {
           : <a href="#originals" className="navbar-cta">Get Originals</a>}
       </nav>
 
-      <section className="hero" id="main-content">
+      <section className="hero" id="main-content" style={{paddingTop:"8rem"}}>
         <div className="hero-bg" aria-hidden="true" />
         <div className="hero-content">
           <div className="hero-text">
@@ -333,8 +333,14 @@ export default function App() {
         </div>
       </section>
 
+      {/* ═══ GIFT SECTION ═══ */}
+      <GiftSection />
+
       <section className="section section-darker">
         <div className="section-inner mission-text reveal">
+          <div style={{textAlign:"center",marginBottom:"2rem"}}>
+            <img src="/maximized_impact_institute_logo.png" alt="Institute for The Study Of Humanity and Maximized Impact" style={{height:"60px",width:"auto",opacity:0.85}} />
+          </div>
           <p className="mission-pillars">NO EXIT · NO INVESTORS · NO CORPORATE CAPTURE · NO MARTYRDOM</p>
           <p className="mission-body">A substantial portion of all profits funds the Institute for The Study Of Humanity and Maximized Impact — a permanent Finnish research institute studying human communication, neurodiversity, and the human mind. The creators who build the ecosystem are compensated generously. Both of these are true simultaneously.</p>
           <p className="mission-closer">We are not building this to sell it. We are building this to make it permanent.</p>
@@ -364,7 +370,7 @@ export default function App() {
         <div className="footer-grid">
           <div className="footer-brand">
             <div style={{display:'flex',alignItems:'center',gap:'0.5rem',marginBottom:'0.5rem'}}>
-              <img src="/yapper_logo.svg" alt="" width="24" height="24" style={{background:'transparent'}} />
+              <img src="/yapper_logo.svg" alt="" width="24" height="24" style={{background:'none'}} />
               <h4 style={{margin:0}}>Yapper Phone</h4>
             </div>
             <p>Health Communications Technology</p>
