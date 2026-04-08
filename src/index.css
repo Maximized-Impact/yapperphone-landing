@@ -288,13 +288,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  margin-top: 22px;
 }
 
 @media (max-width: 768px) {
   .hero { padding: 6rem 1.25rem 3rem; align-items: flex-start; }
   .hero-content { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
   .hero-text { padding-bottom: 0; order: 2; }
-  .hero-phone { order: 1; }
+  .hero-phone { order: 1; margin-top: 20px; }
   .hero-sub { margin-left: auto; margin-right: auto; }
   .hero-cta-group { align-items: center; }
 }
@@ -319,7 +320,7 @@ body {
 /* ═══ SCROLL INDICATOR ═══ */
 .scroll-indicator {
   position: absolute;
-  bottom: 2rem;
+  bottom: calc(2rem - 22px);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -331,6 +332,9 @@ body {
   font-family: var(--font-mono);
   letter-spacing: 0.1em;
   animation: scrollBounce 2.5s ease-in-out infinite;
+}
+@media (max-width: 768px) {
+  .scroll-indicator { bottom: calc(2rem - 32px); }
 }
 .scroll-chevron {
   width: 20px;
@@ -486,7 +490,9 @@ body {
   border-color: var(--yapper-green-dim);
   box-shadow: 0 12px 40px rgba(0, 200, 83, 0.06);
 }
-.feature-card.full-width { grid-column: 1 / -1; }
+.feature-card.full-width { grid-column: 1 / -1; text-align: center; }
+.feature-card.full-width p { max-width: 720px; margin-left: auto; margin-right: auto; }
+.feature-card.full-width h3 { max-width: 720px; margin-left: auto; margin-right: auto; }
 .feature-icon {
   font-size: 2rem;
   margin-bottom: 1rem;
@@ -949,13 +955,14 @@ body {
 .character-track {
   display: flex;
   gap: 0.5rem;
+  align-items: flex-end;
   animation: marquee 30s linear infinite;
 }
 .character-track img {
-  height: 110px;
-  width: auto;
-  border-radius: var(--radius-sm);
-  opacity: 0.7;
+  width: 127px;
+  height: auto;
+  border-radius: 0;
+  opacity: 0.85;
   transition: opacity 0.3s, transform 0.3s;
 }
 .character-track img:hover {
@@ -1247,12 +1254,7 @@ body {
   box-shadow: none;
   transition: transform 0.4s var(--ease-out), box-shadow 0.4s;
 }
-.battery-strip .phone-frame:nth-child(1) { border-color: rgba(0, 200, 83, 0.4); }
-.battery-strip .phone-frame:nth-child(2) { border-color: rgba(245, 124, 0, 0.4); }
-.battery-strip .phone-frame:nth-child(3) { border-color: rgba(229, 57, 53, 0.4); }
-.battery-strip .phone-frame:nth-child(1):hover { box-shadow: 0 8px 24px rgba(0, 200, 83, 0.15); transform: translateY(-4px); }
-.battery-strip .phone-frame:nth-child(2):hover { box-shadow: 0 8px 24px rgba(245, 124, 0, 0.15); transform: translateY(-4px); }
-.battery-strip .phone-frame:nth-child(3):hover { box-shadow: 0 8px 24px rgba(229, 57, 53, 0.15); transform: translateY(-4px); }
+.battery-strip .phone-frame:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
 .battery-strip .phone-frame img { display: block; width: 100%; height: auto; }
 
 .battery-color-legend {
@@ -1279,3 +1281,49 @@ body {
 @media (max-width: 768px) {
   .battery-strip .phone-frame { width: 100px; }
 }
+
+/* ═══ ICE SCREENSHOT STRIP ═══ */
+.ice-strip {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.ice-strip .phone-frame {
+  width: 120px;
+  border-radius: 0.7rem;
+  border-width: 2px;
+  box-shadow: none;
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s;
+  cursor: pointer;
+}
+.ice-strip .phone-frame:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+@media (max-width: 768px) {
+  .ice-strip .phone-frame { width: 100px; }
+}
+
+/* ═══ SCREENSHOT LIGHTBOX ═══ */
+.phone-frame { cursor: pointer; }
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  animation: lbFadeIn 0.25s ease-out;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.lightbox-overlay img {
+  max-height: 80vh;
+  max-width: 90vw;
+  border-radius: 1rem;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  object-fit: contain;
+  animation: lbScaleIn 0.25s ease-out;
+}
+@keyframes lbFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes lbScaleIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }

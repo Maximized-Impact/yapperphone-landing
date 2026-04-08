@@ -65,7 +65,7 @@ function GiftSection() {
             <div className="gift-painting-title">Sydämiä ja Tähdenlentoja</div>
             <div className="gift-painting-subtitle">Hearts and Shooting Stars</div>
             <div className="gift-painting-credit">by Wilda Vakkilainen, age 4 · 2023</div>
-            <div className="gift-painting-tagline">Yapper was built for minds like hers.</div>
+            <div className="gift-painting-tagline">Yapper Phone was built for minds like hers.</div>
           </div>
         </div>
         <h2 className="gift-headline reveal">Give a Better Call</h2>
@@ -139,6 +139,7 @@ export default function App() {
   const [navScrolled, setNavScrolled] = useState(false)
   const [bannerHidden] = useState(false)
   const [stickyCta, setStickyCta] = useState(false)
+  const [lightboxSrc, setLightboxSrc] = useState(null)
   const mainRef = useRef(null)
   const cd = useCountdown(LAUNCH_DATE)
 
@@ -184,6 +185,7 @@ export default function App() {
     <div ref={mainRef}>
       <a href="#main-content" className="skip-link">Skip to content</a>
       <div className="noise-overlay" aria-hidden="true" />
+      {lightboxSrc && <div className="lightbox-overlay" onClick={() => setLightboxSrc(null)}><img src={lightboxSrc} alt="Enlarged screenshot" /></div>}
 
       {/* ORIGINALS BANNER */}
       <div className={`originals-banner ${bannerHidden ? 'hidden' : ''}`} role="banner">
@@ -195,7 +197,7 @@ export default function App() {
       <nav className={`navbar ${navScrolled ? 'scrolled' : 'transparent'}`} aria-label="Main navigation">
         <a href="#" className="navbar-logo">
           <img src="/yapper_logo.svg" alt="Yapper Phone" width="28" height="28" style={{background:'none'}} />
-          <span>Yapper</span>
+          <span>Yapper Phone</span>
         </a>
         <ul className="navbar-links">
           <li><a href="#features">Features</a></li>
@@ -214,11 +216,11 @@ export default function App() {
         <div className="hero-content">
           <div className="hero-text">
             <h1 className="hero-headline hero-animate" style={{opacity:0}}>The first phone call app built for how <span className="accent">your brain</span> actually works.</h1>
-            <p className="hero-sub hero-animate" style={{opacity:0}}>You know that feeling when a call goes 40 minutes and you had no idea? Or when you can't figure out how to end it? <strong>That's not a character flaw.</strong> Your phone was never designed for your brain. Yapper was.</p>
+            <p className="hero-sub hero-animate" style={{opacity:0}}>You know that feeling when a call goes 40 minutes and you had no idea? Or when you can't figure out how to end it? <strong>That's not a character flaw.</strong> Your phone was never designed for your brain. Yapper Phone was.</p>
             <div className="hero-cta-group hero-animate" style={{opacity:0}}>{heroCta}</div>
           </div>
           <div className="hero-phone hero-animate" style={{opacity:0}}>
-            <div className="phone-frame"><img src="/screenshot-in-call.jpg" alt="Yapper Phone in-call screen showing countdown timer at 04:08 with 6 seconds elapsed, green Connected status and agenda topic" loading="eager" /></div>
+            <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-in-call.jpg')}><img src="/screenshot-in-call.jpg" alt="Yapper Phone in-call screen showing countdown timer at 04:08 with 6 seconds elapsed, green Connected status and agenda topic" loading="eager" /></div>
           </div>
         </div>
         <div className="scroll-indicator" aria-hidden="true"><span>SCROLL</span><div className="scroll-chevron" /></div>
@@ -228,7 +230,7 @@ export default function App() {
       <div className="section-dark" style={{padding:'1.5rem 0'}}>
         <div className="character-strip" aria-label="Yapper character mascots">
           <div className="character-track">
-            {[...characters,...characters].map((c,i) => <img key={i} src={`/${c}.png`} alt="" loading="lazy" width="100" height="150" />)}
+            {[...characters,...characters].map((c,i) => <img key={i} src={`/${c}.png`} alt="" loading="lazy" />)}
           </div>
         </div>
       </div>
@@ -239,7 +241,7 @@ export default function App() {
           <div className="problem-text reveal">
             <p className="lead">For 150 years, the phone call has been built for the average brain.</p>
             <p className="stats"><strong>70% of young adults</strong> feel anxious when the phone rings. One in four UK adults under 35 have <strong>never answered a call</strong> to their mobile. One in five people worldwide are <strong>neurodivergent</strong>. The average brain is a myth.</p>
-            <p className="bridge">Yapper is the first phone call redesigned for how humans actually think, feel, and communicate.</p>
+            <p className="bridge">Yapper Phone is the first phone call redesigned for how humans actually think, feel, and communicate.</p>
           </div>
         </div>
       </section>
@@ -253,9 +255,9 @@ export default function App() {
             <p className="closer">This is bilateral duration negotiation — and no phone on Earth has ever done it.</p>
           </div>
           <div style={{display:'flex',justifyContent:'center',gap:'1.5rem',marginTop:'3rem',flexWrap:'wrap'}}>
-            <div className="phone-frame reveal" style={{width:160}}><img src="/screenshot-incoming.jpg" alt="Yapper incoming call screen showing caller avatar, agenda topic, and duration options — Long Call, Short Call, Custom Cap, and caller's Requested time" loading="lazy" /></div>
-            <div className="phone-frame reveal" style={{width:160}}><img src="/screenshot-setup.jpg" alt="Yapper pre-call setup showing duration picker with Agenda mode selected" loading="lazy" /></div>
-            <div className="phone-frame reveal" style={{width:160}}><img src="/screenshot-agenda.jpg" alt="Yapper in-call screen showing timer counting down with agenda topic displayed" loading="lazy" /></div>
+            <div className="phone-frame reveal" style={{width:160}} onClick={() => setLightboxSrc('/screenshot-setup.jpg')}><img src="/screenshot-setup.jpg" alt="Yapper pre-call setup showing duration picker with Agenda mode selected" loading="lazy" /></div>
+            <div className="phone-frame reveal" style={{width:160}} onClick={() => setLightboxSrc('/screenshot-agenda.jpg')}><img src="/screenshot-agenda.jpg" alt="Yapper in-call screen showing timer counting down with agenda topic displayed" loading="lazy" /></div>
+            <div className="phone-frame reveal" style={{width:160}} onClick={() => setLightboxSrc('/screenshot-incoming.jpg')}><img src="/screenshot-incoming.jpg" alt="Yapper incoming call screen showing caller avatar, agenda topic, and duration options — Long Call, Short Call, Custom Cap, and caller's Requested time" loading="lazy" /></div>
           </div>
         </div>
       </section>
@@ -263,7 +265,7 @@ export default function App() {
       {/* SECTION 4: SEVEN FEATURES */}
       <section className="section section-darker" id="features">
         <div className="section-inner">
-          <div className="features-header reveal"><h2>What Yapper does.</h2></div>
+          <div className="features-header reveal"><h2>What Yapper Phone does.</h2></div>
           <div className="features-grid">
 
             {/* Feature 1 — Time-Bound Calls */}
@@ -295,18 +297,7 @@ export default function App() {
               <p>Standard for everyday. Agenda for when you need to stay on topic — the subject line sits under the timer so both of you see it. Body Double for silent companionship while you work. ICE Emergency and ICE Checkup for when lives are at stake. Custom for everything else. The entire interface transforms for each type — colour, layout, purpose. One app, six ways to call.</p>
             </div>
 
-            {/* Feature 5 — ICE Emergency (two-direction rewrite) */}
-            <div className="feature-card feature-card-with-phone reveal" style={{borderColor:'rgba(229,57,53,0.2)'}}>
-              <div>
-                <span className="feature-icon">🆘</span>
-                <h3>The call that always gets through.</h3>
-                <p>{"If you are someone's ICE contact, you need one thing: to wake up when they need you. Not tomorrow. Not when you check your phone. Now. And if you are the person living with diabetes, epilepsy, a heart condition — you need to know that the one person you are counting on will actually hear you. ICE calls bypass Do Not Disturb. They bypass silent mode. They ring at maximum volume. The worry is the same on both sides of the call. Yapper makes sure the phone is never the reason it went unanswered."}</p>
-                <p className="feature-proof">Addresses documented caregiver communication anxiety and patient isolation (Schulz & Sherwood, 2008)</p>
-              </div>
-              <div className="phone-frame"><img src="/screenshot-emergency.jpg" alt="Yapper Emergency Info screen showing medical information, conditions, medications, and ICE contacts" loading="lazy" /></div>
-            </div>
-
-            {/* Feature 6 — People Missing You */}
+            {/* Feature 5 — People Missing You */}
             <div className="feature-card reveal">
               <span className="feature-icon">💚</span>
               <h3>Not a guilt trip. A gentle nudge.</h3>
@@ -321,6 +312,20 @@ export default function App() {
               <p>{"A multi-domain dashboard showing your call patterns, social rhythms, and relationship health — with warm, plain-language summaries (\"You're a Night Owl caller\") alongside the raw data. Export everything. All processing happens on your device. Your patterns, your data, your insight."}</p>
             </div>
 
+            {/* Feature — ICE Emergency */}
+            <div className="feature-card full-width reveal">
+              <span className="feature-icon">🆘</span>
+              <h3>The call that always gets through.</h3>
+              <p>{"If you are someone's ICE contact, you need one thing: to wake up when they need you. Not tomorrow. Not when you check your phone. Now. And if you are the person living with diabetes, epilepsy, a heart condition — you need to know that the one person you are counting on will actually hear you. ICE calls bypass Do Not Disturb. They bypass silent mode. They ring at maximum volume. The worry is the same on both sides of the call. Yapper makes sure the phone is never the reason it went unanswered."}</p>
+              <p>{"But ICE isn't just about the call itself. Yapper Phone's Emergency Info system puts your critical medical information — conditions, medications, blood type, allergies, emergency contacts — behind one tap on your lock screen. If a paramedic, a bystander, or a nurse picks up your phone, they don't need your passcode. They don't need to guess. Your name, your conditions, your ICE contacts — it's all right there. And inside the app, you build your medical profile once, and it's always ready. The same screen that helps first responders also helps you: one tap to call your ICE contact directly from the emergency info view."}</p>
+              <p className="feature-proof">Addresses documented caregiver communication anxiety and patient isolation (Schulz & Sherwood, 2008)</p>
+              <div className="ice-strip">
+                <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-emergency-info.jpg')}><img src="/screenshot-emergency-info.jpg" alt="Yapper Emergency Info screen showing medical conditions, medications, blood type, and ICE contact with one-tap calling" loading="lazy" /></div>
+                <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-medical-info.jpg')}><img src="/screenshot-medical-info.jpg" alt="Yapper user profile medical information setup showing gender, age, blood type, allergy status, height and weight" loading="lazy" /></div>
+                <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-emergency-lockscreen.jpg')}><img src="/screenshot-emergency-lockscreen.jpg" alt="Yapper lock screen notification showing Emergency Info SOS tap to open alert alongside Focus Sound and Time Signal notifications" loading="lazy" /></div>
+              </div>
+            </div>
+
             {/* Feature 8 — Battery Intelligence */}
             <div className="feature-card full-width reveal">
               <span className="feature-icon">🔋</span>
@@ -328,9 +333,9 @@ export default function App() {
               <p>{"Full-screen alerts that cut through everything — lock screen, Do Not Disturb, silent mode. Colour-coded from green to orange to red as battery drops. Estimated time remaining. And alert tones that descend in pitch as your battery drains — so even if you’re not looking, you can hear that it’s getting worse. Designed from medical alarm research to cut through hyperfocus without startling you."}</p>
               <p style={{marginTop:'1rem',color:'var(--text-primary)',fontWeight:600}}>A dead phone isn't just an inconvenience. For some people, staying reachable is staying alive.</p>
               <div className="battery-strip">
-                <div className="phone-frame"><img src="/battery-full.jpg" alt="Full battery alert at 100% with green colour scheme" loading="lazy" /></div>
-                <div className="phone-frame"><img src="/battery-low.jpg" alt="Low battery alert at 20% with orange colour scheme showing Getting Low warning" loading="lazy" /></div>
-                <div className="phone-frame"><img src="/battery-critical.jpg" alt="Critical battery alert at 3% with red colour scheme showing Charge now! warning" loading="lazy" /></div>
+                <div className="phone-frame" onClick={() => setLightboxSrc('/battery-full.jpg')}><img src="/battery-full.jpg" alt="Full battery alert at 100% with green colour scheme" loading="lazy" /></div>
+                <div className="phone-frame" onClick={() => setLightboxSrc('/battery-low.jpg')}><img src="/battery-low.jpg" alt="Low battery alert at 20% with orange colour scheme showing Getting Low warning" loading="lazy" /></div>
+                <div className="phone-frame" onClick={() => setLightboxSrc('/battery-critical.jpg')}><img src="/battery-critical.jpg" alt="Critical battery alert at 3% with red colour scheme showing Charge now! warning" loading="lazy" /></div>
               </div>
               <div className="battery-color-legend">
                 <span><span className="battery-dot" style={{background:'#00C853'}}></span> Full</span>
@@ -371,7 +376,7 @@ export default function App() {
       <section className="section section-dark adherence">
         <p className="line1 reveal">Other ADHD apps need you to remember to open them.</p>
         <p className="line2 reveal">Yapper works because eventually your phone rings.</p>
-        <p className="micro reveal">Mental health apps have a median 15-day retention of 3.9%. Yapper is built into the infrastructure your life already uses.</p>
+        <p className="micro reveal">Mental health apps have a median 15-day retention of 3.9%. Yapper Phone is built into the infrastructure your life already uses.</p>
       </section>
 
       {/* SECTION 7: YAPPER ORIGINALS */}
@@ -384,7 +389,7 @@ export default function App() {
             <h2>Yapper Originals</h2>
             <p className="originals-subtitle">The Founding 1,000</p>
             <p className="originals-price">€67 <span>one-time</span></p>
-            <p className="originals-desc">This is for the people who see what Yapper is before the world catches up. The ones who know that phone calls needed this twenty years ago. The founding members who make the mission real.</p>
+            <p className="originals-desc">This is for the people who see what Yapper Phone is before the world catches up. The ones who know that phone calls needed this twenty years ago. The founding members who make the mission real.</p>
             <ul className="originals-perks">
               <li>Lifetime Pro access — every feature, every update, forever</li>
               <li>Your name permanently displayed on the Founders screen inside the app</li>
@@ -452,11 +457,12 @@ export default function App() {
       <section className="section section-darker">
         <div className="section-inner mission-text reveal">
           <div style={{textAlign:'center',marginBottom:'2rem'}}>
-            <img src="/maximized_impact_institute_logo.png" alt="Institute for The Study Of Humanity and Maximized Impact" style={{height:'60px',width:'auto',opacity:0.85}} />
+            <img src="/institute_logo_cropped.png" alt="Institute for The Study Of Humanity and Maximized Impact" style={{maxWidth:'420px',width:'100%',height:'auto',opacity:0.9}} />
           </div>
-          <p className="mission-pillars">NO EXIT · NO INVESTORS · NO CORPORATE CAPTURE · NO MARTYRDOM</p>
+          <p style={{textAlign:'center',fontSize:'0.95rem',color:'var(--yapper-green)',fontFamily:'var(--font-display)',fontWeight:600,marginBottom:'2rem'}}>55,000 Finnish Type 1 diabetics receive free lifetime Pro access — a proof of our Institute's mission and integrity.</p>
           <p className="mission-body">A substantial portion of all profits funds the Institute for The Study Of Humanity and Maximized Impact — a permanent Finnish research institute studying human communication, neurodiversity, and the human mind. The creators who build the ecosystem are compensated generously. Both of these are true simultaneously.</p>
           <p className="mission-closer">We are not building this to sell it. We are building this to make it permanent.</p>
+          <p className="mission-pillars">NO EXIT · NO INVESTORS · NO CORPORATE CAPTURE · NO MARTYRDOM</p>
         </div>
       </section>
 
