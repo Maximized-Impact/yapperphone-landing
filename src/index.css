@@ -221,7 +221,7 @@ body {
   min-height: 100dvh;
   display: flex;
   align-items: flex-start;
-  padding: 6.75rem 1.5rem 4rem;
+  padding: 7.3rem 1.5rem 4rem;
   position: relative;
   overflow: hidden;
   background: var(--dark);
@@ -285,7 +285,7 @@ body {
 }
 
 @media (max-width: 768px) {
-  .hero { padding: 5.5rem 1.25rem 3rem; align-items: flex-start; }
+  .hero { padding: 5.75rem 1.25rem 3rem; align-items: flex-start; }
   .hero-content { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
   .hero-text { padding-bottom: 0; order: 2; }
   .hero-phone { order: 1; }
