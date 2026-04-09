@@ -223,16 +223,16 @@ export default function App() {
           </div>
         </div>
         <div className="scroll-indicator" aria-hidden="true"><span>SCROLL</span><div className="scroll-chevron" /></div>
+      </section>
 
-        {/* CHARACTER STRIP */}
-        <div style={{padding:'0 0 1.5rem 0', position:'relative', zIndex:2, width:'100%'}}>
-          <div className="character-strip" aria-label="Yapper character mascots">
-            <div className="character-track">
-              {[...characters,...characters].map((c,i) => <img key={i} src={`/${c}.png`} alt="" loading="lazy" />)}
-            </div>
+      {/* CHARACTER STRIP */}
+      <div className="character-section" style={{padding:'0 0 1.5rem 0'}}>
+        <div className="character-strip" aria-label="Yapper character mascots">
+          <div className="character-track">
+            {[...characters,...characters].map((c,i) => <img key={i} src={`/${c}.png`} alt="" loading="lazy" />)}
           </div>
         </div>
-      </section>
+      </div>
 
       {/* SECTION 2: THE PROBLEM */}
       <section className="section section-light" id="problem">
