@@ -176,8 +176,8 @@ export default function App() {
 
   const pBtn = (label, featured) => (
     cd.launched
-      ? <a href={PLAY_STORE} className={featured ? 'btn-primary' : 'btn-secondary'} style={{width:'100%',justifyContent:'center'}} target="_blank" rel="noopener noreferrer">{label}</a>
-      : <a href={PLAY_STORE} className={featured ? 'btn-primary' : 'btn-secondary'} style={{width:'100%',justifyContent:'center'}} target="_blank" rel="noopener noreferrer">Pre-register — April 16</a>
+      ? <a href={PLAY_STORE} className="btn-primary" style={{width:'100%',justifyContent:'center'}} target="_blank" rel="noopener noreferrer">{label}</a>
+      : <a href={PLAY_STORE} className="btn-primary" style={{width:'100%',justifyContent:'center'}} target="_blank" rel="noopener noreferrer">Pre-register April 16</a>
   )
 
   return (
@@ -460,7 +460,6 @@ export default function App() {
               {pBtn('Subscribe', false)}
             </div>
           </div>
-          <p className="pricing-note reveal">Finnish Type 1 diabetics receive free lifetime Pro access. <a href="mailto:janne@maximized-impact.org">Contact us →</a></p>
         </div>
       </section>
 

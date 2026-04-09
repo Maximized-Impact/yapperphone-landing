@@ -704,7 +704,7 @@ body {
   gap: 1.5rem;
   max-width: 900px;
   margin: 0 auto;
-  align-items: stretch;
+  align-items: end;
 }
 .pricing-card {
   background: var(--dark-card);
@@ -771,11 +771,12 @@ body {
   color: var(--yapper-green);
   font-weight: 700;
 }
-.pricing-note {
-  text-align: center;
-  margin-top: 2rem;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
+.pricing-card .btn-primary,
+.pricing-card .btn-secondary {
+  font-size: 1.05rem;
+  padding: 1rem 2rem;
+  width: 100%;
+  white-space: nowrap;
 }
 .pricing-note a { color: var(--yapper-green); text-decoration: underline; }
 
@@ -796,7 +797,7 @@ body {
   font-weight: 800;
   font-size: clamp(1rem, 2vw, 1.3rem);
   letter-spacing: 0.15em;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   margin-bottom: 2rem;
 }
 .mission-body {
@@ -959,7 +960,7 @@ body {
   display: flex;
   gap: 0;
   overflow: hidden;
-  padding: 0 0;
+  padding: 10px 0 0 0;
   position: relative;
 }
 .character-strip::before,
