@@ -291,10 +291,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 22px;
-}
-@media (min-width: 1000px) {
-  .hero-phone { margin-top: 0; }
+  margin-top: 6px;
 }
 
 @media (max-width: 768px) {
