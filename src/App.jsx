@@ -209,27 +209,28 @@ export default function App() {
           : <a href="#originals" className="navbar-cta">Get Originals</a>}
       </nav>
 
-      {/* SECTION 1: HERO */}
-      <section className="hero" id="main-content">
-        <div className="hero-bg" aria-hidden="true" />
-        <div className="hero-content">
-          <div className="hero-text">
-            <h1 className="hero-headline hero-animate" style={{opacity:0}}>The first phone call app built for how <span className="accent">your brain</span> actually works.</h1>
-            <p className="hero-sub hero-animate" style={{opacity:0}}>You know that feeling when a call goes 40 minutes and you had no idea? Or when you can't figure out how to end it? <strong>That's not a character flaw.</strong> Your phone was never designed for your brain. Yapper Phone was.</p>
-            <div className="hero-cta-group hero-animate" style={{opacity:0}}>{heroCta}</div>
+      {/* HERO WRAPPER — single gradient background for hero + characters */}
+      <div className="hero-wrapper">
+        <section className="hero" id="main-content">
+          <div className="hero-content">
+            <div className="hero-text">
+              <h1 className="hero-headline hero-animate" style={{opacity:0}}>The first phone call app built for how <span className="accent">your brain</span> actually works.</h1>
+              <p className="hero-sub hero-animate" style={{opacity:0}}>You know that feeling when a call goes 40 minutes and you had no idea? Or when you can't figure out how to end it? <strong>That's not a character flaw.</strong> Your phone was never designed for your brain. Yapper Phone was.</p>
+              <div className="hero-cta-group hero-animate" style={{opacity:0}}>{heroCta}</div>
+            </div>
+            <div className="hero-phone hero-animate" style={{opacity:0}}>
+              <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-in-call.jpg')}><img src="/screenshot-in-call.jpg" alt="Yapper Phone in-call screen showing countdown timer at 04:08 with 6 seconds elapsed, green Connected status and agenda topic" loading="eager" /></div>
+            </div>
           </div>
-          <div className="hero-phone hero-animate" style={{opacity:0}}>
-            <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-in-call.jpg')}><img src="/screenshot-in-call.jpg" alt="Yapper Phone in-call screen showing countdown timer at 04:08 with 6 seconds elapsed, green Connected status and agenda topic" loading="eager" /></div>
-          </div>
-        </div>
-        <div className="scroll-indicator" aria-hidden="true"><span>SCROLL</span><div className="scroll-chevron" /></div>
-      </section>
+          <div className="scroll-indicator" aria-hidden="true"><span>SCROLL</span><div className="scroll-chevron" /></div>
+        </section>
 
-      {/* CHARACTER STRIP */}
-      <div className="character-section" style={{padding:'0 0 1.5rem 0'}}>
-        <div className="character-strip" aria-label="Yapper character mascots">
-          <div className="character-track">
-            {[...characters,...characters].map((c,i) => <img key={i} src={`/${c}.png`} alt="" loading="lazy" />)}
+        {/* CHARACTER STRIP */}
+        <div style={{padding:'0 0 1.5rem 0'}}>
+          <div className="character-strip" aria-label="Yapper character mascots">
+            <div className="character-track">
+              {[...characters,...characters].map((c,i) => <img key={i} src={`/${c}.png`} alt="" loading="lazy" />)}
+            </div>
           </div>
         </div>
       </div>
