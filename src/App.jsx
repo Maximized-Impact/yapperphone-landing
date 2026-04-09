@@ -47,7 +47,7 @@ function Countdown({cd}) {
 
 function GiftSection() {
   const [tier, setTier] = useState('annual')
-  const [months, setMonths] = useState(3)
+  const [months, setMonths] = useState(1)
   const [form, setForm] = useState({gifterName:'',gifterEmail:'',recipientName:'',recipientEmail:'',message:''})
   const monthlyTotal = (2.99 * months).toFixed(2)
 
@@ -72,16 +72,15 @@ function GiftSection() {
         <p className="gift-subheadline reveal">Give someone you love a phone call that finally works for their brain.</p>
         <div className="gift-tiers reveal">
           <div className={`gift-tier ${tier === 'monthly' ? 'selected' : ''}`} onClick={() => setTier('monthly')}>
+            <span className="gift-tier-badge">Flexible</span>
             <h4>Gift Monthly</h4>
             <div className="gift-tier-price">€{monthlyTotal}</div>
             <div className="gift-tier-detail">{months} month{months > 1 ? 's' : ''} of Pro</div>
-            {tier === 'monthly' && (
-              <div className="gift-months-selector">
-                {[1,3,6].map(m => (
-                  <button key={m} className={`gift-month-btn ${months === m ? 'active' : ''}`} onClick={(e) => { e.stopPropagation(); setMonths(m) }}>{m}mo</button>
-                ))}
-              </div>
-            )}
+            <div className="gift-months-selector">
+              {[1,3,6].map(m => (
+                <button key={m} className={`gift-month-btn ${months === m ? 'active' : ''}`} onClick={(e) => { e.stopPropagation(); setMonths(m) }}>{m}mo</button>
+              ))}
+            </div>
           </div>
           <div className={`gift-tier featured ${tier === 'annual' ? 'selected' : ''}`} onClick={() => setTier('annual')}>
             <span className="gift-tier-badge">Recommended</span>
@@ -224,16 +223,16 @@ export default function App() {
           </div>
         </div>
         <div className="scroll-indicator" aria-hidden="true"><span>SCROLL</span><div className="scroll-chevron" /></div>
-      </section>
 
-      {/* CHARACTER STRIP */}
-      <div className="section-dark" style={{padding:'1.5rem 0'}}>
-        <div className="character-strip" aria-label="Yapper character mascots">
-          <div className="character-track">
-            {[...characters,...characters].map((c,i) => <img key={i} src={`/${c}.png`} alt="" loading="lazy" />)}
+        {/* CHARACTER STRIP */}
+        <div style={{padding:'0 0 1.5rem 0', position:'relative', zIndex:2, width:'100%'}}>
+          <div className="character-strip" aria-label="Yapper character mascots">
+            <div className="character-track">
+              {[...characters,...characters].map((c,i) => <img key={i} src={`/${c}.png`} alt="" loading="lazy" />)}
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* SECTION 2: THE PROBLEM */}
       <section className="section section-light" id="problem">
@@ -312,17 +311,31 @@ export default function App() {
               <p>{"A multi-domain dashboard showing your call patterns, social rhythms, and relationship health — with warm, plain-language summaries (\"You're a Night Owl caller\") alongside the raw data. Export everything. All processing happens on your device. Your patterns, your data, your insight."}</p>
             </div>
 
-            {/* Feature — ICE Emergency */}
+            {/* SAFETY FEATURES */}
+            <h2 className="safety-heading reveal">Safety Features</h2>
+
+            {/* Safety 1 — Lockscreen Emergency Info */}
             <div className="feature-card full-width reveal">
               <span className="feature-icon">🆘</span>
-              <h3>The call that always gets through.</h3>
-              <p>{"If you are someone's ICE contact, you need one thing: to wake up when they need you. Not tomorrow. Not when you check your phone. Now. And if you are the person living with diabetes, epilepsy, a heart condition — you need to know that the one person you are counting on will actually hear you. ICE calls bypass Do Not Disturb. They bypass silent mode. They ring at maximum volume. The worry is the same on both sides of the call. Yapper makes sure the phone is never the reason it went unanswered."}</p>
-              <p>{"But ICE isn't just about the call itself. Yapper Phone's Emergency Info system puts your critical medical information — conditions, medications, blood type, allergies, emergency contacts — behind one tap on your lock screen. If a paramedic, a bystander, or a nurse picks up your phone, they don't need your passcode. They don't need to guess. Your name, your conditions, your ICE contacts — it's all right there. And inside the app, you build your medical profile once, and it's always ready. The same screen that helps first responders also helps you: one tap to call your ICE contact directly from the emergency info view."}</p>
-              <p className="feature-proof">Addresses documented caregiver communication anxiety and patient isolation (Schulz & Sherwood, 2008)</p>
+              <h3>Lockscreen emergency info card</h3>
+              <p>{"Yapper Phone's Emergency Info system puts your critical medical information — conditions, medications, blood type, allergies, emergency contacts — behind one tap on your lock screen. If a paramedic, a bystander, or a nurse picks up your phone, they don't need your passcode. They don't need to guess. Your name, your conditions, your ICE contacts — it's all right there. And inside the app, you build your medical profile once, and it's always ready. The same screen that helps first responders also helps you: one tap to call your ICE contact directly from the emergency info view."}</p>
               <div className="ice-strip">
-                <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-emergency-info.jpg')}><img src="/screenshot-emergency-info.jpg" alt="Yapper Emergency Info screen showing medical conditions, medications, blood type, and ICE contact with one-tap calling" loading="lazy" /></div>
                 <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-medical-info.jpg')}><img src="/screenshot-medical-info.jpg" alt="Yapper user profile medical information setup showing gender, age, blood type, allergy status, height and weight" loading="lazy" /></div>
                 <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-emergency-lockscreen.jpg')}><img src="/screenshot-emergency-lockscreen.jpg" alt="Yapper lock screen notification showing Emergency Info SOS tap to open alert alongside Focus Sound and Time Signal notifications" loading="lazy" /></div>
+                <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-emergency-info.jpg')}><img src="/screenshot-emergency-info.jpg" alt="Yapper Emergency Info screen showing medical conditions, medications, blood type, and ICE contact with one-tap calling" loading="lazy" /></div>
+              </div>
+            </div>
+
+            {/* Safety 2 — ICE Call */}
+            <div className="feature-card full-width reveal">
+              <span className="feature-icon">📞</span>
+              <h3>The call that always gets through.</h3>
+              <p>{"When you are someone's ICE contact, you need one thing: to wake up when they need you. Not tomorrow. Not when you check your phone. Now. And if you are the person living with diabetes, epilepsy, a heart condition — you need to know that the one person you are counting on will actually hear you. ICE calls bypass Do Not Disturb. They bypass silent mode. They ring at maximum volume. The worry is the same on both sides of the call. Yapper makes sure the phone is never the reason it went unanswered."}</p>
+              <p className="feature-proof">Addresses documented caregiver communication anxiety and patient isolation (Schulz & Sherwood, 2008)</p>
+              <div className="ice-video-wrap">
+                <video controls preload="metadata" playsInline>
+                  <source src="/yapper_phone_safety_features_demo.mp4" type="video/mp4" />
+                </video>
               </div>
             </div>
 
