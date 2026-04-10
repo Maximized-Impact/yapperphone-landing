@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Welcome, Founding Member — Yapper Phone</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap');
+
+:root {
+  --yapper-green: #00C853;
+  --yapper-green-glow: rgba(0, 200, 83, 0.15);
+  --yapper-green-soft: #7ddf9c;
+  --bg-deep: #0a0a0e;
+  --bg-card: #111116;
+  --bg-card-border: #1a1a22;
+  --text-primary: #f0f0f0;
+  --text-secondary: #888;
+  --text-muted: #555;
+  --gold: #e8c547;
+  --gold-soft: rgba(232, 197, 71, 0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ═══ PARTICLE CANVAS ═══ */
+.particle-field {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  animation: float-up linear infinite;
+  opacity: 0;
+}
+
+@keyframes float-up {
+  0% { transform: translateY(100vh) scale(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+
+/* ═══ RADIAL GLOW ═══ */
+.glow-bg {
+  position: fixed;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(0, 200, 83, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-gold {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(232, 197, 71, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: pulse-glow 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-glow {
+  0% { opacity: 0.5; transform: translateX(-50%) scale(0.95); }
+  100% { opacity: 1; transform: translateX(-50%) scale(1.05); }
+}
+
+/* ═══ MAIN CONTENT ═══ */
+.success-container {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 60px 24px 80px;
+  text-align: center;
+}
+
+/* ═══ LOGO ═══ */
+.logo-area {
+  margin-bottom: 48px;
+  animation: fade-in 0.8s ease-out;
+}
+
+.logo-area svg {
+  width: 48px;
+  height: 48px;
+}
+
+.logo-wordmark {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-primary);
+  margin-top: 8px;
+  letter-spacing: -0.3px;
+}
+
+/* ═══ MEMBER NUMBER — THE HERO ═══ */
+.member-number-wrap {
+  margin-bottom: 12px;
+  animation: scale-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+}
+
+.member-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.member-number {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(64px, 15vw, 120px);
+  line-height: 1;
+  background: linear-gradient(135deg, var(--gold) 0%, #f5d97a 40%, #e8c547 60%, #d4a73a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 40px rgba(232, 197, 71, 0.2));
+}
+
+.member-of {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  letter-spacing: 2px;
+}
+
+/* ═══ PERSONAL MESSAGE ═══ */
+.congrats-message {
+  animation: fade-in 0.8s ease-out 0.6s both;
+  margin-bottom: 40px;
+}
+
+.congrats-headline {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+}
+
+.congrats-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+/* ═══ BENEFITS CARD ═══ */
+.benefits-card {
+  background: var(--bg-card);
+  border: 1px solid var(--bg-card-border);
+  border-radius: 16px;
+  padding: 32px 28px;
+  text-align: left;
+  margin-bottom: 32px;
+  animation: fade-in 0.8s ease-out 0.9s both;
+  position: relative;
+  overflow: hidden;
+}
+
+.benefits-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.4;
+}
+
+.benefits-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--gold);
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.benefit-item:last-of-type {
+  margin-bottom: 0;
+}
+
+.benefit-check {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--gold-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+.benefit-check svg {
+  width: 12px;
+  height: 12px;
+}
+
+.benefit-text {
+  font-size: 15px;
+  color: var(--text-primary);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.benefit-text span {
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+/* ═══ PROGRESS BAR ═══ */
+.spots-section {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--bg-card-border);
+}
+
+.spots-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.spots-label strong {
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(232, 197, 71, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), #f5d97a);
+  border-radius: 3px;
+  animation: fill-bar 1.5s ease-out 1.2s both;
+}
+
+@keyframes fill-bar {
+  from { width: 0; }
+}
+
+/* ═══ CTA ═══ */
+.cta-area {
+  animation: fade-in 0.8s ease-out 1.2s both;
+  margin-bottom: 24px;
+}
+
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--yapper-green);
+  color: #000;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 16px 36px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 40px rgba(0, 200, 83, 0.2);
+}
+
+.btn-download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 60px rgba(0, 200, 83, 0.3);
+}
+
+.btn-download svg {
+  width: 20px;
+  height: 20px;
+}
+
+.email-note {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 300;
+  animation: fade-in 0.8s ease-out 1.4s both;
+}
+
+/* ═══ FOOTER ═══ */
+.success-footer {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid #1a1a1a;
+  animation: fade-in 0.8s ease-out 1.6s both;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.footer-brand svg {
+  width: 20px;
+  height: 20px;
+}
+
+.footer-brand-text {
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.footer-institute {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ═══ CONFETTI BURST ═══ */
+.confetti-piece {
+  position: fixed;
+  z-index: 10;
+  pointer-events: none;
+  animation: confetti-fall linear forwards;
+}
+
+@keyframes confetti-fall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- Background effects -->
+<div class="glow-bg"></div>
+<div class="glow-gold"></div>
+<div class="particle-field" id="particles"></div>
+
+<div class="success-container">
+
+  <!-- Logo -->
+  <div class="logo-area">
+    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#F1483E" d="M291.933,364.362c0.722,-8.694 1.743,-16.799 2.003,-24.929c0.833,-25.988 -8.542,-48.785 -22.551,-70.038c-9.238,-14.017 -21.487,-25.387 -33.007,-37.392c-13.154,-13.709 -26.235,-27.519 -35.495,-44.286c-11.195,-20.271 -16.089,-41.803 -11.137,-64.885c5.125,-23.885 27.369,-34.481 48.846,-29.039c22.716,5.756 40.713,19.31 56.738,35.682c12.584,12.858 23.762,26.979 34.811,41.161c2.472,3.174 3.478,3.032 5.523,-0.259c11.685,-18.79 23.065,-37.8 36.58,-55.369c8.516,-11.07 17.259,-21.805 29.134,-29.849c21.104,-14.296 52.113,-7.474 66.684,11.06c1.028,1.309 2.083,2.597 3.104,3.912c8.229,10.599 8.891,18.288 2.249,29.896c-9.862,17.236 -21.803,33.033 -33.942,48.695c-21.621,27.892 -44.337,54.892 -66.786,82.107c-12.076,14.641 -24.238,29.201 -34.506,45.204c-10.672,16.635 -18.816,34.4 -23.485,53.674c-0.235,0.969 -0.538,1.928 -0.679,2.91c-1.372,9.593 -7.445,13.972 -17.086,12.289C293.416,373.944 291.694,371.199 291.933,364.362z"/>
+      <path fill="#1AAC53" d="M57.047,191.699c0.005,-7.654 -0.257,-15.295 1.05,-22.916c1.661,-9.688 6.361,-17.547 14.047,-23.403c21.194,-16.149 45.071,-26.249 71.338,-30.625c7.702,-1.283 13.814,2.806 15.8,10.391c7.218,27.579 12,55.61 15.662,83.862c0.665,5.129 -1.141,7.706 -5.87,9.287c-13.26,4.434 -26.376,9.305 -39.668,13.636c-7.056,2.299 -9.81,6.529 -9.908,14.001c-0.338,25.617 8.809,47.759 23.379,68.214c15.081,21.172 35.197,36.671 56.759,50.429c10.52,6.713 21.53,7.393 33.034,0.894c16.141,-9.119 16.418,-8.867 30.946,3.169c13.967,11.571 28.485,22.485 41.741,34.906c6.44,6.034 6.85,9.39 1.404,16.202c-10.134,12.679 -21.609,23.917 -35.24,32.928c-6.954,4.597 -14.084,5.369 -21.891,3.191c-37.646,-10.499 -70.385,-29.736 -99.196,-55.865c-21.717,-19.695 -41.186,-41.451 -55.444,-67.164c-18.216,-32.849 -31.123,-67.715 -35.805,-105.262C57.699,215.666 57.074,203.697 57.047,191.699z"/>
+    </svg>
+    <div class="logo-wordmark">Yapper Phone</div>
+  </div>
+
+  <!-- Member number -->
+  <div class="member-number-wrap">
+    <div class="member-label">Founding Member</div>
+    <div class="member-number" id="memberNum">#47</div>
+    <div class="member-of">of 1,000</div>
+  </div>
+
+  <!-- Congratulations -->
+  <div class="congrats-message">
+    <div class="congrats-headline">Welcome to the beginning.</div>
+    <p class="congrats-sub">Your name will live in Yapper Phone forever. You believed in better phone calls before the world caught up.</p>
+  </div>
+
+  <!-- Benefits card -->
+  <div class="benefits-card">
+    <div class="benefits-title">What you just unlocked</div>
+
+    <div class="benefit-item">
+      <div class="benefit-check"><svg viewBox="0 0 24 24" fill="none" stroke="#e8c547" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="benefit-text">Lifetime Pro access <span>— every feature, every update, forever</span></div>
+    </div>
+
+    <div class="benefit-item">
+      <div class="benefit-check"><svg viewBox="0 0 24 24" fill="none" stroke="#e8c547" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="benefit-text">Your name on the Founders screen <span>— permanently displayed inside the app</span></div>
+    </div>
+
+    <div class="benefit-item">
+      <div class="benefit-check"><svg viewBox="0 0 24 24" fill="none" stroke="#e8c547" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="benefit-text">Early access <span>— every new feature before public release</span></div>
+    </div>
+
+    <div class="benefit-item">
+      <div class="benefit-check"><svg viewBox="0 0 24 24" fill="none" stroke="#e8c547" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="benefit-text">A founding role <span>— in building Health Communications Technology</span></div>
+    </div>
+
+    <div class="spots-section">
+      <div class="spots-label">
+        <span>Spots claimed</span>
+        <strong id="spotsClaimed">47 / 1,000</strong>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 4.7%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-area">
+    <a href="https://play.google.com/store/apps/details?id=org.maximpact.yapper" class="btn-download" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+      Download Yapper Phone
+    </a>
+  </div>
+
+  <p class="email-note">A confirmation email is on its way to you.</p>
+
+  <!-- Footer -->
+  <div class="success-footer">
+    <div class="footer-brand">
+      <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;">
+        <path fill="#F1483E" d="M291.933,364.362c0.722,-8.694 1.743,-16.799 2.003,-24.929c0.833,-25.988 -8.542,-48.785 -22.551,-70.038c-9.238,-14.017 -21.487,-25.387 -33.007,-37.392c-13.154,-13.709 -26.235,-27.519 -35.495,-44.286c-11.195,-20.271 -16.089,-41.803 -11.137,-64.885c5.125,-23.885 27.369,-34.481 48.846,-29.039c22.716,5.756 40.713,19.31 56.738,35.682c12.584,12.858 23.762,26.979 34.811,41.161c2.472,3.174 3.478,3.032 5.523,-0.259c11.685,-18.79 23.065,-37.8 36.58,-55.369c8.516,-11.07 17.259,-21.805 29.134,-29.849c21.104,-14.296 52.113,-7.474 66.684,11.06c1.028,1.309 2.083,2.597 3.104,3.912c8.229,10.599 8.891,18.288 2.249,29.896c-9.862,17.236 -21.803,33.033 -33.942,48.695c-21.621,27.892 -44.337,54.892 -66.786,82.107c-12.076,14.641 -24.238,29.201 -34.506,45.204c-10.672,16.635 -18.816,34.4 -23.485,53.674c-0.235,0.969 -0.538,1.928 -0.679,2.91c-1.372,9.593 -7.445,13.972 -17.086,12.289C293.416,373.944 291.694,371.199 291.933,364.362z"/>
+        <path fill="#1AAC53" d="M57.047,191.699c0.005,-7.654 -0.257,-15.295 1.05,-22.916c1.661,-9.688 6.361,-17.547 14.047,-23.403c21.194,-16.149 45.071,-26.249 71.338,-30.625c7.702,-1.283 13.814,2.806 15.8,10.391c7.218,27.579 12,55.61 15.662,83.862c0.665,5.129 -1.141,7.706 -5.87,9.287c-13.26,4.434 -26.376,9.305 -39.668,13.636c-7.056,2.299 -9.81,6.529 -9.908,14.001c-0.338,25.617 8.809,47.759 23.379,68.214c15.081,21.172 35.197,36.671 56.759,50.429c10.52,6.713 21.53,7.393 33.034,0.894c16.141,-9.119 16.418,-8.867 30.946,3.169c13.967,11.571 28.485,22.485 41.741,34.906c6.44,6.034 6.85,9.39 1.404,16.202c-10.134,12.679 -21.609,23.917 -35.24,32.928c-6.954,4.597 -14.084,5.369 -21.891,3.191c-37.646,-10.499 -70.385,-29.736 -99.196,-55.865c-21.717,-19.695 -41.186,-41.451 -55.444,-67.164c-18.216,-32.849 -31.123,-67.715 -35.805,-105.262C57.699,215.666 57.074,203.697 57.047,191.699z"/>
+      </svg>
+      <span class="footer-brand-text">Yapper Phone</span>
+    </div>
+    <div class="footer-institute">Institute for The Study Of Humanity and Maximized Impact ry</div>
+  </div>
+
+</div>
+
+<script>
+// ═══ CONFETTI BURST ON LOAD ═══
+function createConfetti() {
+  const colors = ['#e8c547', '#00C853', '#F1483E', '#f5d97a', '#7ddf9c', '#fff'];
+  const shapes = ['square', 'circle'];
+  
+  for (let i = 0; i < 60; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const shape = shapes[Math.floor(Math.random() * shapes.length)];
+    const size = 6 + Math.random() * 8;
+    
+    el.style.cssText = `
+      left: ${10 + Math.random() * 80}%;
+      width: ${size}px;
+      height: ${size}px;
+      background: ${color};
+      border-radius: ${shape === 'circle' ? '50%' : '2px'};
+      animation-duration: ${2 + Math.random() * 3}s;
+      animation-delay: ${Math.random() * 0.8}s;
+    `;
+    
+    document.body.appendChild(el);
+    
+    setTimeout(() => el.remove(), 5000);
+  }
+}
+
+// ═══ FLOATING PARTICLES ═══
+function createParticles() {
+  const field = document.getElementById('particles');
+  const colors = ['rgba(232, 197, 71, 0.3)', 'rgba(0, 200, 83, 0.2)', 'rgba(255, 255, 255, 0.1)'];
+  
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = 2 + Math.random() * 4;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    
+    p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      width: ${size}px;
+      height: ${size}px;
+      background: ${color};
+      animation-duration: ${8 + Math.random() * 12}s;
+      animation-delay: ${Math.random() * 10}s;
+    `;
+    
+    field.appendChild(p);
+  }
+}
+
+// ═══ DYNAMIC NUMBER (replace with Firestore read in production) ═══
+function setMemberNumber(num, total) {
+  document.getElementById('memberNum').textContent = `#${num}`;
+  document.getElementById('spotsClaimed').textContent = `${num} / ${total.toLocaleString()}`;
+  const pct = (num / total) * 100;
+  document.getElementById('progressFill').style.width = `${pct}%`;
+}
+
+// ═══ INIT ═══
+window.addEventListener('load', () => {
+  createConfetti();
+  createParticles();
+  
+  // In production, read from Firestore:
+  // const doc = await getDoc(doc(db, 'counters', 'originals'));
+  // const num = doc.data().count;
+  // setMemberNumber(num, 1000);
+  
+  // For now, placeholder:
+  setMemberNumber(47, 1000);
+});
+</script>
+
+</body>
+</html>
