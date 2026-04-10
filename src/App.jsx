@@ -294,40 +294,40 @@ export default function App() {
               <p className="feature-proof">Addresses documented ADHD time perception deficits (Ptacek et al., 2019)</p>
             </div>
 
-            {/* Feature 2 — Focus Sound (Janne's corrected copy) */}
-            <div className="feature-card reveal">
-              <span className="feature-icon">🎧</span>
-              <h3>Focus sound, right in your call.</h3>
-              <p>Ambient focus sound — brown noise at launch, with pink noise, white noise, and other sounds to help you focus and relax coming in a later update — mixed directly into your phone call. Also playing system-wide. Separate volume controls. Hearing-safe levels. Unlike any other phone app on Earth — because until now, no one built the phone call for the brain that needs background noise to focus.</p>
-            </div>
-
-            {/* Feature 3 — Time Signals (Janne's corrected copy) */}
-            <div className="feature-card reveal">
-              <span className="feature-icon">🔔</span>
-              <h3>Time signals — gentle reminders so you never lose track of time.</h3>
-              <p>Soft chimes at intervals you choose — from 10 seconds to 30 minutes. Visual, audible, and haptic. Designed to coexist with deep focus, not interrupt it. Your external clock for when the internal one goes quiet.</p>
-            </div>
-
-            {/* Feature 4 — Six Call Types */}
+            {/* Feature 2 — Six Call Types */}
             <div className="feature-card reveal">
               <span className="feature-icon">📐</span>
               <h3>Every call has a shape.</h3>
               <p>Standard for everyday. Agenda for when you need to stay on topic — the subject line sits under the timer so both of you see it. Body Double for silent companionship while you work. ICE Emergency and ICE Checkup for when lives are at stake. Custom for everything else. The entire interface transforms for each type — colour, layout, purpose. One app, six ways to call.</p>
             </div>
 
-            {/* Feature 5 — People Missing You */}
+            {/* Feature 3 — Focus Sound */}
+            <div className="feature-card reveal">
+              <span className="feature-icon">🎧</span>
+              <h3>Focus sound, right in your call.</h3>
+              <p>Ambient focus sound — brown noise at launch, with pink noise, white noise, and other sounds to help you focus and relax coming in a later update — mixed directly into your phone call. Also playing system-wide. Separate volume controls. Hearing-safe levels. Unlike any other phone app on Earth — because until now, no one built the phone call for the brain that needs background noise to focus.</p>
+            </div>
+
+            {/* Feature 4 — Time Signals */}
+            <div className="feature-card reveal">
+              <span className="feature-icon">🔔</span>
+              <h3>Time signals — gentle reminders so you never lose track of time.</h3>
+              <p>Soft chimes at intervals you choose — from 10 seconds to 30 minutes. Visual, audible, and haptic. Designed to coexist with deep focus, not interrupt it. Your external clock for when the internal one goes quiet.</p>
+            </div>
+
+            {/* Feature 5 — Communication Patterns */}
+            <div className="feature-card reveal">
+              <span className="feature-icon">📊</span>
+              <h3>Understand how you communicate. On your terms.</h3>
+              <p>{"A multi-domain dashboard showing your call patterns, social rhythms, and relationship health — with warm, plain-language summaries (\"You're a Night Owl caller\") alongside the raw data. Export everything. All processing happens on your device. Your patterns, your data, your insight."}</p>
+            </div>
+
+            {/* Feature 6 — People Missing You */}
             <div className="feature-card reveal">
               <span className="feature-icon">💚</span>
               <h3>Not a guilt trip. A gentle nudge.</h3>
               <p>{"ADHD brains don't forget people on purpose. When someone drops out of your call pattern — a friend you haven't spoken to in months, a parent you keep meaning to call — Yapper surfaces them gently. Not as a failure. Not as a streak that broke. As a person who would love to hear from you. Shame-free, by design."}</p>
               <p className="feature-proof">Designed around the shame-guilt-avoidance cycle documented in ADHD relationship research</p>
-            </div>
-
-            {/* Feature 7 — Communication Patterns */}
-            <div className="feature-card reveal">
-              <span className="feature-icon">📊</span>
-              <h3>Understand how you communicate. On your terms.</h3>
-              <p>{"A multi-domain dashboard showing your call patterns, social rhythms, and relationship health — with warm, plain-language summaries (\"You're a Night Owl caller\") alongside the raw data. Export everything. All processing happens on your device. Your patterns, your data, your insight."}</p>
             </div>
 
             {/* SAFETY FEATURES */}
