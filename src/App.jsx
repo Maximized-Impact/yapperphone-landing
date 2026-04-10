@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { createGiftCheckout } from './firebase'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const PLAY_STORE = 'https://play.google.com/store/apps/details?id=com.yapperphone.app'
 const SAMSUNG_STORE = 'https://galaxystore.samsung.com/detail/com.yapperphone.app'
-const ORIGINALS_STRIPE = 'https://buy.stripe.com/PLACEHOLDER'
+const ORIGINALS_STRIPE = 'https://buy.stripe.com/test_cNi9ATdiVcBu0gjfQp8g000'
 const DISCORD = 'https://discord.gg/yapperphone'
 const LAUNCH_DATE = new Date('2026-04-16T09:00:00+03:00')
 
@@ -49,11 +50,28 @@ function GiftSection() {
   const [tier, setTier] = useState('annual')
   const [months, setMonths] = useState(1)
   const [form, setForm] = useState({gifterName:'',gifterEmail:'',recipientName:'',recipientEmail:'',message:''})
+  const [loading, setLoading] = useState(false)
   const monthlyTotal = (2.99 * months).toFixed(2)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    alert('Gift checkout coming soon! Stripe integration in progress.')
+    setLoading(true)
+    try {
+      const result = await createGiftCheckout({
+        giftType: tier,
+        months: tier === 'monthly' ? months : undefined,
+        gifterName: form.gifterName,
+        gifterEmail: form.gifterEmail,
+        recipientName: form.recipientName,
+        recipientEmail: form.recipientEmail,
+        personalMessage: form.message,
+      })
+      window.location.href = result.data.url
+    } catch (err) {
+      console.error('Gift checkout error:', err)
+      alert('Something went wrong. Please try again.')
+      setLoading(false)
+    }
   }
 
   return (
@@ -120,8 +138,8 @@ function GiftSection() {
             <label>Personal message (optional)</label>
             <textarea maxLength={200} value={form.message} onChange={e => setForm({...form, message: e.target.value})} placeholder="I found something that helps me with phone calls. I want you to have it too." />
           </div>
-          <button type="submit" className="btn-primary" style={{width:'100%',justifyContent:'center',border:'none'}}>
-            Send Gift{tier === 'monthly' ? ` — €${monthlyTotal}` : tier === 'annual' ? ' — €19.99' : ' — €67'}
+          <button type="submit" className="btn-primary" style={{width:'100%',justifyContent:'center',border:'none'}} disabled={loading}>
+            {loading ? 'Preparing checkout...' : `Send Gift${tier === 'monthly' ? ` — €${monthlyTotal}` : tier === 'annual' ? ' — €19.99' : ' — €67'}`}
           </button>
           <div className="gift-trust">
             <span>🔒 Secure payment via Stripe</span>
