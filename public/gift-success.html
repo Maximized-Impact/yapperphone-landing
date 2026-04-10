@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gift Sent — Yapper Phone</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap');
+
+:root {
+  --yapper-green: #00C853;
+  --yapper-green-glow: rgba(0, 200, 83, 0.15);
+  --yapper-green-soft: #7ddf9c;
+  --yapper-green-deep: #00a844;
+  --bg-deep: #0a0a0e;
+  --bg-card: #111116;
+  --bg-card-border: #1a1a22;
+  --text-primary: #f0f0f0;
+  --text-secondary: #888;
+  --text-muted: #555;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ═══ FLOATING HEARTS ═══ */
+.heart-field {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.floating-heart {
+  position: absolute;
+  opacity: 0;
+  animation: heart-rise linear infinite;
+}
+
+@keyframes heart-rise {
+  0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity: 0; }
+  8% { opacity: 0.6; }
+  85% { opacity: 0.4; }
+  100% { transform: translateY(-10vh) rotate(25deg) scale(1); opacity: 0; }
+}
+
+/* ═══ RADIAL GLOWS ═══ */
+.glow-green {
+  position: fixed;
+  top: -15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(0, 200, 83, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-warm {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(241, 72, 62, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: breathe 5s ease-in-out infinite alternate;
+}
+
+@keyframes breathe {
+  0% { opacity: 0.5; transform: translateX(-50%) scale(0.9); }
+  100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+}
+
+/* ═══ MAIN ═══ */
+.success-container {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+  text-align: center;
+}
+
+/* ═══ LOGO ═══ */
+.logo-area {
+  margin-bottom: 40px;
+  animation: fade-in 0.8s ease-out;
+}
+
+.logo-area svg { width: 44px; height: 44px; }
+
+.logo-wordmark {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text-primary);
+  margin-top: 8px;
+  letter-spacing: -0.3px;
+}
+
+/* ═══ PAINTING ═══ */
+.painting-wrap {
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 0 auto 32px;
+  box-shadow: 
+    0 0 0 1px rgba(0, 200, 83, 0.15),
+    0 20px 60px rgba(0, 200, 83, 0.1),
+    0 4px 20px rgba(0, 0, 0, 0.4);
+  animation: painting-in 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+  position: relative;
+}
+
+.painting-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.2);
+  pointer-events: none;
+}
+
+.painting-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@keyframes painting-in {
+  from { opacity: 0; transform: scale(0.7) rotate(-5deg); }
+  to { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.painting-caption {
+  animation: fade-in 0.6s ease-out 0.5s both;
+  margin-bottom: 36px;
+}
+
+.painting-title-fi {
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text-primary);
+}
+
+.painting-title-en {
+  font-family: 'Syne', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.painting-credit {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ═══ SENT CONFIRMATION ═══ */
+.sent-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 200, 83, 0.1);
+  border: 1px solid rgba(0, 200, 83, 0.25);
+  border-radius: 100px;
+  padding: 8px 20px;
+  margin-bottom: 20px;
+  animation: scale-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s both;
+}
+
+.sent-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--yapper-green);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.sent-badge-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--yapper-green);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+@keyframes scale-pop {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ═══ MAIN MESSAGE ═══ */
+.gift-sent-message {
+  animation: fade-in 0.8s ease-out 0.8s both;
+  margin-bottom: 32px;
+}
+
+.gift-headline {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.gift-headline .recipient-name {
+  color: var(--yapper-green);
+}
+
+.gift-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+/* ═══ GIFT SUMMARY CARD ═══ */
+.gift-summary-card {
+  background: var(--bg-card);
+  border: 1px solid var(--bg-card-border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-align: left;
+  margin-bottom: 32px;
+  animation: fade-in 0.8s ease-out 1s both;
+  position: relative;
+  overflow: hidden;
+}
+
+.gift-summary-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--yapper-green), transparent);
+  opacity: 0.4;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.summary-value {
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 500;
+  text-align: right;
+}
+
+.summary-value.green {
+  color: var(--yapper-green);
+}
+
+.summary-value.mono {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+/* ═══ PERSONAL MESSAGE PREVIEW ═══ */
+.message-preview {
+  margin-top: 16px;
+  padding: 16px 18px;
+  background: rgba(0, 200, 83, 0.04);
+  border-radius: 10px;
+  border-left: 3px solid rgba(0, 200, 83, 0.3);
+}
+
+.message-preview-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.message-preview-text {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ═══ WHAT HAPPENS NEXT ═══ */
+.next-steps {
+  background: var(--bg-card);
+  border: 1px solid var(--bg-card-border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-align: left;
+  margin-bottom: 32px;
+  animation: fade-in 0.8s ease-out 1.2s both;
+}
+
+.next-steps-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--yapper-green-soft);
+  margin-bottom: 20px;
+}
+
+.step-item {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.step-item:last-child {
+  margin-bottom: 0;
+}
+
+.step-num {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 200, 83, 0.1);
+  border: 1px solid rgba(0, 200, 83, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--yapper-green);
+  margin-top: 1px;
+}
+
+.step-text {
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.step-text span {
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+/* ═══ CTA ═══ */
+.cta-area {
+  animation: fade-in 0.8s ease-out 1.4s both;
+  margin-bottom: 12px;
+}
+
+.btn-another {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--yapper-green);
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  text-decoration: none;
+  border: 1px solid rgba(0, 200, 83, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-another:hover {
+  background: rgba(0, 200, 83, 0.08);
+  border-color: rgba(0, 200, 83, 0.5);
+  transform: translateY(-2px);
+}
+
+.notify-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 300;
+  margin-top: 16px;
+  animation: fade-in 0.8s ease-out 1.5s both;
+}
+
+/* ═══ TAGLINE ═══ */
+.tagline-wrap {
+  margin-top: 48px;
+  margin-bottom: 48px;
+  animation: fade-in 0.8s ease-out 1.6s both;
+}
+
+.tagline {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--yapper-green-soft);
+  letter-spacing: 0.3px;
+}
+
+/* ═══ FOOTER ═══ */
+.success-footer {
+  padding-top: 24px;
+  border-top: 1px solid #1a1a1a;
+  animation: fade-in 0.8s ease-out 1.8s both;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.footer-brand svg { width: 20px; height: 20px; }
+
+.footer-brand-text {
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.footer-institute {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══ CONFETTI ═══ */
+.confetti-piece {
+  position: fixed;
+  z-index: 10;
+  pointer-events: none;
+  animation: confetti-fall linear forwards;
+}
+
+@keyframes confetti-fall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 480px) {
+  .gift-headline { font-size: 26px; }
+  .painting-wrap { width: 160px; height: 160px; border-radius: 16px; }
+  .gift-summary-card, .next-steps { padding: 22px 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Background effects -->
+<div class="glow-green"></div>
+<div class="glow-warm"></div>
+<div class="heart-field" id="hearts"></div>
+
+<div class="success-container">
+
+  <!-- Logo -->
+  <a href="https://yapperphone.app" class="logo-area" style="text-decoration:none;display:block;">
+    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#F1483E" d="M291.933,364.362c0.722,-8.694 1.743,-16.799 2.003,-24.929c0.833,-25.988 -8.542,-48.785 -22.551,-70.038c-9.238,-14.017 -21.487,-25.387 -33.007,-37.392c-13.154,-13.709 -26.235,-27.519 -35.495,-44.286c-11.195,-20.271 -16.089,-41.803 -11.137,-64.885c5.125,-23.885 27.369,-34.481 48.846,-29.039c22.716,5.756 40.713,19.31 56.738,35.682c12.584,12.858 23.762,26.979 34.811,41.161c2.472,3.174 3.478,3.032 5.523,-0.259c11.685,-18.79 23.065,-37.8 36.58,-55.369c8.516,-11.07 17.259,-21.805 29.134,-29.849c21.104,-14.296 52.113,-7.474 66.684,11.06c1.028,1.309 2.083,2.597 3.104,3.912c8.229,10.599 8.891,18.288 2.249,29.896c-9.862,17.236 -21.803,33.033 -33.942,48.695c-21.621,27.892 -44.337,54.892 -66.786,82.107c-12.076,14.641 -24.238,29.201 -34.506,45.204c-10.672,16.635 -18.816,34.4 -23.485,53.674c-0.235,0.969 -0.538,1.928 -0.679,2.91c-1.372,9.593 -7.445,13.972 -17.086,12.289C293.416,373.944 291.694,371.199 291.933,364.362z"/>
+      <path fill="#1AAC53" d="M57.047,191.699c0.005,-7.654 -0.257,-15.295 1.05,-22.916c1.661,-9.688 6.361,-17.547 14.047,-23.403c21.194,-16.149 45.071,-26.249 71.338,-30.625c7.702,-1.283 13.814,2.806 15.8,10.391c7.218,27.579 12,55.61 15.662,83.862c0.665,5.129 -1.141,7.706 -5.87,9.287c-13.26,4.434 -26.376,9.305 -39.668,13.636c-7.056,2.299 -9.81,6.529 -9.908,14.001c-0.338,25.617 8.809,47.759 23.379,68.214c15.081,21.172 35.197,36.671 56.759,50.429c10.52,6.713 21.53,7.393 33.034,0.894c16.141,-9.119 16.418,-8.867 30.946,3.169c13.967,11.571 28.485,22.485 41.741,34.906c6.44,6.034 6.85,9.39 1.404,16.202c-10.134,12.679 -21.609,23.917 -35.24,32.928c-6.954,4.597 -14.084,5.369 -21.891,3.191c-37.646,-10.499 -70.385,-29.736 -99.196,-55.865c-21.717,-19.695 -41.186,-41.451 -55.444,-67.164c-18.216,-32.849 -31.123,-67.715 -35.805,-105.262C57.699,215.666 57.074,203.697 57.047,191.699z"/>
+    </svg>
+    <div class="logo-wordmark">Yapper Phone</div>
+  </a>
+
+  <!-- Wilda's painting -->
+  <div class="painting-wrap">
+    <img src="/wilda-painting.webp" alt="Sydämiä ja Tähdenlentoja — Hearts and Shooting Stars by Wilda Vakkilainen" />
+  </div>
+  <div class="painting-caption">
+    <div class="painting-title-fi">Sydämiä ja Tähdenlentoja</div>
+    <div class="painting-title-en">Hearts and Shooting Stars</div>
+    <div class="painting-credit">by Wilda Vakkilainen, age 4 · 2023</div>
+  </div>
+
+  <!-- Sent badge -->
+  <div class="sent-badge">
+    <div class="sent-badge-dot"></div>
+    <span class="sent-badge-text">Gift sent</span>
+  </div>
+
+  <!-- Main message -->
+  <div class="gift-sent-message">
+    <div class="gift-headline">Your gift is on its way to <span class="recipient-name" id="recipientName">Maria</span></div>
+    <p class="gift-sub">They'll receive a beautiful gift card by email with everything they need to start using Yapper Phone.</p>
+  </div>
+
+  <!-- Gift summary -->
+  <div class="gift-summary-card">
+    <div class="summary-row">
+      <span class="summary-label">Gift</span>
+      <span class="summary-value green" id="giftTier">Yapper Pro — 12 months</span>
+    </div>
+    <div class="summary-row">
+      <span class="summary-label">To</span>
+      <span class="summary-value" id="recipientEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ef828e9d868eaf8a978e829f838ac18c8082">[email&#160;protected]</a></span>
+    </div>
+    <div class="summary-row">
+      <span class="summary-label">From</span>
+      <span class="summary-value" id="gifterName">Janne</span>
+    </div>
+    <div class="summary-row">
+      <span class="summary-label">Amount</span>
+      <span class="summary-value mono" id="giftAmount">€19.99</span>
+    </div>
+
+    <div class="message-preview" id="messagePreview">
+      <div class="message-preview-label">Your message</div>
+      <div class="message-preview-text" id="personalMessage">"I found something that helps me with phone calls. I want you to have it too."</div>
+    </div>
+  </div>
+
+  <!-- What happens next -->
+  <div class="next-steps">
+    <div class="next-steps-title">What happens next</div>
+
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-text"><span class="recipient-name-inline" id="recipientName2">Maria</span> receives a gift card email <span>— with Wilda's painting, your message, and a redemption code</span></div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-text">They download Yapper Phone <span>— free from Google Play</span></div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-text">They enter the code <span>— and their Pro subscription activates instantly</span></div>
+    </div>
+
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-text">You get notified <span>— we'll email you when they activate your gift</span></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-area">
+    <a href="/#gift" class="btn-another">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      Send another gift
+    </a>
+  </div>
+
+  <p class="notify-note">A confirmation has been sent to your email as well.</p>
+
+  <!-- Tagline -->
+  <div class="tagline-wrap">
+    <div class="tagline">Thank you for giving a better call.</div>
+  </div>
+
+  <!-- Footer -->
+  <div class="success-footer">
+    <a href="https://yapperphone.app" style="text-decoration:none;" class="footer-brand">
+      <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;">
+        <path fill="#F1483E" d="M291.933,364.362c0.722,-8.694 1.743,-16.799 2.003,-24.929c0.833,-25.988 -8.542,-48.785 -22.551,-70.038c-9.238,-14.017 -21.487,-25.387 -33.007,-37.392c-13.154,-13.709 -26.235,-27.519 -35.495,-44.286c-11.195,-20.271 -16.089,-41.803 -11.137,-64.885c5.125,-23.885 27.369,-34.481 48.846,-29.039c22.716,5.756 40.713,19.31 56.738,35.682c12.584,12.858 23.762,26.979 34.811,41.161c2.472,3.174 3.478,3.032 5.523,-0.259c11.685,-18.79 23.065,-37.8 36.58,-55.369c8.516,-11.07 17.259,-21.805 29.134,-29.849c21.104,-14.296 52.113,-7.474 66.684,11.06c1.028,1.309 2.083,2.597 3.104,3.912c8.229,10.599 8.891,18.288 2.249,29.896c-9.862,17.236 -21.803,33.033 -33.942,48.695c-21.621,27.892 -44.337,54.892 -66.786,82.107c-12.076,14.641 -24.238,29.201 -34.506,45.204c-10.672,16.635 -18.816,34.4 -23.485,53.674c-0.235,0.969 -0.538,1.928 -0.679,2.91c-1.372,9.593 -7.445,13.972 -17.086,12.289C293.416,373.944 291.694,371.199 291.933,364.362z"/>
+        <path fill="#1AAC53" d="M57.047,191.699c0.005,-7.654 -0.257,-15.295 1.05,-22.916c1.661,-9.688 6.361,-17.547 14.047,-23.403c21.194,-16.149 45.071,-26.249 71.338,-30.625c7.702,-1.283 13.814,2.806 15.8,10.391c7.218,27.579 12,55.61 15.662,83.862c0.665,5.129 -1.141,7.706 -5.87,9.287c-13.26,4.434 -26.376,9.305 -39.668,13.636c-7.056,2.299 -9.81,6.529 -9.908,14.001c-0.338,25.617 8.809,47.759 23.379,68.214c15.081,21.172 35.197,36.671 56.759,50.429c10.52,6.713 21.53,7.393 33.034,0.894c16.141,-9.119 16.418,-8.867 30.946,3.169c13.967,11.571 28.485,22.485 41.741,34.906c6.44,6.034 6.85,9.39 1.404,16.202c-10.134,12.679 -21.609,23.917 -35.24,32.928c-6.954,4.597 -14.084,5.369 -21.891,3.191c-37.646,-10.499 -70.385,-29.736 -99.196,-55.865c-21.717,-19.695 -41.186,-41.451 -55.444,-67.164c-18.216,-32.849 -31.123,-67.715 -35.805,-105.262C57.699,215.666 57.074,203.697 57.047,191.699z"/>
+      </svg>
+      <span class="footer-brand-text">Yapper Phone</span>
+    </a>
+    <div class="footer-institute">Institute for The Study Of Humanity and Maximized Impact ry</div>
+  </div>
+
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ═══ FLOATING HEARTS ═══
+function createHearts() {
+  const field = document.getElementById('hearts');
+  const heartSVG = `<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+  const colors = ['rgba(0, 200, 83, 0.25)', 'rgba(241, 72, 62, 0.2)', 'rgba(125, 223, 156, 0.15)', 'rgba(255, 255, 255, 0.08)'];
+
+  for (let i = 0; i < 15; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'floating-heart';
+    const size = 12 + Math.random() * 18;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+
+    heart.style.cssText = `
+      left: ${5 + Math.random() * 90}%;
+      width: ${size}px;
+      height: ${size}px;
+      color: ${color};
+      animation-duration: ${10 + Math.random() * 15}s;
+      animation-delay: ${Math.random() * 12}s;
+    `;
+    heart.innerHTML = heartSVG;
+    field.appendChild(heart);
+  }
+}
+
+// ═══ CONFETTI ═══
+function createConfetti() {
+  const colors = ['#00C853', '#7ddf9c', '#F1483E', '#e8c547', '#fff', '#88ddaa'];
+
+  for (let i = 0; i < 45; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const size = 5 + Math.random() * 7;
+    const isCircle = Math.random() > 0.5;
+
+    el.style.cssText = `
+      left: ${10 + Math.random() * 80}%;
+      width: ${size}px;
+      height: ${size}px;
+      background: ${color};
+      border-radius: ${isCircle ? '50%' : '2px'};
+      animation-duration: ${2.5 + Math.random() * 3}s;
+      animation-delay: ${Math.random() * 0.6}s;
+    `;
+
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 5500);
+  }
+}
+
+// ═══ POPULATE FROM URL PARAMS (in production, read from Stripe session) ═══
+function populateFromParams() {
+  const params = new URLSearchParams(window.location.search);
+
+  // In production, fetch session details from Stripe via Cloud Function
+  // using params.get('session_id')
+  // For now, use placeholder data or URL params
+
+  const recipientName = params.get('recipient') || 'Maria';
+  const gifterName = params.get('gifter') || 'Janne';
+  const tier = params.get('tier') || 'annual';
+  const months = params.get('months') || '12';
+
+  // Set recipient name everywhere
+  document.getElementById('recipientName').textContent = recipientName;
+  document.getElementById('recipientName2').textContent = recipientName;
+
+  // Set gifter
+  document.getElementById('gifterName').textContent = gifterName;
+
+  // Set tier display
+  const tierLabels = {
+    monthly: `Yapper Pro — ${months} month${parseInt(months) > 1 ? 's' : ''}`,
+    annual: 'Yapper Pro — 12 months',
+    originals: 'Yapper Originals — Lifetime',
+  };
+  document.getElementById('giftTier').textContent = tierLabels[tier] || tierLabels.annual;
+
+  // Set amount
+  const amounts = {
+    monthly: `€${(2.99 * parseInt(months)).toFixed(2)}`,
+    annual: '€19.99',
+    originals: '€67.00',
+  };
+  document.getElementBy
