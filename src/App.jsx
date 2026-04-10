@@ -258,7 +258,7 @@ export default function App() {
         <div className="section-inner">
           <div className="problem-text reveal">
             <p className="lead">For 150 years, the phone call has been built for the average brain.</p>
-            <p className="stats"><strong>70% of young adults</strong> feel anxious when the phone rings. One in four UK adults under 35 have <strong>never answered a call</strong> to their mobile. One in five people worldwide are <strong>neurodivergent</strong>. The average brain is a myth.</p>
+            <p className="stats">70% of young adults feel anxious when the phone rings. One in four UK adults under 35 have never answered a call to their mobile. One in five people worldwide are neurodivergent. The average brain is a myth.</p>
             <p className="bridge">Yapper Phone is the first phone call redesigned for how humans actually think, feel, and communicate.</p>
           </div>
         </div>
@@ -276,6 +276,40 @@ export default function App() {
             <div className="phone-frame reveal" style={{width:160}} onClick={() => setLightboxSrc('/screenshot-setup.jpg')}><img src="/screenshot-setup.jpg" alt="Yapper pre-call setup showing duration picker with Agenda mode selected" loading="lazy" /></div>
             <div className="phone-frame reveal" style={{width:160}} onClick={() => setLightboxSrc('/screenshot-agenda.jpg')}><img src="/screenshot-agenda.jpg" alt="Yapper in-call screen showing timer counting down with agenda topic displayed" loading="lazy" /></div>
             <div className="phone-frame reveal" style={{width:160}} onClick={() => setLightboxSrc('/screenshot-incoming.jpg')}><img src="/screenshot-incoming.jpg" alt="Yapper incoming call screen showing caller avatar, agenda topic, and duration options — Long Call, Short Call, Custom Cap, and caller's Requested time" loading="lazy" /></div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION: TESTIMONIALS */}
+      <section className="section section-darker">
+        <div className="section-inner">
+          <h2 className="testimonials-heading reveal">Real calls. Real people.</h2>
+          <div className="testimonials-grid">
+
+            <div className="testimonial-card reveal">
+              <div className="testimonial-quote">{"\"My dad was one of the first people to test Yapper Phone. In the Finnish winter, he never answers his phone on walks — his fingers freeze. The first time I called him with Yapper, I scrolled the timer to 20 seconds. He looked at his phone, saw '20 seconds,' and picked up. I asked my question, he answered, and then he gave me a quick review of the app right there in the snow. Five stars! And we ended in time.\""}</div>
+              <div className="testimonial-author">
+                <span className="testimonial-name">Janne Vakkilainen</span>
+                <span className="testimonial-role">Founder, Yapper Phone</span>
+              </div>
+            </div>
+
+            <div className="testimonial-card reveal">
+              <div className="testimonial-quote">{"\"I'm Type 1 diabetic and I live alone. My parents and I beta tested Yapper Phone together. One night I had a low sugar event and called my mom with an ICE call. She woke up — the alert bypassed everything. My parents stayed on the line, ready to call an ambulance if needed, while I ate to get my blood sugar back to a safe range. Afterwards we were relieved, talking about how Yapper Phone will save lives. It's a no-brainer.\""}</div>
+              <div className="testimonial-author">
+                <span className="testimonial-name">Finnish Type 1 diabetic</span>
+                <span className="testimonial-role">Beta tester</span>
+              </div>
+            </div>
+
+            <div className="testimonial-card reveal">
+              <div className="testimonial-quote">{"\"First I started using the Focus Sound during calls. Then I tried the Time Signal. Now I play system-wide brown noise and a one-minute time signal all day while I'm working. Once a minute I'm reminded, 'oh, that was a minute,' and my days feel longer. When I hear the chime it pulls me out of a daydream, a total sidequest rabbit hole, or a procrastination freeze. I've started managing my time better. And it doesn't cause anxiety. It's actually a relief, because now I can choose if something is important at that moment instead of losing an hour. No more 'oh, there went an hour again.' Pretty amazing.\""}</div>
+              <div className="testimonial-author">
+                <span className="testimonial-name">ADHD</span>
+                <span className="testimonial-role">Beta tester</span>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -315,14 +349,25 @@ export default function App() {
               <p>Soft chimes at intervals you choose — from 10 seconds to 30 minutes. Visual, audible, and haptic. Designed to coexist with deep focus, not interrupt it. Your external clock for when the internal one goes quiet.</p>
             </div>
 
-            {/* Feature 5 — Communication Patterns */}
+            {/* Feature 5 — Social Media Break */}
+            <div className="feature-card full-width reveal">
+              <span className="feature-icon">🚫</span>
+              <h3>{"Your mom's message gets through. The doomscroll doesn't."}</h3>
+              <p>{"The problem with blocking apps is that the people you love use the same apps as the content you're trying to avoid. Social Media Break solves this with VIP contacts — the people whose messages bypass every block, every filter, every category you've silenced. Block Instagram, TikTok, and Twitter entirely. Set WhatsApp to VIP Only — your family gets through, the group chats don't. Let Telegram pass for your work channel but silence everything else. Eight categories, three states each, up to 40 individual notification groups, and it learns your patterns passively as you go. Runs in the background even when Yapper Phone is closed. Survives reboots. Because the point was never to disconnect from people — it was to disconnect from noise."}</p>
+              <div className="ice-strip">
+                <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-menu-floating.jpg')}><img src="/screenshot-menu-floating.jpg" alt="Yapper Phone menu showing floating action buttons for Focus Sound, hamburger menu, and Social Media Break" loading="lazy" /></div>
+                <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-social-media-break.jpg')}><img src="/screenshot-social-media-break.jpg" alt="Social Media Break bottom sheet showing 8 app categories with Blocked, VIP Only, and Allowed states, VIP contacts, and group filtering" loading="lazy" /></div>
+              </div>
+            </div>
+
+            {/* Feature 6 — Communication Patterns */}
             <div className="feature-card reveal">
               <span className="feature-icon">📊</span>
               <h3>Understand how you communicate. On your terms.</h3>
               <p>{"A multi-domain dashboard showing your call patterns, social rhythms, and relationship health — with warm, plain-language summaries (\"You're a Night Owl caller\") alongside the raw data. Export everything. All processing happens on your device. Your patterns, your data, your insight."}</p>
             </div>
 
-            {/* Feature 6 — People Missing You */}
+            {/* Feature 7 — People Missing You */}
             <div className="feature-card reveal">
               <span className="feature-icon">💚</span>
               <h3>Not a guilt trip. A gentle nudge.</h3>

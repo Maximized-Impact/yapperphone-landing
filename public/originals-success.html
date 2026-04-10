@@ -22,6 +22,8 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+a { -webkit-tap-highlight-color: transparent; }
+a:active { opacity: 0.7; }
 
 body {
   background: var(--bg-deep);
@@ -327,6 +329,21 @@ body {
   animation: fade-in 0.8s ease-out 1.4s both;
 }
 
+/* ═══ BACK LINK ═══ */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  transition: color 0.2s;
+  margin-bottom: 32px;
+}
+.back-link:hover { color: var(--yapper-green); }
+
 /* ═══ FOOTER ═══ */
 .success-footer {
   margin-top: 64px;
@@ -463,6 +480,10 @@ body {
   </div>
 
   <p class="email-note">A confirmation email is on its way to you.</p>
+
+  <div style="text-align:center;">
+    <a href="https://yapperphone.app" class="back-link">← Back to Yapper Phone</a>
+  </div>
 
   <!-- Footer -->
   <div class="success-footer">
