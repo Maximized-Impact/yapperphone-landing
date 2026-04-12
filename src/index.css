@@ -878,7 +878,8 @@ body {
   font-size: clamp(1rem, 2vw, 1.3rem);
   letter-spacing: 0.15em;
   color: var(--text-secondary);
-  margin-bottom: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 0;
 }
 .mission-body {
   font-size: 1.05rem;
@@ -1459,7 +1460,7 @@ body {
   backdrop-filter: blur(8px);
 }
 .lightbox-overlay img {
-  max-height: 80vh;
+  max-height: 95vh;
   max-width: 90vw;
   border-radius: 1rem;
   box-shadow: 0 24px 80px rgba(0,0,0,0.6);
@@ -1556,7 +1557,7 @@ body {
 }
 .killer-feature-screens .phone-frame:hover { transform: translateY(-4px); }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .killer-feature,
   .killer-feature.reverse {
     grid-template-columns: 1fr;
@@ -1565,6 +1566,9 @@ body {
   }
   .killer-feature.reverse .killer-feature-text { order: 1; }
   .killer-feature.reverse .killer-feature-screens { order: 2; }
+  .killer-feature-screens .phone-frame { width: 110px; }
+}
+@media (max-width: 580px) {
   .killer-feature-screens .phone-frame { width: 100px; }
 }
 

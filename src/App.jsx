@@ -375,8 +375,8 @@ function LandingPage() {
             </div>
             <div className="killer-feature-screens">
               <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-setup.jpg')}><img src="/screenshot-setup.jpg" alt="Yapper pre-call setup showing duration picker" loading="lazy" /></div>
-              <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-incoming.jpg')}><img src="/screenshot-incoming.jpg" alt="Yapper incoming call screen showing duration options" loading="lazy" /></div>
               <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-agenda.jpg')}><img src="/screenshot-agenda.jpg" alt="Yapper in-call screen showing timer counting down" loading="lazy" /></div>
+              <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-incoming.jpg')}><img src="/screenshot-incoming.jpg" alt="Yapper incoming call screen showing duration options" loading="lazy" /></div>
             </div>
           </div>
 
@@ -524,7 +524,6 @@ function LandingPage() {
             </div>
           </div>
           <p className="pricing-ice-note reveal">ICE emergency features included with all active subscriptions, active trials, and Yapper Originals.</p>
-          <p className="pricing-t1d-note reveal">Finnish Type 1 diabetics: free lifetime Pro access. <a href="mailto:janne@maximized-impact.org" style={{color:'var(--yapper-green)'}}>Contact us</a></p>
         </div>
       </section>
 
@@ -551,10 +550,11 @@ function LandingPage() {
       <section className="section section-dark" id="mission">
         <div className="section-inner mission-text reveal">
           <div style={{textAlign:'center',marginBottom:'2rem'}}><img src="/institute_logo_cropped.png" alt="Institute for The Study Of Humanity and Maximized Impact" style={{maxWidth:'380px',width:'100%',height:'auto',opacity:0.9}} /></div>
-          <p className="mission-pillars">NO EXIT · NO INVESTORS · NO CORPORATE CAPTURE · NO MARTYRDOM</p>
+          <p style={{textAlign:'center',fontSize:'0.95rem',color:'var(--yapper-green)',fontFamily:'var(--font-display)',fontWeight:600,marginBottom:'2rem'}}>55,000 Finnish Type 1 diabetics receive free lifetime Pro access — a proof of our Institute's mission and integrity.</p>
           <p className="mission-body">A substantial portion of all profits from Yapper Phone funds the Institute for The Study Of Humanity and Maximized Impact — a Finnish registered research association. We build and finance our think tank with our own inventions.</p>
           <p className="mission-stats">667+ USPTO patent applications filed February 27, 2026. 34 shipping features. Built by one person using Claude at a total cost of ~€14K.</p>
           <p className="mission-closer">Purpose should pay. Martyrdom kills missions.</p>
+          <p className="mission-pillars">NO EXIT · NO INVESTORS · NO CORPORATE CAPTURE · NO MARTYRDOM</p>
         </div>
       </section>
 
