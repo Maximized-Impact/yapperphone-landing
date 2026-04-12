@@ -865,7 +865,7 @@ body {
 .pricing-note a { color: var(--yapper-green); text-decoration: underline; }
 
 @media (max-width: 768px) {
-  .pricing-grid { grid-template-columns: 1fr; }
+  .pricing-grid, .pricing-grid.two-col { grid-template-columns: 1fr; }
   .pricing-card.featured { transform: none; order: -1; }
   .pricing-card.featured:hover { transform: translateY(-4px); }
 }
