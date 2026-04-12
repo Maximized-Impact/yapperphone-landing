@@ -25,7 +25,7 @@ const SECTIONS = [
       { title: '🤝 Body Double Call', desc: 'ADHD accountability sessions. Not a conversation — a passive co-presence session for task activation. Someone is on the other end, and that\'s enough to start working. Clinically documented. Now built into your phone.', color: '#7B1FA2' },
       { title: '📋 Agenda Call', desc: 'Write a short agenda or select a saved one before the call connects. Both people know what the call is about before anyone answers. Saves the first two minutes of every call.', color: '#2196F3' },
       { title: '🆘 ICE Emergency', desc: 'Life-critical calls that bypass silent mode, Do Not Disturb, and all restrictions. Lock screen emergency card. GPS + SMS transmission. Your emergency contacts can reach you through silent mode too. Bidirectional. Available with any active subscription or trial.', color: '#E53935' },
-      { title: '🩺 ICE Checkup', desc: 'Scheduled wellness check-ins. Softer than Emergency — a daily "are you okay?" from the people who worry about you. Still bypasses restrictions. Still wakes them up if they need to hear from you.', color: '#F57C00' },
+      { title: '🩺 ICE Checkup', desc: 'If you\'ve set someone as your ICE contact, they can reach you with a Checkup call that bypasses silent mode and Do Not Disturb — when they suspect danger or have a reason to worry. Your safety net, even when your phone is on mute. Requires active subscription or trial.', color: '#F57C00' },
       { title: '🎨 Custom Duration', desc: 'Set any duration down to the second. The interface adapts. For calls that don\'t fit a label — the only rule is that you chose the time before the call connected.', color: '#00BCD4' },
     ]
   },

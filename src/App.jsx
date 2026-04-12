@@ -34,7 +34,7 @@ const CALL_TYPES = [
   { name: 'Body Double', emoji: '🤝', color: '#7B1FA2', desc: 'ADHD accountability sessions. Not a conversation — a passive co-presence session for task activation. Clinically documented.' },
   { name: 'Agenda', emoji: '📋', color: '#2196F3', desc: 'Both people see the topic before anyone answers. Write a short agenda — it sits under the timer the entire call.' },
   { name: 'ICE Emergency', emoji: '🆘', color: '#E53935', desc: 'Life-critical calls. Bypasses silent mode, Do Not Disturb, and all restrictions. Maximum volume. GPS + SMS transmission.' },
-  { name: 'ICE Checkup', emoji: '🩺', color: '#F57C00', desc: 'Scheduled wellness check-ins with caregivers. Softer than Emergency — but still bypasses restrictions when it matters.' },
+  { name: 'ICE Checkup', emoji: '🩺', color: '#F57C00', desc: 'If you\'ve set someone as your ICE contact, they can reach you with a Checkup call that bypasses silent mode and Do Not Disturb — when they suspect danger or have a reason to worry. Your safety net, even when your phone is on mute.' },
   { name: 'Custom', emoji: '🎨', color: '#00BCD4', desc: 'Set any duration down to the second. For calls that don\'t fit a label. The interface is yours to configure.' },
 ]
 
