@@ -786,6 +786,10 @@ body {
   margin: 0 auto;
   align-items: end;
 }
+.pricing-grid.two-col {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 640px;
+}
 .pricing-card {
   background: var(--dark-card);
   border: 1px solid var(--dark-border);

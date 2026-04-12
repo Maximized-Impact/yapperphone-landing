@@ -499,7 +499,7 @@ function LandingPage() {
         <div className="section-inner">
           <h2 className="section-heading reveal">Your phone call, finally on your terms.</h2>
           {!cd.launched && <p style={{textAlign:'center',color:'var(--text-secondary)',marginBottom:'2rem',fontSize:'0.95rem'}}>Launching April 16. Pre-register now — or <a href="#originals" style={{color:'var(--yapper-green)'}}>grab Originals today</a>.</p>}
-          <div className="pricing-grid">
+          <div className="pricing-grid two-col">
             <div className="pricing-card reveal">
               <h3>Monthly</h3>
               <p className="pricing-amount">€2.99<span style={{fontSize:'0.9rem',fontWeight:400}}>/mo</span></p>
@@ -514,13 +514,6 @@ function LandingPage() {
               <p className="pricing-period">€1.67/month · Save 44%</p>
               <ul className="pricing-features"><li>All 34 features</li><li>All six call types</li><li>ICE Emergency included</li><li>7-day free trial</li></ul>
               {pBtn('Try Free')}
-            </div>
-            <div className="pricing-card reveal">
-              <h3>Originals</h3>
-              <p className="pricing-amount">€67<span style={{fontSize:'0.9rem',fontWeight:400}}> once</span></p>
-              <p className="pricing-period">Lifetime · 1,000 spots</p>
-              <ul className="pricing-features"><li>All 34 features forever</li><li>Name in Founders credits</li><li>Early access to everything</li><li>All future features included</li></ul>
-              <a href={ORIGINALS_STRIPE} className="btn-primary" style={{width:'100%',justifyContent:'center'}} target="_blank" rel="noopener noreferrer">Get Originals</a>
             </div>
           </div>
           <p className="pricing-ice-note reveal">ICE emergency features included with all active subscriptions, active trials, and Yapper Originals.</p>
