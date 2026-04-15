@@ -389,6 +389,7 @@ function LandingPage() {
             </div>
             <div className="killer-feature-screens">
               <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-menu-floating.jpg')}><img src="/screenshot-menu-floating.jpg" alt="Yapper Phone menu showing Focus Sound and Time Signal controls" loading="lazy" /></div>
+              <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-focus-overlay.jpg')}><img src="/screenshot-focus-overlay.jpg" alt="Focus Sound overlay with brown noise, white noise, pink noise, rain, ocean waves, forest sounds, Time Signal interval slider, and Social Media Break controls" loading="lazy" /></div>
             </div>
           </div>
 
@@ -501,6 +502,7 @@ function LandingPage() {
           {!cd.launched && <p style={{textAlign:'center',color:'var(--text-secondary)',marginBottom:'2rem',fontSize:'0.95rem'}}>Launching April 16. Pre-register now — or <a href="#originals" style={{color:'var(--yapper-green)'}}>grab Originals today</a>.</p>}
           <div className="pricing-grid two-col">
             <div className="pricing-card reveal">
+              <span className="pricing-badge secondary">Great Value</span>
               <h3>Monthly</h3>
               <p className="pricing-amount">€2.99<span style={{fontSize:'0.9rem',fontWeight:400}}>/mo</span></p>
               <p className="pricing-period">Cancel anytime</p>
@@ -543,7 +545,7 @@ function LandingPage() {
       <section className="section section-dark" id="mission">
         <div className="section-inner mission-text reveal">
           <div style={{textAlign:'center',marginBottom:'2rem'}}><img src="/institute_logo_cropped.png" alt="Institute for The Study Of Humanity and Maximized Impact" style={{maxWidth:'380px',width:'100%',height:'auto',opacity:0.9}} /></div>
-          <p style={{textAlign:'center',fontSize:'0.95rem',color:'var(--yapper-green)',fontFamily:'var(--font-display)',fontWeight:600,marginBottom:'2rem'}}>55,000 Finnish Type 1 diabetics receive free lifetime Pro access — a proof of our Institute's mission and integrity.</p>
+          <p style={{textAlign:'center',fontSize:'0.95rem',color:'var(--yapper-green)',fontFamily:'var(--font-display)',fontWeight:600,marginBottom:'2rem'}}>We offer a free lifetime Pro access to 55,000 Finnish Type 1 diabetics — a proof of our Institute's mission and integrity.</p>
           <p className="mission-body">A substantial portion of all profits from Yapper Phone funds the Institute for The Study Of Humanity and Maximized Impact — a Finnish registered research association. We build and finance our think tank with our own inventions.</p>
           <p className="mission-stats">667+ USPTO patent applications filed February 27, 2026. 34 shipping features. Built by one person using Claude at a total cost of ~€14K.</p>
           <p className="mission-closer">Purpose should pay. Martyrdom kills missions.</p>

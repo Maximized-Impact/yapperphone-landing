@@ -208,6 +208,8 @@ body {
   text-decoration: none;
   white-space: nowrap;
   margin-left: auto;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
 }
 .navbar-cta:hover {
   transform: scale(1.05);
@@ -385,6 +387,8 @@ body {
   overflow: hidden;
   justify-content: center;
   text-align: center;
+  -webkit-tap-highlight-color: transparent;
+  isolation: isolate;
 }
 .btn-primary:hover {
   transform: scale(1.03);
@@ -409,6 +413,9 @@ body {
   transition: transform 0.3s var(--ease-spring), background 0.3s, color 0.3s;
   -webkit-appearance: none;
   appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  isolation: isolate;
 }
 .btn-secondary:hover {
   background: var(--yapper-green);
@@ -815,11 +822,17 @@ body {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   font-weight: 700;
-  padding: 0.25rem 0.75rem;
+  padding: 0.25rem 0.85rem;
   border-radius: 100px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   margin-bottom: 1rem;
+  width: auto;
+}
+.pricing-badge.secondary {
+  background: transparent;
+  border: 1.5px solid var(--yapper-green);
+  color: var(--yapper-green);
 }
 .pricing-card h3 {
   font-family: var(--font-display);
