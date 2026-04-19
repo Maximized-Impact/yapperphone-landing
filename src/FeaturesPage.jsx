@@ -23,7 +23,7 @@ const SECTIONS = [
     features: [
       { title: '📞 Standard Call', desc: 'The everyday call with time awareness built in. Default colour scheme. Duration negotiation, countdown timer, all core features active.' },
       { title: '🤝 Body Double Call', desc: 'ADHD accountability sessions. Not a conversation — a passive co-presence session for task activation. Someone is on the other end, and that\'s enough to start working. Clinically documented. Now built into your phone.', color: '#7B1FA2' },
-      { title: '📋 Agenda Call', desc: 'Write a short agenda or select a saved one before the call connects. Both people know what the call is about before anyone answers. Saves the first two minutes of every call.', color: '#2196F3' },
+      { title: '📋 Agenda Call', desc: 'Write a short agenda, receiving side sees it before answering and both sides see it under the timer the entire call. You can save agendas, set presets for contacts and Yapper also saves the incoming agendas for you to use yourself later if you want. Saves the first two minutes of every call.', color: '#2196F3' },
       { title: '🆘 ICE Emergency', desc: 'Life-critical calls that bypass silent mode, Do Not Disturb, and all restrictions. Lock screen emergency card. GPS + SMS transmission. Your emergency contacts can reach you through silent mode too. Bidirectional. Available with any active subscription or trial.', color: '#E53935' },
       { title: '🩺 ICE Checkup', desc: 'If you\'ve set someone as your ICE contact, they can reach you with a Checkup call that bypasses silent mode and Do Not Disturb — when they suspect danger or have a reason to worry. Your safety net, even when your phone is on mute. Requires active subscription or trial.', color: '#F57C00' },
       { title: '🎨 Custom Duration', desc: 'Set any duration down to the second. The interface adapts. For calls that don\'t fit a label — the only rule is that you chose the time before the call connected.', color: '#00BCD4' },
@@ -274,7 +274,7 @@ export default function FeaturesPage() {
             <h5>Community</h5>
             <ul className="footer-links"><li><a href="https://discord.gg/yapperphone" target="_blank" rel="noopener noreferrer">Discord</a></li><li><a href="https://instagram.com/yapperphone" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href="https://tiktok.com/@yapperphone" target="_blank" rel="noopener noreferrer">TikTok</a></li></ul>
             <h5 style={{marginTop:'1.5rem'}}>Legal</h5>
-            <ul className="footer-links"><li><a href="/privacy">Privacy Policy</a></li><li><a href="/terms">Terms of Service</a></li></ul>
+            <ul className="footer-links"><li><a href="/privacy">Privacy Policy</a></li><li><a href="/terms">Terms of Service</a></li><li><a href="/legal">Legal Information</a></li></ul>
           </div>
         </div>
         <div className="footer-bottom">

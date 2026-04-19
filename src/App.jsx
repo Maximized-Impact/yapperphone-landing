@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { createGiftCheckout } from './firebase'
 import FeaturesPage from './FeaturesPage'
+import LegalPage from './LegalPage'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -32,7 +33,7 @@ const FAQ_ITEMS = [
 const CALL_TYPES = [
   { name: 'Standard', emoji: '📞', color: '#00C853', desc: 'The everyday call with time awareness built in. Duration negotiation, countdown timer, all core features active.' },
   { name: 'Body Double', emoji: '🤝', color: '#7B1FA2', desc: 'ADHD accountability sessions. Not a conversation — a passive co-presence session for task activation. Clinically documented.' },
-  { name: 'Agenda', emoji: '📋', color: '#2196F3', desc: 'Both people see the topic before anyone answers. Write a short agenda — it sits under the timer the entire call.' },
+  { name: 'Agenda', emoji: '📋', color: '#2196F3', desc: 'Both people see the topic before anyone answers. Write a short agenda, receiving side sees it before answering and both sides see it under the timer the entire call. You can save agendas, set presets for contacts and Yapper also saves the incoming agendas for you to use yourself later if you want.' },
   { name: 'ICE Emergency', emoji: '🆘', color: '#E53935', desc: 'Life-critical calls. Bypasses silent mode, Do Not Disturb, and all restrictions. Maximum volume. GPS + SMS transmission.' },
   { name: 'ICE Checkup', emoji: '🩺', color: '#F57C00', desc: 'If you\'ve set someone as your ICE contact, they can reach you with a Checkup call that bypasses silent mode and Do Not Disturb — when they suspect danger or have a reason to worry. Your safety net, even when your phone is on mute.' },
   { name: 'Custom', emoji: '🎨', color: '#00BCD4', desc: 'Set any duration down to the second. For calls that don\'t fit a label. The interface is yours to configure.' },
@@ -216,6 +217,15 @@ function AppRouter() {
 
   if (path === '/features' || path === '/features/') {
     return <FeaturesPage />
+  }
+  if (path === '/privacy' || path === '/privacy/') {
+    return <LegalPage page="privacy" />
+  }
+  if (path === '/terms' || path === '/terms/') {
+    return <LegalPage page="terms" />
+  }
+  if (path === '/legal' || path === '/legal/') {
+    return <LegalPage page="legal" />
   }
   return <LandingPage />
 }
@@ -592,7 +602,7 @@ function LandingPage() {
             <h5>Community</h5>
             <ul className="footer-links"><li><a href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a></li><li><a href="https://instagram.com/yapperphone" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href="https://tiktok.com/@yapperphone" target="_blank" rel="noopener noreferrer">TikTok</a></li></ul>
             <h5 style={{marginTop:'1.5rem'}}>Legal</h5>
-            <ul className="footer-links"><li><a href="/privacy">Privacy Policy</a></li><li><a href="/terms">Terms of Service</a></li></ul>
+            <ul className="footer-links"><li><a href="/privacy">Privacy Policy</a></li><li><a href="/terms">Terms of Service</a></li><li><a href="/legal">Legal Information</a></li></ul>
           </div>
         </div>
         <div className="footer-bottom">
