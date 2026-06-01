@@ -58,17 +58,17 @@ function Footer() {
 function PrivacyPolicy() {
   return (
     <div className="legal-content">
-      <h1>Privacy Policy</h1>
-      <p className="legal-meta">Effective date: April 18, 2026 · Last updated: April 18, 2026</p>
+      <h1>Yapper Phone — Privacy Policy</h1>
+      <p className="legal-meta">Effective date: April 18, 2026 · Last updated: May 31, 2026</p>
       <p>This Privacy Policy describes how Yapper Phone handles your personal data. It is written to be read, not to be hidden behind.</p>
 
       <h2>1. Who controls your data</h2>
       <p>The data controller for Yapper Phone is:</p>
-      <p><strong>SUPER SINCE BIRTH Tmi</strong><br/>Business ID (Y-tunnus): 2461315-1<br/>Aleksis Kiven katu 45 B 21<br/>00520 Helsinki, Finland<br/><a href="mailto:janne@yapperphone.app">janne@yapperphone.app</a></p>
+      <p><strong>SUPER SINCE BIRTH</strong><br/>Business ID (Y-tunnus): 2461315-1<br/>Aleksis Kiven katu 45 B 21<br/>00520 Helsinki, Finland<br/><a href="mailto:janne@yapperphone.app">janne@yapperphone.app</a></p>
       <p>For any question about your data, including the rights described in Section 9, write to that email. You will receive a response within 30 days.</p>
 
       <h2>2. Our approach to your data</h2>
-      <p>Yapper Phone was built to keep your personal life on your phone. Most of what the app generates — your calls, your notes, your contacts, your relationships, your behavioral dashboard, your health data — is stored locally on your device and never transmitted to us or to any third party.</p>
+      <p>Yapper Phone was built to keep your personal life on your phone. Most of what the app generates — your calls, your notes, your contacts, your relationships, and your behavioral dashboard — is stored locally on your device and never transmitted to us or to any third party.</p>
       <p>A small amount of data leaves your device, and only when strictly necessary:</p>
       <ul>
         <li>Your Google account identifier, so your paid subscription follows you across devices and reinstalls</li>
@@ -88,7 +88,8 @@ function PrivacyPolicy() {
         <li>Call history, call durations, call types, call agendas, and call participants</li>
         <li>Call notes that you type</li>
         <li>Your phone number, stored as a SHA-256 hash — the raw number is hashed on your device and the hash never leaves it</li>
-        <li>Behavioral dashboard data, including call patterns, focus usage, and time-signal usage</li>
+        <li>Behavioral dashboard data, including call patterns, focus usage, and time-signal usage — derived only from your call metadata (durations, times, frequency, contacts), never from the content or audio of your calls</li>
+        <li>A one-time location snapshot, if you tap "Capture GPS" to record where you met a contact in your personal Networks — stored on your device only (latitude, longitude, and an address label), never transmitted, with no background or continuous location tracking</li>
         <li>Settings, preferences, language, timer profiles, focus sound preferences, time signal intervals, battery alert thresholds</li>
         <li>Any file, folder, or note you create within the app</li>
       </ul>
@@ -151,7 +152,7 @@ function PrivacyPolicy() {
 
       <h2>5. What we do not do</h2>
       <ul>
-        <li><strong>We do not record your phone calls.</strong> The app does not request the <code>RECORD_AUDIO</code> permission. Under the current Android telephony architecture, call recording is not technically possible in Yapper Phone. A visual "record" button on the in-call screen is non-functional and displays a "Future feature" indicator when tapped.</li>
+        <li><strong>We do not record your phone calls.</strong> The app does not request the <code>RECORD_AUDIO</code> permission for call recording. Under the current Android telephony architecture, call recording is not technically possible in Yapper Phone. A visual "record" button on the in-call screen is non-functional and displays a "Future feature" indicator when tapped.</li>
         <li>We do not collect or transmit voice recordings of any kind.</li>
         <li>We do not use analytics SDKs to track your behavior within the app. Firebase Analytics is not enabled. Firebase Remote Config is not used.</li>
         <li>We do not serve advertising.</li>
@@ -163,6 +164,7 @@ function PrivacyPolicy() {
       </ul>
 
       <h2>6. Your control over your health data</h2>
+      <p>Yapper Phone is not a medical device and does not diagnose, treat, cure, or prevent any condition. The features described in this section let you store your own emergency medical information on your device for first responders; they do not perform any health analysis or provide medical advice. For medical advice, please consult a qualified healthcare professional.</p>
       <p>If you use Yapper's ICE emergency features, you may choose to enter medical information about yourself — conditions, medications, blood type, allergies, emergency contacts. You may also choose to display some or all of this information on your device's lock screen so that anyone who picks up your phone in an emergency can see it and call your emergency contact.</p>
       <p><strong>This is always your choice.</strong> Nothing is displayed on the lock screen by default. You activate it. You control what is shown. You turn it off at any time. There is no setting that exposes your medical information without your explicit action.</p>
       <p>The same applies to medical information you record for loved ones: it is stored on your device only, visible only to you inside the app, and never transmitted or shared.</p>
@@ -218,7 +220,7 @@ function PrivacyPolicy() {
       <p>A substantial portion of profits from Yapper Phone is directed to the Institute for The Study Of Humanity and Maximized Impact ry, a registered Finnish research association (Y-tunnus 3564524-7). The Institute is a downstream beneficiary of profits only. It does not receive, process, or access any user personal data. It is not a data controller or data processor under this policy.</p>
 
       <h2>14. Contact</h2>
-      <p><strong>SUPER SINCE BIRTH Tmi</strong><br/>Aleksis Kiven katu 45 B 21<br/>00520 Helsinki, Finland<br/><a href="mailto:janne@yapperphone.app">janne@yapperphone.app</a></p>
+      <p><strong>SUPER SINCE BIRTH</strong><br/>Aleksis Kiven katu 45 B 21<br/>00520 Helsinki, Finland<br/><a href="mailto:janne@yapperphone.app">janne@yapperphone.app</a></p>
     </div>
   )
 }

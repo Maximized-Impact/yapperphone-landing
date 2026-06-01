@@ -218,6 +218,9 @@ function AppRouter() {
   if (path === '/features' || path === '/features/') {
     return <FeaturesPage />
   }
+  if (path === '/gift' || path === '/gift/') {
+    return <LandingPage giftAutoOpen={true} />
+  }
   if (path === '/privacy' || path === '/privacy/') {
     return <LegalPage page="privacy" />
   }
@@ -232,14 +235,14 @@ function AppRouter() {
 
 export default AppRouter
 
-function LandingPage() {
+function LandingPage({giftAutoOpen = false}) {
   const [navScrolled, setNavScrolled] = useState(false)
   const [bannerVisible, setBannerVisible] = useState(true)
   const [stickyCta, setStickyCta] = useState(false)
   const [stickyVisible, setStickyVisible] = useState(false)
   const [lightboxSrc, setLightboxSrc] = useState(null)
   const [activeCallType, setActiveCallType] = useState(null)
-  const [giftOpen, setGiftOpen] = useState(false)
+  const [giftOpen, setGiftOpen] = useState(giftAutoOpen)
   const mainRef = useRef(null)
   const scrollTimer = useRef(null)
   const cd = useCountdown(LAUNCH_DATE)
