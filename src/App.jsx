@@ -1,17 +1,22 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { createGiftCheckout } from './firebase'
+import { createGiftCheckout, joinWaitlist } from './firebase'
 import FeaturesPage from './FeaturesPage'
 import LegalPage from './LegalPage'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// ─── Yapper site v7.1 ───────────────────────────────────────────────
 const PLAY_STORE = 'https://play.google.com/store/apps/details?id=com.yapperphone.app'
-const SAMSUNG_STORE = 'https://galaxystore.samsung.com/detail/com.yapperphone.app'
-const ORIGINALS_STRIPE = 'https://buy.stripe.com/test_cNi9ATdiVcBu0gjfQp8g000'
 const DISCORD = 'https://discord.gg/yapperphone'
-const LAUNCH_DATE = new Date('2026-04-16T09:00:00+03:00')
+
+// LIVE Stripe Payment Link — Yapper Founders €67 self-purchase (swapped from test 2026-06-08).
+const FOUNDERS_STRIPE = 'https://buy.stripe.com/cNi9ATdiVcBu0gjfQp8g000'
+
+// Master launch switch. Keep false while the app is in Google Play review.
+// Flip to true the moment it is approved — this restores every store + free-trial CTA.
+const LAUNCHED = false
 
 const characters = [
   'yapper-bud','yapper-jade','yapper-sam','yapper-nami',
@@ -25,46 +30,19 @@ const FAQ_ITEMS = [
   { q: 'Does the other person need Yapper?', a: 'No. You can call anyone — Yapper works with any phone number. When you call someone who also has Yapper, you unlock bilateral features like shared countdown timers, duration negotiation, and agenda topics visible on both screens. Calls to non-Yapper numbers still work as normal phone calls with your own timer running.' },
   { q: 'Does Yapper replace my phone app?', a: 'Yes — Yapper is a full dialer replacement. It handles all your calls, contacts, and call history. You set it as your default phone app during setup. Everything your stock dialer does, Yapper does — plus time-bound calls, focus audio, ICE emergency bypass, and everything else.' },
   { q: 'What happens when the timer ends?', a: 'A gentle chime plays for both people. The call doesn\'t cut off — you get a clear signal that the agreed time is up, and either person can end naturally. No awkward "I have to go" needed. The timer gave you both permission to wrap up.' },
-  { q: 'Is my data safe?', a: 'All data stays on your device. Call recordings are stored locally. Analytics are processed on-device. There is no cloud upload without your explicit action. Yapper doesn\'t sell data, serve ads, or share your information with anyone.' },
-  { q: 'What about iOS / iPhone?', a: 'Yapper Phone is Android-only at launch (Google Play and Samsung Galaxy Store). iOS deployment requires Apple to open telephony APIs to third-party apps — something we\'re actively advocating for through accessibility and regulatory channels.' },
-  { q: 'Do ICE emergency features require a subscription?', a: 'Yes — ICE Emergency calls, ICE Checkup calls, and the lockscreen emergency info card require an active subscription, an active free trial, or Yapper Originals lifetime access. The 7-day free trial includes all ICE features.' },
+  { q: 'Is my data safe?', a: 'All data stays on your device. Analytics are processed on-device. There is no cloud upload without your explicit action. Yapper doesn\'t sell data, serve ads, or share your information with anyone.' },
+  { q: 'What about iOS / iPhone?', a: 'Yapper Phone is Android-only at launch (Google Play). iOS deployment requires Apple to open telephony APIs to third-party apps — something we\'re actively advocating for through accessibility and regulatory channels.' },
+  { q: 'Do ICE emergency features require a subscription?', a: 'Yes — ICE Emergency calls, ICE Checkup calls, and the lockscreen emergency info card require an active subscription, an active free trial, or Yapper Founders lifetime access. The 7-day free trial includes all ICE features.' },
 ]
 
 const CALL_TYPES = [
   { name: 'Standard', emoji: '📞', color: '#00C853', desc: 'The everyday call with time awareness built in. Duration negotiation, countdown timer, all core features active.' },
   { name: 'Body Double', emoji: '🤝', color: '#7B1FA2', desc: 'ADHD accountability sessions. Not a conversation — a passive co-presence session for task activation. Clinically documented.' },
   { name: 'Agenda', emoji: '📋', color: '#2196F3', desc: 'Both people see the topic before anyone answers. Write a short agenda, receiving side sees it before answering and both sides see it under the timer the entire call. You can save agendas, set presets for contacts and Yapper also saves the incoming agendas for you to use yourself later if you want.' },
-  { name: 'ICE Emergency', emoji: '🆘', color: '#E53935', desc: 'Life-critical calls. Bypasses silent mode, Do Not Disturb, and all restrictions. Maximum volume. GPS + SMS transmission.' },
+  { name: 'ICE Emergency', emoji: '🆘', color: '#E53935', desc: 'Urgent, high-priority calls. Bypasses silent mode, Do Not Disturb, and all restrictions. Maximum volume. GPS + SMS transmission.' },
   { name: 'ICE Checkup', emoji: '🩺', color: '#F57C00', desc: 'If you\'ve set someone as your ICE contact, they can reach you with a Checkup call that bypasses silent mode and Do Not Disturb — when they suspect danger or have a reason to worry. Your safety net, even when your phone is on mute.' },
   { name: 'Custom', emoji: '🎨', color: '#00BCD4', desc: 'Set any duration down to the second. For calls that don\'t fit a label. The interface is yours to configure.' },
 ]
-
-function useCountdown(target) {
-  const [r, setR] = useState({days:0,hours:0,minutes:0,seconds:0,launched:false})
-  useEffect(() => {
-    const tick = () => {
-      const d = target - Date.now()
-      if (d <= 0) { setR({days:0,hours:0,minutes:0,seconds:0,launched:true}); return }
-      setR({days:Math.floor(d/864e5),hours:Math.floor(d%864e5/36e5),minutes:Math.floor(d%36e5/6e4),seconds:Math.floor(d%6e4/1e3),launched:false})
-    }
-    tick(); const id = setInterval(tick,1000); return () => clearInterval(id)
-  },[target])
-  return r
-}
-
-function Countdown({cd}) {
-  if (cd.launched) return null
-  return (
-    <div style={{display:'flex',gap:12,justifyContent:'center',margin:'1.5rem 0',fontFamily:'var(--font-mono)',fontSize:'0.85rem',color:'var(--text-secondary)'}}>
-      {[['days',cd.days],['hrs',cd.hours],['min',cd.minutes],['sec',cd.seconds]].map(([l,v]) => (
-        <div key={l} style={{textAlign:'center'}}>
-          <div style={{fontFamily:'var(--font-display)',fontWeight:800,fontSize:'1.8rem',color:'var(--yapper-green)',lineHeight:1,minWidth:48}}>{String(v).padStart(2,'0')}</div>
-          <div style={{fontSize:'0.7rem',textTransform:'uppercase',letterSpacing:2,marginTop:4}}>{l}</div>
-        </div>
-      ))}
-    </div>
-  )
-}
 
 function TrustBar({className}) {
   return (
@@ -125,7 +103,7 @@ function CallTypeModal({type, onClose}) {
   )
 }
 
-function GiftModal({open, onClose, cd}) {
+function GiftModal({open, onClose}) {
   const [tier, setTier] = useState('annual')
   const [months, setMonths] = useState(1)
   const [form, setForm] = useState({gifterName:'',gifterEmail:'',recipientName:'',recipientEmail:'',message:''})
@@ -166,7 +144,7 @@ function GiftModal({open, onClose, cd}) {
             <span className="gift-tier-badge">Flexible</span>
             <h4>Gift Monthly</h4>
             <div className="gift-tier-price">€{monthlyTotal}</div>
-            <div className="gift-tier-detail">{months} month{months > 1 ? 's' : ''} of Pro</div>
+            <div className="gift-tier-detail">{months} month{months > 1 ? 's' : ''}</div>
             <div className="gift-months-selector">
               {[1,3,6].map(m => (
                 <button key={m} className={`gift-month-btn ${months === m ? 'active' : ''}`} onClick={(e) => { e.stopPropagation(); setMonths(m) }}>{m}mo</button>
@@ -181,9 +159,9 @@ function GiftModal({open, onClose, cd}) {
           </div>
           <div className={`gift-tier ${tier === 'originals' ? 'selected' : ''}`} onClick={() => setTier('originals')}>
             <span className="gift-tier-badge gift-tier-originals-badge">Founding Member</span>
-            <h4>Gift Originals</h4>
+            <h4>Gift Founders</h4>
             <div className="gift-tier-price">€67</div>
-            <div className="gift-tier-detail">Lifetime Pro · Forever</div>
+            <div className="gift-tier-detail">Lifetime access · Forever</div>
           </div>
         </div>
         <form className="gift-form" style={{marginTop:'1.5rem'}} onSubmit={handleSubmit}>
@@ -199,10 +177,37 @@ function GiftModal({open, onClose, cd}) {
           <button type="submit" className="btn-primary" style={{width:'100%',justifyContent:'center',border:'none'}} disabled={loading}>
             {loading ? 'Preparing checkout...' : `Send Gift${tier === 'monthly' ? ` — €${monthlyTotal}` : tier === 'annual' ? ' — €19.99' : ' — €67'}`}
           </button>
-          <div className="gift-trust"><span>🔒 Secure payment via Stripe</span><span>📨 Gift delivered instantly by email</span><span>🇫🇮 Built in Finland</span></div>
+          <p className="gift-redeem-note" style={{marginTop:'1rem',fontSize:'0.8rem',lineHeight:1.6,color:'var(--text-secondary)',textAlign:'center'}}>Your gift is reserved the moment you buy. Your recipient redeems it inside the app — they'll be able to download Yapper and enter their code as soon as it's live on Google Play. We'll email you both the moment it's ready.</p>
+          <div className="gift-trust"><span>🔒 Secure payment via Stripe</span><span>📨 Gift code emailed instantly</span><span>🇫🇮 Built in Finland</span></div>
         </form>
       </div>
     </div>
+  )
+}
+
+function WaitlistForm() {
+  const [email, setEmail] = useState('')
+  const [state, setState] = useState('idle') // idle | loading | done | error
+  const submit = async (e) => {
+    e.preventDefault()
+    if (!email) return
+    setState('loading')
+    try {
+      await joinWaitlist({ email })
+      setState('done')
+    } catch (err) {
+      console.error('Waitlist error:', err)
+      setState('error')
+    }
+  }
+  if (state === 'done') return <p style={{color:'var(--yapper-green)',fontWeight:600,fontFamily:'var(--font-display)'}}>You&apos;re on the list. We&apos;ll be in touch. 🟢</p>
+  return (
+    <form onSubmit={submit} style={{display:'flex',gap:'0.5rem',flexWrap:'wrap',justifyContent:'center'}}>
+      <input type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="you@email.com" aria-label="Email address"
+        style={{flex:'1 1 220px',minWidth:0,padding:'0.85rem 1rem',borderRadius:10,border:'1px solid rgba(255,255,255,0.14)',background:'rgba(255,255,255,0.04)',color:'var(--text-primary)',fontFamily:'inherit',fontSize:'0.95rem'}} />
+      <button type="submit" className="btn-primary" disabled={state === 'loading'} style={{border:'none'}}>{state === 'loading' ? 'Joining…' : 'Notify me'}</button>
+      {state === 'error' && <p style={{flexBasis:'100%',fontSize:'0.82rem',color:'var(--text-secondary)',marginTop:'0.3rem'}}>Couldn&apos;t reach the server — please <a href={DISCORD} target="_blank" rel="noopener noreferrer" style={{color:'var(--yapper-green)'}}>join the Discord</a> and we&apos;ll keep you posted.</p>}
+    </form>
   )
 }
 
@@ -245,7 +250,6 @@ function LandingPage({giftAutoOpen = false}) {
   const [giftOpen, setGiftOpen] = useState(giftAutoOpen)
   const mainRef = useRef(null)
   const scrollTimer = useRef(null)
-  const cd = useCountdown(LAUNCH_DATE)
 
   const handleScroll = useCallback(() => {
     const y = window.scrollY
@@ -283,25 +287,23 @@ function LandingPage({giftAutoOpen = false}) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [handleScroll])
 
-  const heroCta = cd.launched ? (
+  const heroCta = LAUNCHED ? (
     <>
       <a href={PLAY_STORE} className="btn-primary" target="_blank" rel="noopener noreferrer">Try Free for 7 Days</a>
-      <a href={SAMSUNG_STORE} className="secondary-link" target="_blank" rel="noopener noreferrer">Also on Samsung Galaxy Store →</a>
       <span className="micro-text">7-day free trial · Cancel anytime · €2.99/month</span>
     </>
   ) : (
     <>
-      <Countdown cd={cd} />
-      <a href={PLAY_STORE} className="btn-primary" target="_blank" rel="noopener noreferrer">Pre-register on Google Play</a>
-      <a href={SAMSUNG_STORE} className="secondary-link" target="_blank" rel="noopener noreferrer">Coming to Samsung Galaxy Store →</a>
-      <span className="micro-text">Launching April 16 · €2.99/month · 7-day free trial</span>
+      <a href={FOUNDERS_STRIPE} className="btn-primary" target="_blank" rel="noopener noreferrer">Become a Founder — €67</a>
+      <a href={DISCORD} className="secondary-link" target="_blank" rel="noopener noreferrer">Join the Discord →</a>
+      <span className="micro-text">Not in the app stores yet — Founders get access first.</span>
     </>
   )
 
   const pBtn = (label) => (
-    cd.launched
+    LAUNCHED
       ? <a href={PLAY_STORE} className="btn-primary" style={{width:'100%',justifyContent:'center'}} target="_blank" rel="noopener noreferrer">{label}</a>
-      : <a href={PLAY_STORE} className="btn-primary" style={{width:'100%',justifyContent:'center'}} target="_blank" rel="noopener noreferrer">Pre-register April 16</a>
+      : <a href="#waitlist" className="btn-primary" style={{width:'100%',justifyContent:'center'}}>Start free when we launch</a>
   )
 
   return (
@@ -310,12 +312,12 @@ function LandingPage({giftAutoOpen = false}) {
       <div className="noise-overlay" aria-hidden="true" />
       {lightboxSrc && <div className="lightbox-overlay" onClick={() => setLightboxSrc(null)}><img src={lightboxSrc} alt="Enlarged screenshot" /></div>}
       <CallTypeModal type={activeCallType} onClose={() => setActiveCallType(null)} />
-      <GiftModal open={giftOpen} onClose={() => setGiftOpen(false)} cd={cd} />
+      <GiftModal open={giftOpen} onClose={() => setGiftOpen(false)} />
 
       {/* ═══ ORIGINALS BANNER ═══ */}
       <div className={`originals-banner ${bannerVisible ? '' : 'hidden'}`} role="banner">
-        <span>🟢 YAPPER ORIGINALS — First 1,000. Lifetime Pro. €67.{!cd.launched && ' Now.'}</span>
-        <a href="#originals">Learn More ↓</a>
+        <span>🟢 YAPPER FOUNDERS — First 1,000. Lifetime access. €67.{!LAUNCHED && ' Now.'}</span>
+        <a href="#founders">Learn More ↓</a>
       </div>
 
       {/* ═══ NAVBAR ═══ */}
@@ -329,9 +331,9 @@ function LandingPage({giftAutoOpen = false}) {
           <li><a href="#pricing">Pricing</a></li>
           <li><a href="#mission">Mission</a></li>
         </ul>
-        {cd.launched
+        {LAUNCHED
           ? <a href={PLAY_STORE} className="navbar-cta" target="_blank" rel="noopener noreferrer">Try Free</a>
-          : <a href="#originals" className="navbar-cta">Get Originals</a>}
+          : <a href="#founders" className="navbar-cta">Get Yapper</a>}
       </nav>
 
       {/* ═══ 1. HERO ═══ */}
@@ -412,7 +414,7 @@ function LandingPage({giftAutoOpen = false}) {
               <span className="feature-icon">🆘</span>
               <h3>Emergency calls always get through.</h3>
               <p>ICE bypass. Lock screen emergency info card with your medical conditions, medications, blood type, and emergency contacts — one tap, no passcode needed. Bidirectional — your emergency contacts can reach you through silent mode too. Available with any active subscription or trial.</p>
-              <p style={{marginTop:'0.75rem',color:'var(--text-primary)',fontWeight:600,fontSize:'0.95rem'}}>A dead phone isn't just an inconvenience. For some people, staying reachable is staying alive.</p>
+              <p style={{marginTop:'0.75rem',color:'var(--text-primary)',fontWeight:600,fontSize:'0.95rem'}}>When it matters most, getting through matters most — no passcode, no fumbling, no barriers.</p>
             </div>
             <div className="killer-feature-screens">
               <div className="phone-frame" onClick={() => setLightboxSrc('/screenshot-emergency-info.jpg')}><img src="/screenshot-emergency-info.jpg" alt="Yapper Emergency Info screen" loading="lazy" /></div>
@@ -453,10 +455,6 @@ function LandingPage({giftAutoOpen = false}) {
               <div className="testimonial-author"><span className="testimonial-name">Janne Vakkilainen</span><span className="testimonial-role">Founder, Yapper Phone</span></div>
             </div>
             <div className="testimonial-card reveal">
-              <div className="testimonial-quote">{"\"I'm Type 1 diabetic and I live alone. My parents and I beta tested Yapper Phone together. One night I had a low sugar event and called my mom with an ICE call. She woke up — the alert bypassed everything. My parents stayed on the line, ready to call an ambulance if needed, while I ate to get my blood sugar back to a safe range. Afterwards we were relieved, talking about how Yapper Phone will save lives. It's a no-brainer.\""}</div>
-              <div className="testimonial-author"><span className="testimonial-name">Finnish Type 1 diabetic</span><span className="testimonial-role">Beta tester</span></div>
-            </div>
-            <div className="testimonial-card reveal">
               <div className="testimonial-quote">{"\"First I started using the Focus Sound during calls. Then I tried the Time Signal. Now I play system-wide brown noise and a one-minute time signal all day while I'm working. Once a minute I'm reminded, 'oh, that was a minute,' and my days feel longer. When I hear the chime it pulls me out of a daydream, a total sidequest rabbit hole, or a procrastination freeze. I've started managing my time better. It's actually a relief. Pretty amazing.\""}</div>
               <div className="testimonial-author"><span className="testimonial-name">ADHD</span><span className="testimonial-role">Beta tester</span></div>
             </div>
@@ -486,23 +484,23 @@ function LandingPage({giftAutoOpen = false}) {
       </section>
 
       {/* ═══ 9. ORIGINALS ═══ */}
-      <section className="section section-darker" id="originals">
+      <section className="section section-darker" id="founders">
         <div className="section-inner originals-section reveal">
           <div className="originals-card">
             <div style={{display:'inline-block',background:'var(--yapper-green)',color:'var(--dark)',fontFamily:'var(--font-mono)',fontSize:'0.75rem',fontWeight:700,padding:'0.3rem 1rem',borderRadius:100,letterSpacing:'0.08em',textTransform:'uppercase',marginBottom:'1rem'}}>
-              {cd.launched ? 'Limited spots' : '🔥 Available now — don\'t wait for launch'}
+              {LAUNCHED ? 'Limited spots' : '🔥 Available now — don\'t wait for launch'}
             </div>
-            <h2>Yapper Originals</h2>
+            <h2>Yapper Founders</h2>
             <p className="originals-subtitle">The Founding 1,000</p>
             <p className="originals-price">€67 <span>one-time</span></p>
             <p className="originals-desc">This is for the people who see what Yapper Phone is before the world catches up. The ones who know that phone calls needed this twenty years ago. The founding members who make the mission real.</p>
             <ul className="originals-perks">
-              <li>Lifetime Pro access — every feature, every update, forever</li>
+              <li>Lifetime access — every feature, every update, forever</li>
               <li>Your name permanently displayed on the Founders screen inside the app</li>
               <li>Early access to every new feature before public release</li>
               <li>A founding role in building Health Communications Technology</li>
             </ul>
-            <a href={ORIGINALS_STRIPE} className="btn-primary" target="_blank" rel="noopener noreferrer">Become a Yapper Original — €67</a>
+            <a href={FOUNDERS_STRIPE} className="btn-primary" target="_blank" rel="noopener noreferrer">Become a Founder — €67</a>
             <p style={{marginTop:'1rem',fontSize:'0.8rem',color:'var(--text-muted)',fontFamily:'var(--font-mono)'}}>1,000 spots globally. When they're gone, they're gone.</p>
           </div>
         </div>
@@ -512,7 +510,7 @@ function LandingPage({giftAutoOpen = false}) {
       <section className="section section-dark" id="pricing">
         <div className="section-inner">
           <h2 className="section-heading reveal">Your phone call, finally on your terms.</h2>
-          {!cd.launched && <p style={{textAlign:'center',color:'var(--text-secondary)',marginBottom:'2rem',fontSize:'0.95rem'}}>Launching April 16. Pre-register now — or <a href="#originals" style={{color:'var(--yapper-green)'}}>grab Originals today</a>.</p>}
+          {!LAUNCHED && <p style={{textAlign:'center',color:'var(--text-secondary)',marginBottom:'2rem',fontSize:'0.95rem'}}>Yapper isn&apos;t in the app stores yet. <a href="#founders" style={{color:'var(--yapper-green)'}}>Become a Founder</a> for access today — or join the <a href="#waitlist" style={{color:'var(--yapper-green)'}}>waitlist</a> for free access at launch.</p>}
           <div className="pricing-grid two-col">
             <div className="pricing-card reveal">
               <span className="pricing-badge secondary">Great Value</span>
@@ -531,7 +529,8 @@ function LandingPage({giftAutoOpen = false}) {
               {pBtn('Try Free')}
             </div>
           </div>
-          <p className="pricing-ice-note reveal">ICE emergency features included with all active subscriptions, active trials, and Yapper Originals.</p>
+          <p className="pricing-ice-note reveal">ICE emergency features included with all active subscriptions, active trials, and Yapper Founders.</p>
+          <p className="reveal" style={{textAlign:'center',marginTop:'0.75rem',fontSize:'0.8rem',color:'var(--text-muted)',fontFamily:'var(--font-mono)'}}>Subscriptions are billed through Google Play — your local price is shown there. Founders is a one-time €67, charged in EUR.</p>
         </div>
       </section>
 
@@ -548,7 +547,7 @@ function LandingPage({giftAutoOpen = false}) {
                 <div className="gift-painting-credit">by Wilda Vakkilainen, age 5 · 2023</div>
               </div>
             </div>
-            <p style={{color:'var(--text-secondary)',fontSize:'1rem',maxWidth:480,margin:'0 auto 1.5rem',lineHeight:1.7}}>Gift a month of Yapper Pro to someone you care about. Every launch subscriber gets one free gift to share.</p>
+            <p style={{color:'var(--text-secondary)',fontSize:'1rem',maxWidth:480,margin:'0 auto 1.5rem',lineHeight:1.7}}>Gift Yapper to someone you care about — a month, a year, or a lifetime Founder spot. They redeem it in the app once Yapper is live.</p>
             <button className="btn-secondary" onClick={() => setGiftOpen(true)}>Gift Yapper →</button>
           </div>
         </div>
@@ -558,7 +557,7 @@ function LandingPage({giftAutoOpen = false}) {
       <section className="section section-dark" id="mission">
         <div className="section-inner mission-text reveal">
           <div style={{textAlign:'center',marginBottom:'2rem'}}><img src="/institute_logo_cropped.png" alt="Institute for The Study Of Humanity and Maximized Impact" style={{maxWidth:'380px',width:'100%',height:'auto',opacity:0.9}} /></div>
-          <p style={{textAlign:'center',fontSize:'0.95rem',color:'var(--yapper-green)',fontFamily:'var(--font-display)',fontWeight:600,marginBottom:'2rem'}}>We offer a free lifetime Pro access to 55,000 Finnish Type 1 diabetics — a proof of our Institute's mission and integrity.</p>
+          <p style={{textAlign:'center',fontSize:'0.95rem',color:'var(--yapper-green)',fontFamily:'var(--font-display)',fontWeight:600,marginBottom:'2rem'}}>We offer free lifetime access to Yapper Phone for 55,000 Finnish Type 1 diabetics — a proof of our Institute's mission and integrity.</p>
           <p className="mission-body">A substantial portion of all profits from Yapper Phone funds the Institute for The Study Of Humanity and Maximized Impact — a Finnish registered research association. We build and finance our think tank with our own inventions.</p>
           <p className="mission-stats">667+ USPTO patent applications filed February 27, 2026. 34 shipping features. Built by one person using Claude at a total cost of ~€14K.</p>
           <p className="mission-closer">Purpose should pay. Martyrdom kills missions.</p>
@@ -573,13 +572,20 @@ function LandingPage({giftAutoOpen = false}) {
       <section className="section section-dark trust-section">
         <div className="section-inner reveal">
           <h2 className="trust-headline">Your phone call, finally on your terms.</h2>
-          {!cd.launched && <Countdown cd={cd} />}
           <div style={{display:'flex',justifyContent:'center',gap:'1rem',flexWrap:'wrap',alignItems:'center'}}>
-            {cd.launched
-              ? <><a href={PLAY_STORE} className="btn-primary" target="_blank" rel="noopener noreferrer">Try Free for 7 Days</a><a href={SAMSUNG_STORE} className="btn-secondary" target="_blank" rel="noopener noreferrer">Samsung Galaxy Store</a></>
-              : <><a href={PLAY_STORE} className="btn-primary" target="_blank" rel="noopener noreferrer">Pre-register on Google Play</a><a href="#originals" className="btn-secondary">Or get Originals now — €67</a></>}
+            {LAUNCHED
+              ? <a href={PLAY_STORE} className="btn-primary" target="_blank" rel="noopener noreferrer">Try Free for 7 Days</a>
+              : <><a href={FOUNDERS_STRIPE} className="btn-primary" target="_blank" rel="noopener noreferrer">Become a Founder — €67</a><a href={DISCORD} className="btn-secondary" target="_blank" rel="noopener noreferrer">Join the Discord</a></>}
           </div>
-          <p style={{textAlign:'center',marginTop:'0.75rem',fontSize:'0.8rem',color:'var(--text-muted)',fontFamily:'var(--font-mono)'}}>{cd.launched ? '7-day free trial · Cancel anytime · €2.99/month' : 'Launching April 16, 2026 · €2.99/month · 7-day free trial'}</p>
+          <p style={{textAlign:'center',marginTop:'0.75rem',fontSize:'0.8rem',color:'var(--text-muted)',fontFamily:'var(--font-mono)'}}>{LAUNCHED ? '7-day free trial · Cancel anytime · €2.99/month' : 'Not in the app stores yet — Founders get access first. €67 one-time, charged in EUR.'}</p>
+          {!LAUNCHED && (
+            <div id="waitlist" style={{maxWidth:460,margin:'2.25rem auto 0',textAlign:'center'}}>
+              <p style={{fontFamily:'var(--font-display)',fontWeight:700,fontSize:'1.05rem',color:'var(--text-primary)',marginBottom:'0.4rem'}}>Not ready to found? Be first to know.</p>
+              <p style={{color:'var(--text-secondary)',fontSize:'0.9rem',marginBottom:'1rem'}}>Get free access the day Yapper launches — and follow the build along the way.</p>
+              <WaitlistForm />
+              <p style={{marginTop:'0.85rem',fontSize:'0.85rem',color:'var(--text-secondary)'}}>or <a href={DISCORD} target="_blank" rel="noopener noreferrer" style={{color:'var(--yapper-green)'}}>join the Discord →</a></p>
+            </div>
+          )}
           <div className="trust-bar">
             <span className="trust-item">🇫🇮 Built in Finland</span>
             <span className="trust-item">📱 29 languages</span>
@@ -595,11 +601,11 @@ function LandingPage({giftAutoOpen = false}) {
           <div className="footer-brand">
             <div style={{display:'flex',alignItems:'center',gap:'0.5rem',marginBottom:'0.5rem'}}><img src="/yapper_logo.svg" alt="" width="24" height="24" style={{background:'none'}} /><h4 style={{margin:0}}>Yapper Phone</h4></div>
             <p>Health Communications Technology — a category invented by Yapper.</p>
-            <p style={{marginTop:'0.5rem'}}>© 2026 SUPER SINCE BIRTH Tmi</p>
+            <p style={{marginTop:'0.5rem'}}>© 2026 SUPER SINCE BIRTH</p>
           </div>
           <div>
             <h5>Product</h5>
-            <ul className="footer-links"><li><a href="/features">Features</a></li><li><a href="#pricing">Pricing</a></li><li><a href={PLAY_STORE} target="_blank" rel="noopener noreferrer">Google Play</a></li><li><a href={SAMSUNG_STORE} target="_blank" rel="noopener noreferrer">Samsung Galaxy Store</a></li></ul>
+            <ul className="footer-links"><li><a href="/features">Features</a></li><li><a href="#pricing">Pricing</a></li><li><a href={PLAY_STORE} target="_blank" rel="noopener noreferrer">Google Play</a></li></ul>
           </div>
           <div>
             <h5>Community</h5>
@@ -618,10 +624,10 @@ function LandingPage({giftAutoOpen = false}) {
 
       {/* ═══ SMART STICKY CTA ═══ */}
       <div className={`sticky-cta ${stickyCta ? 'active' : ''} ${stickyVisible ? 'visible' : ''}`}>
-        {cd.launched
+        {LAUNCHED
           ? <a href={PLAY_STORE} className="btn-primary" target="_blank" rel="noopener noreferrer">Try Free</a>
-          : <a href="#originals" className="btn-primary">Get Originals — €67</a>}
-        <span className="price-hint">{cd.launched ? '7-day trial · Cancel anytime' : 'Available now'}</span>
+          : <a href="#founders" className="btn-primary">Become a Founder — €67</a>}
+        <span className="price-hint">{LAUNCHED ? '7-day trial · Cancel anytime' : 'Lifetime access · €67'}</span>
       </div>
     </div>
   )

@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react'
 
 const PLAY_STORE = 'https://play.google.com/store/apps/details?id=com.yapperphone.app'
-const SAMSUNG_STORE = 'https://galaxystore.samsung.com/detail/com.yapperphone.app'
-const LAUNCH_DATE = new Date('2026-04-16T09:00:00+03:00')
+
+// Master launch switch — keep in sync with App.jsx. false while in Google Play review.
+const LAUNCHED = false
 
 function Navbar() {
-  const launched = Date.now() >= LAUNCH_DATE.getTime()
+  const launched = LAUNCHED
   return (
     <nav className="navbar scrolled" style={{top:16}} aria-label="Main navigation">
       <a href="/" className="navbar-logo">
@@ -19,7 +20,7 @@ function Navbar() {
       </ul>
       {launched
         ? <a href={PLAY_STORE} className="navbar-cta" target="_blank" rel="noopener noreferrer">Try Free</a>
-        : <a href="/#originals" className="navbar-cta">Get Originals</a>}
+        : <a href="/#founders" className="navbar-cta">Get Yapper</a>}
     </nav>
   )
 }
@@ -31,7 +32,7 @@ function Footer() {
         <div className="footer-brand">
           <div style={{display:'flex',alignItems:'center',gap:'0.5rem',marginBottom:'0.5rem'}}><img src="/yapper_logo.svg" alt="" width="24" height="24" style={{background:'none'}} /><h4 style={{margin:0}}>Yapper Phone</h4></div>
           <p>Health Communications Technology — a category invented by Yapper.</p>
-          <p style={{marginTop:'0.5rem'}}>© 2026 SUPER SINCE BIRTH Tmi</p>
+          <p style={{marginTop:'0.5rem'}}>© 2026 SUPER SINCE BIRTH</p>
         </div>
         <div>
           <h5>Legal</h5>
@@ -72,7 +73,7 @@ function PrivacyPolicy() {
       <p>A small amount of data leaves your device, and only when strictly necessary:</p>
       <ul>
         <li>Your Google account identifier, so your paid subscription follows you across devices and reinstalls</li>
-        <li>Your Stripe payment information, if and when you purchase Yapper Originals or gift a subscription</li>
+        <li>Your Stripe payment information, if and when you purchase Yapper Founders or gift a subscription</li>
         <li>Call-duration negotiation data when both participants of a call use Yapper, so your two devices can agree on a call length</li>
         <li>Crash reports, so we can fix bugs</li>
         <li>Pseudonymous technical identifiers inherent to running Firebase SDKs</li>
@@ -98,7 +99,7 @@ function PrivacyPolicy() {
       <h2>4. Data that is transmitted</h2>
 
       <h3>4.1 Google account identifier</h3>
-      <p>When you start a free trial, subscribe, redeem Yapper Originals, or redeem a promo code, you are asked to sign in with Google. A stable identifier for your Google account, along with the associated email, is transmitted from your device to our backend (Firebase Firestore, operated on Google Cloud) and stored there for a single purpose: tracking whether your account has a paid entitlement. This allows your subscription to follow you when you reinstall the app, change devices, or replace your phone.</p>
+      <p>When you start a free trial, subscribe, redeem Yapper Founders, or redeem a promo code, you are asked to sign in with Google. A stable identifier for your Google account, along with the associated email, is transmitted from your device to our backend (Firebase Firestore, operated on Google Cloud) and stored there for a single purpose: tracking whether your account has a paid entitlement. This allows your subscription to follow you when you reinstall the app, change devices, or replace your phone.</p>
       <p>We do not access your Google Drive, Contacts, Calendar, Photos, or any other Google service. The only scopes requested are <code>profile</code> and <code>email</code>.</p>
       <p><strong>Legal basis:</strong> performance of a contract (GDPR Art. 6(1)(b)) — processing is necessary to provide the paid service you have purchased.</p>
 
@@ -116,7 +117,7 @@ function PrivacyPolicy() {
       <h3>4.3 Firebase Firestore writes</h3>
       <p>Firestore stores only the following records:</p>
       <ul>
-        <li>Entitlement records keyed to your Google account — whether you have an active subscription, Yapper Originals lifetime access, Finnish Type 1 diabetic grant, or promo code entitlement, and the period of validity</li>
+        <li>Entitlement records keyed to your Google account — whether you have an active subscription, Yapper Founders lifetime access, Finnish Type 1 diabetic grant, or promo code entitlement, and the period of validity</li>
         <li>Gift records, when the gift feature launches — who sent a gift to whom and whether it has been redeemed</li>
         <li>Subscription state mirrored from Google Play Billing</li>
         <li>Transient call-duration negotiation data between two Yapper users, keyed to hashed phone numbers (see Section 4.2)</li>
@@ -125,7 +126,7 @@ function PrivacyPolicy() {
       <p><strong>Legal basis:</strong> performance of a contract (GDPR Art. 6(1)(b)).</p>
 
       <h3>4.4 Stripe</h3>
-      <p>If you purchase Yapper Originals (€67 lifetime) or buy Yapper as a gift, your payment information (name, email, card details) is processed by Stripe Payments Europe, Ltd. and Stripe, Inc. We never see your full card number. We receive your email so that we can match your payment to your Google account when you redeem your purchase in the app.</p>
+      <p>If you purchase Yapper Founders (€67 lifetime) or buy Yapper as a gift, your payment information (name, email, card details) is processed by Stripe Payments Europe, Ltd. and Stripe, Inc. We never see your full card number. We receive your email so that we can match your payment to your Google account when you redeem your purchase in the app.</p>
       <p>Stripe's privacy policy: <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer">https://stripe.com/privacy</a></p>
       <p><strong>Legal basis:</strong> performance of a contract (GDPR Art. 6(1)(b)).</p>
 
@@ -152,7 +153,7 @@ function PrivacyPolicy() {
 
       <h2>5. What we do not do</h2>
       <ul>
-        <li><strong>We do not record your phone calls.</strong> The app does not request the <code>RECORD_AUDIO</code> permission for call recording. Under the current Android telephony architecture, call recording is not technically possible in Yapper Phone. A visual "record" button on the in-call screen is non-functional and displays a "Future feature" indicator when tapped.</li>
+        <li><strong>We do not record your phone calls.</strong> The app does not request the <code>RECORD_AUDIO</code> permission.</li>
         <li>We do not collect or transmit voice recordings of any kind.</li>
         <li>We do not use analytics SDKs to track your behavior within the app. Firebase Analytics is not enabled. Firebase Remote Config is not used.</li>
         <li>We do not serve advertising.</li>
@@ -174,7 +175,7 @@ function PrivacyPolicy() {
 
       <h2>8. Data retention</h2>
       <ul>
-        <li><strong>Entitlement records:</strong> retained while you have an active or recently expired subscription, Originals lifetime access, or T1D grant. If you have no valid entitlement for more than 24 months and no payment history, we may delete the record.</li>
+        <li><strong>Entitlement records:</strong> retained while you have an active or recently expired subscription, Founders lifetime access, or T1D grant. If you have no valid entitlement for more than 24 months and no payment history, we may delete the record.</li>
         <li><strong>Gift records (when launched):</strong> retained for 24 months after redemption or expiry.</li>
         <li><strong>Call-duration negotiation data:</strong> transient — typically deleted within minutes of the call ending.</li>
         <li><strong>Stripe payment records:</strong> retained by Stripe according to their policies, and by us only as required by Finnish tax and accounting law (currently 6 years).</li>
@@ -234,21 +235,20 @@ function TermsOfService() {
 
       <h2>1. Who we are</h2>
       <p>Yapper Phone is developed and operated by:</p>
-      <p><strong>SUPER SINCE BIRTH Tmi</strong><br/>Business ID (Y-tunnus): 2461315-1<br/>Aleksis Kiven katu 45 B 21<br/>00520 Helsinki, Finland<br/><a href="mailto:janne@yapperphone.app">janne@yapperphone.app</a></p>
+      <p><strong>SUPER SINCE BIRTH</strong><br/>Business ID (Y-tunnus): 2461315-1<br/>Aleksis Kiven katu 45 B 21<br/>00520 Helsinki, Finland<br/><a href="mailto:janne@yapperphone.app">janne@yapperphone.app</a></p>
 
       <h2>2. The service</h2>
       <p>Yapper Phone is an Android application that replaces your default phone dialer with a time-aware calling system. It includes features such as duration-first calling, bilateral duration negotiation, in-call countdown timers, focus audio, time signals, ICE emergency functions, call notes, and relationship management tools.</p>
-      <p>The app does not record phone calls and does not request microphone permission for call recording. A visual "record" button in the in-call screen is non-functional and displays a "Future feature" indicator when tapped.</p>
 
       <h2>3. Who can use Yapper Phone</h2>
       <p>You must be at least 13 years old to use Yapper Phone. If you are between 13 and the age of majority in your country, you should have the consent of a parent or legal guardian.</p>
-      <p>Yapper Phone is available globally on Android devices running a supported version of the operating system. Subscription, Yapper Originals redemption, and promo code redemption require a Google account.</p>
+      <p>Yapper Phone is available globally on Android devices running a supported version of the operating system. Subscription, Yapper Founders redemption, and promo code redemption require a Google account.</p>
 
       <h2>4. Accounts and identity</h2>
       <p>Yapper Phone uses two identity layers:</p>
       <ul>
         <li><strong>Anonymous local session</strong> — a randomized identifier tied to your app installation. Used to operate features within the app. Not tied to your name or contact details.</li>
-        <li><strong>Google account</strong> — required only when you start a paid subscription, redeem Yapper Originals, or redeem a promo code. Used to anchor your paid entitlement so it follows you across reinstalls and devices.</li>
+        <li><strong>Google account</strong> — required only when you start a paid subscription, redeem Yapper Founders, or redeem a promo code. Used to anchor your paid entitlement so it follows you across reinstalls and devices.</li>
       </ul>
       <p>You are responsible for maintaining the security of your Google account. We cannot restore a paid entitlement to a Google account you no longer control.</p>
 
@@ -259,7 +259,7 @@ function TermsOfService() {
         <li><strong>Monthly:</strong> €2.99 per month, with a 7-day free trial for new subscribers</li>
         <li><strong>Annual:</strong> €19.99 per year, with a 7-day free trial for new subscribers</li>
       </ul>
-      <p>Both plans include the same features: all 34 shipping features, all six call types, and ICE Emergency functionality. There is no lower-tier "free" version of the app. Without an active subscription, free trial, Yapper Originals lifetime access, Finnish Type 1 diabetic grant, or valid promo code, the app does not function as a dialer.</p>
+      <p>Both plans include the same features: all 34 shipping features, all six call types, and ICE Emergency functionality. There is no lower-tier "free" version of the app. Without an active subscription, free trial, Yapper Founders lifetime access, Finnish Type 1 diabetic grant, or valid promo code, the app does not function as a dialer.</p>
 
       <h3>5.2 Free trial</h3>
       <p>New subscribers receive a 7-day free trial. You are not charged during the trial. If you do not cancel before the trial ends, your subscription begins automatically at the price of your selected plan. You can cancel at any time during the trial in your Google Play subscription settings.</p>
@@ -281,8 +281,8 @@ function TermsOfService() {
       <h3>5.5 Price changes</h3>
       <p>We may change subscription prices. Any price change takes effect at your next renewal, and only after we have notified you in advance through the app, by email at the address associated with your Google Play account, or both. You can cancel at any time before a price change takes effect.</p>
 
-      <h2>6. Yapper Originals</h2>
-      <p>Yapper Originals is a one-time lifetime purchase for €67, processed through Stripe, limited to the first 1,000 purchasers globally. It includes:</p>
+      <h2>6. Yapper Founders</h2>
+      <p>Yapper Founders is a one-time lifetime purchase for €67, processed through Stripe, limited to the first 1,000 purchasers globally. It includes:</p>
       <ul>
         <li>Lifetime access to all current and future Yapper Pro features</li>
         <li>Your name permanently displayed on the Founders screen inside the app</li>
@@ -290,16 +290,16 @@ function TermsOfService() {
       </ul>
 
       <h3>6.1 Redemption</h3>
-      <p>After purchase, you redeem your Yapper Originals entitlement by signing into the app with the same Google account you intend to use on your device. If the email used at Stripe checkout does not match a Google account you can sign into, contact <a href="mailto:janne@yapperphone.app">janne@yapperphone.app</a> for manual verification.</p>
+      <p>After purchase, you redeem your Yapper Founders entitlement by signing into the app with the same Google account you intend to use on your device. If the email used at Stripe checkout does not match a Google account you can sign into, contact <a href="mailto:janne@yapperphone.app">janne@yapperphone.app</a> for manual verification.</p>
 
       <h3>6.2 What "lifetime" means</h3>
-      <p>"Lifetime" refers to the operational lifetime of Yapper Phone and its successor products operated by SUPER SINCE BIRTH Tmi or its successors. If the service is permanently discontinued, you are not automatically entitled to a refund, but we will give you advance notice and — where legally required — a reasonable prorated refund.</p>
+      <p>"Lifetime" refers to the operational lifetime of Yapper Phone and its successor products operated by SUPER SINCE BIRTH or its successors. If the service is permanently discontinued, you are not automatically entitled to a refund, but we will give you advance notice and — where legally required — a reasonable prorated refund.</p>
 
-      <h3>6.3 Refunds for Originals</h3>
-      <p>Under the EU Consumer Rights Directive, you have a 14-day right of withdrawal from a Yapper Originals purchase. After 14 days, the purchase is non-refundable. If you request a refund within 14 days and have not yet redeemed your Originals entitlement in the app, you will receive a full refund. If you have redeemed the entitlement, you have begun the service and waived the right of withdrawal.</p>
+      <h3>6.3 Refunds for Founders</h3>
+      <p>Under the EU Consumer Rights Directive, you have a 14-day right of withdrawal from a Yapper Founders purchase. After 14 days, the purchase is non-refundable. If you request a refund within 14 days and have not yet redeemed your Founders entitlement in the app, you will receive a full refund. If you have redeemed the entitlement, you have begun the service and waived the right of withdrawal.</p>
 
       <h3>6.4 Non-transferable</h3>
-      <p>Yapper Originals is tied to one Google account and cannot be transferred, sold, or shared. Attempted transfers may result in termination without refund.</p>
+      <p>Yapper Founders is tied to one Google account and cannot be transferred, sold, or shared. Attempted transfers may result in termination without refund.</p>
 
       <h2>7. Finnish Type 1 diabetic grant program</h2>
       <p>As part of the mission of the Institute for The Study Of Humanity and Maximized Impact ry, free lifetime Yapper Pro access is offered to Finnish residents living with Type 1 diabetes. To apply, email <a href="mailto:janne@yapperphone.app">janne@yapperphone.app</a> with reasonable evidence of diagnosis and Finnish residence. Verification is conducted manually and at our reasonable discretion. Grants are not transferable.</p>
@@ -332,7 +332,7 @@ function TermsOfService() {
       <p>We make no guarantee that ICE features will function in every circumstance. Factors outside our control — including cellular coverage, device state, battery level, recipient availability, and operating system behavior — can prevent calls from being placed or received.</p>
 
       <h2>12. Intellectual property</h2>
-      <p>Yapper Phone, including all code, designs, trademarks, and the name "Yapper," is the property of SUPER SINCE BIRTH Tmi and its successors. 667+ USPTO provisional patent applications covering the technology in Yapper Phone were filed on February 27, 2026.</p>
+      <p>Yapper Phone, including all code, designs, trademarks, and the name "Yapper," is the property of SUPER SINCE BIRTH and its successors. 667+ USPTO provisional patent applications covering the technology in Yapper Phone were filed on February 27, 2026.</p>
       <p>You receive a non-exclusive, non-transferable, revocable license to use the app on your personal devices while you have a valid entitlement. You do not acquire any ownership interest in Yapper Phone or its underlying intellectual property.</p>
 
       <h2>13. Disclaimers</h2>
@@ -340,7 +340,7 @@ function TermsOfService() {
       <p>These disclaimers do not limit any rights you have as a consumer under Finnish or EU law that cannot be disclaimed by contract.</p>
 
       <h2>14. Limitation of liability</h2>
-      <p>To the maximum extent permitted by law, SUPER SINCE BIRTH Tmi is not liable for indirect, incidental, consequential, special, or punitive damages arising from your use of or inability to use Yapper Phone, including loss of profits, loss of data, or business interruption.</p>
+      <p>To the maximum extent permitted by law, SUPER SINCE BIRTH is not liable for indirect, incidental, consequential, special, or punitive damages arising from your use of or inability to use Yapper Phone, including loss of profits, loss of data, or business interruption.</p>
       <p>Our aggregate liability to you for any claim arising from or related to these Terms or Yapper Phone is limited to the greater of (a) the amount you paid us in the 12 months preceding the claim, or (b) €100.</p>
       <p>These limitations do not apply to liability for death, personal injury, fraud, or gross negligence, or to any liability that cannot be limited under Finnish or EU law.</p>
 
@@ -361,7 +361,7 @@ function TermsOfService() {
       <p>If you are a consumer resident in the European Union, you may also use the European Commission's Online Dispute Resolution platform: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr</a>.</p>
 
       <h2>18. Contact</h2>
-      <p><strong>SUPER SINCE BIRTH Tmi</strong><br/>Aleksis Kiven katu 45 B 21<br/>00520 Helsinki, Finland<br/><a href="mailto:janne@yapperphone.app">janne@yapperphone.app</a></p>
+      <p><strong>SUPER SINCE BIRTH</strong><br/>Aleksis Kiven katu 45 B 21<br/>00520 Helsinki, Finland<br/><a href="mailto:janne@yapperphone.app">janne@yapperphone.app</a></p>
     </div>
   )
 }
@@ -372,14 +372,14 @@ function LegalImprint() {
       <h1>Legal Information</h1>
 
       <h2>Service operator</h2>
-      <p><strong>SUPER SINCE BIRTH Tmi</strong><br/>Business ID (Y-tunnus): 2461315-1<br/>Aleksis Kiven katu 45 B 21<br/>00520 Helsinki, Finland</p>
+      <p><strong>SUPER SINCE BIRTH</strong><br/>Business ID (Y-tunnus): 2461315-1<br/>Aleksis Kiven katu 45 B 21<br/>00520 Helsinki, Finland</p>
       <p>Sole proprietor: Janne Mikael Vakkilainen</p>
 
       <h2>Contact</h2>
       <p>General and privacy: <a href="mailto:janne@yapperphone.app">janne@yapperphone.app</a></p>
 
       <h2>Regulatory information</h2>
-      <p>SUPER SINCE BIRTH Tmi is a Finnish sole proprietorship (toiminimi) registered with the Finnish Patent and Registration Office (PRH).</p>
+      <p>SUPER SINCE BIRTH is a Finnish sole proprietorship (toiminimi) registered with the Finnish Patent and Registration Office (PRH).</p>
 
       <h2>Research association</h2>
       <p>Yapper Phone is developed alongside the research mission of the <strong>Institute for The Study Of Humanity and Maximized Impact ry</strong> (Y-tunnus 3564524-7), a Finnish registered research association. A substantial portion of profits from Yapper Phone funds the Institute.</p>

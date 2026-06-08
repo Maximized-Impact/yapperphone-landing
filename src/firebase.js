@@ -15,3 +15,7 @@ const app = initializeApp(firebaseConfig);
 const functions = getFunctions(app);
 
 export const createGiftCheckout = httpsCallable(functions, 'createGiftCheckout');
+
+// Waitlist email capture. Requires a deployed Cloud Function named 'joinWaitlist'
+// (input: { email }). Until it is deployed, the form shows a Discord fallback.
+export const joinWaitlist = httpsCallable(functions, 'joinWaitlist');

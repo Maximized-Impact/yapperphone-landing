@@ -3,9 +3,12 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const PLAY_STORE = 'https://play.google.com/store/apps/details?id=com.yapperphone.app'
-const SAMSUNG_STORE = 'https://galaxystore.samsung.com/detail/com.yapperphone.app'
-const ORIGINALS_STRIPE = 'https://buy.stripe.com/test_cNi9ATdiVcBu0gjfQp8g000'
-const LAUNCH_DATE = new Date('2026-04-16T09:00:00+03:00')
+
+// ⚠️ TEST LINK — REPLACE WITH THE LIVE STRIPE PAYMENT LINK BEFORE DRIVING ANY TRAFFIC.
+const FOUNDERS_STRIPE = 'https://buy.stripe.com/test_cNi9ATdiVcBu0gjfQp8g000'
+
+// Master launch switch — keep in sync with App.jsx. false while in Google Play review.
+const LAUNCHED = false
 
 const SECTIONS = [
   {
@@ -107,7 +110,7 @@ function FeatureCard({title, desc, color}) {
 
 export default function FeaturesPage() {
   const mainRef = useRef(null)
-  const launched = Date.now() >= LAUNCH_DATE.getTime()
+  const launched = LAUNCHED
 
   useEffect(() => {
     // Handle hash anchors (e.g. /features#call-types)
@@ -146,7 +149,7 @@ export default function FeaturesPage() {
         </ul>
         {launched
           ? <a href={PLAY_STORE} className="navbar-cta" target="_blank" rel="noopener noreferrer">Try Free</a>
-          : <a href="/#originals" className="navbar-cta">Get Originals</a>}
+          : <a href="/#founders" className="navbar-cta">Get Yapper</a>}
       </nav>
 
       {/* FEATURES HERO */}
@@ -161,7 +164,7 @@ export default function FeaturesPage() {
           </p>
           {launched
             ? <a href={PLAY_STORE} className="btn-primary reveal" target="_blank" rel="noopener noreferrer">Try Free for 7 Days</a>
-            : <a href="/#originals" className="btn-primary reveal">Get Originals — €67 Lifetime</a>}
+            : <a href={FOUNDERS_STRIPE} className="btn-primary reveal" target="_blank" rel="noopener noreferrer">Become a Founder — €67</a>}
 
           {/* Section jump links */}
           <div className="fp-jump-links reveal">
@@ -244,16 +247,15 @@ export default function FeaturesPage() {
           </h2>
           {launched
             ? <a href={PLAY_STORE} className="btn-primary" target="_blank" rel="noopener noreferrer">Try Free for 7 Days</a>
-            : <a href="/#originals" className="btn-primary">Get Originals — €67 Lifetime</a>}
+            : <a href={FOUNDERS_STRIPE} className="btn-primary" target="_blank" rel="noopener noreferrer">Become a Founder — €67</a>}
           <p style={{marginTop:'1rem',color:'var(--text-muted)',fontFamily:'var(--font-mono)',fontSize:'0.8rem'}}>
             €2.99/month · €19.99/year · 7-day free trial · Cancel anytime
           </p>
           <p style={{marginTop:'0.25rem',color:'var(--text-muted)',fontFamily:'var(--font-mono)',fontSize:'0.8rem'}}>
-            Yapper Originals: €67 lifetime (1,000 spots)
+            Yapper Founders: €67 lifetime (1,000 spots)
           </p>
           <div style={{display:'flex',justifyContent:'center',gap:'1rem',marginTop:'1.5rem',flexWrap:'wrap'}}>
             <a href={PLAY_STORE} target="_blank" rel="noopener noreferrer" style={{color:'var(--text-secondary)',fontSize:'0.85rem'}}>Google Play</a>
-            <a href={SAMSUNG_STORE} target="_blank" rel="noopener noreferrer" style={{color:'var(--text-secondary)',fontSize:'0.85rem'}}>Samsung Galaxy Store</a>
           </div>
         </div>
       </section>
@@ -264,11 +266,11 @@ export default function FeaturesPage() {
           <div className="footer-brand">
             <div style={{display:'flex',alignItems:'center',gap:'0.5rem',marginBottom:'0.5rem'}}><img src="/yapper_logo.svg" alt="" width="24" height="24" style={{background:'none'}} /><h4 style={{margin:0}}>Yapper Phone</h4></div>
             <p>Health Communications Technology — a category invented by Yapper.</p>
-            <p style={{marginTop:'0.5rem'}}>© 2026 SUPER SINCE BIRTH Tmi</p>
+            <p style={{marginTop:'0.5rem'}}>© 2026 SUPER SINCE BIRTH</p>
           </div>
           <div>
             <h5>Product</h5>
-            <ul className="footer-links"><li><a href="/">Home</a></li><li><a href="/#pricing">Pricing</a></li><li><a href={PLAY_STORE} target="_blank" rel="noopener noreferrer">Google Play</a></li><li><a href={SAMSUNG_STORE} target="_blank" rel="noopener noreferrer">Samsung Galaxy Store</a></li></ul>
+            <ul className="footer-links"><li><a href="/">Home</a></li><li><a href="/#pricing">Pricing</a></li><li><a href={PLAY_STORE} target="_blank" rel="noopener noreferrer">Google Play</a></li></ul>
           </div>
           <div>
             <h5>Community</h5>

@@ -710,9 +710,9 @@ function populateFromParams() {
 
   // Set tier display
   const tierLabels = {
-    monthly: `Yapper Pro — ${months} month${parseInt(months) > 1 ? 's' : ''}`,
-    annual: 'Yapper Pro — 12 months',
-    originals: 'Yapper Originals — Lifetime',
+    monthly: `Yapper — ${months} month${parseInt(months) > 1 ? 's' : ''}`,
+    annual: 'Yapper — 12 months',
+    originals: 'Yapper Founders — Lifetime',
   };
   document.getElementById('giftTier').textContent = tierLabels[tier] || tierLabels.annual;
 
