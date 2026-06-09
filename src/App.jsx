@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 // ─── Yapper site v7.1 ───────────────────────────────────────────────
 const PLAY_STORE = 'https://play.google.com/store/apps/details?id=com.yapperphone.app'
-const DISCORD = 'https://discord.gg/yapperphone'
+const DISCORD = 'https://discord.gg/GN37uWKn9k'
 
 // LIVE Stripe Payment Link — Yapper Founders €67 self-purchase (swapped from test 2026-06-08).
 const FOUNDERS_STRIPE = 'https://buy.stripe.com/cNi9ATdiVcBu0gjfQp8g000'

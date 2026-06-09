@@ -274,7 +274,7 @@ export default function FeaturesPage() {
           </div>
           <div>
             <h5>Community</h5>
-            <ul className="footer-links"><li><a href="https://discord.gg/yapperphone" target="_blank" rel="noopener noreferrer">Discord</a></li><li><a href="https://instagram.com/yapperphone" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href="https://tiktok.com/@yapperphone" target="_blank" rel="noopener noreferrer">TikTok</a></li></ul>
+            <ul className="footer-links"><li><a href="https://discord.gg/GN37uWKn9k" target="_blank" rel="noopener noreferrer">Discord</a></li><li><a href="https://instagram.com/yapperphone" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href="https://tiktok.com/@yapperphone" target="_blank" rel="noopener noreferrer">TikTok</a></li></ul>
             <h5 style={{marginTop:'1.5rem'}}>Legal</h5>
             <ul className="footer-links"><li><a href="/privacy">Privacy Policy</a></li><li><a href="/terms">Terms of Service</a></li><li><a href="/legal">Legal Information</a></li></ul>
           </div>
