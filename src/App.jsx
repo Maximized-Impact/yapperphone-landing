@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { createGiftCheckout, joinWaitlist } from './firebase'
+import { createGiftCheckout, joinWaitlist, getFoundersCount } from './firebase'
 import FeaturesPage from './FeaturesPage'
 import LegalPage from './LegalPage'
 
@@ -106,12 +106,17 @@ function CallTypeModal({type, onClose}) {
 function GiftModal({open, onClose}) {
   const [tier, setTier] = useState('annual')
   const [months, setMonths] = useState(1)
-  const [form, setForm] = useState({gifterName:'',gifterEmail:'',recipientName:'',recipientEmail:'',message:''})
+  const [form, setForm] = useState({gifterName:'',gifterEmail:'',recipientName:'',recipientEmail:'',recipientEmailConfirm:'',message:''})
   const [loading, setLoading] = useState(false)
   const monthlyTotal = (2.99 * months).toFixed(2)
 
+  const emailsMatch = form.recipientEmail.trim().length > 0
+    && form.recipientEmail.trim() === form.recipientEmailConfirm.trim()
+  const recipientConfirmMismatch = form.recipientEmailConfirm.trim().length > 0 && !emailsMatch
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (!emailsMatch) return
     setLoading(true)
     try {
       const result = await createGiftCheckout({
@@ -147,7 +152,7 @@ function GiftModal({open, onClose}) {
             <div className="gift-tier-detail">{months} month{months > 1 ? 's' : ''}</div>
             <div className="gift-months-selector">
               {[1,3,6].map(m => (
-                <button key={m} className={`gift-month-btn ${months === m ? 'active' : ''}`} onClick={(e) => { e.stopPropagation(); setMonths(m) }}>{m}mo</button>
+                <button key={m} className={`gift-month-btn ${months === m ? 'active' : ''}`} onClick={(e) => { e.stopPropagation(); setTier('monthly'); setMonths(m) }}>{m}mo</button>
               ))}
             </div>
           </div>
@@ -173,8 +178,29 @@ function GiftModal({open, onClose}) {
             <div className="gift-input-group"><label>{"Recipient's name"}</label><input type="text" required value={form.recipientName} onChange={e => setForm({...form, recipientName: e.target.value})} placeholder="Their name" /></div>
             <div className="gift-input-group"><label>{"Recipient's email"}</label><input type="email" required value={form.recipientEmail} onChange={e => setForm({...form, recipientEmail: e.target.value})} placeholder="them@email.com" /></div>
           </div>
+          <div className="gift-form-row">
+            <div className="gift-input-group" style={{gridColumn:'1 / -1'}}>
+              <label>{"Confirm recipient's email"}</label>
+              <input
+                type="email"
+                required
+                value={form.recipientEmailConfirm}
+                onChange={e => setForm({...form, recipientEmailConfirm: e.target.value})}
+                placeholder="them@email.com"
+                onPaste={e => e.preventDefault()}
+                aria-invalid={recipientConfirmMismatch}
+                style={recipientConfirmMismatch
+                  ? {borderColor:'#E53935',boxShadow:'0 0 0 1px rgba(229,57,53,0.3)'}
+                  : undefined} />
+              {recipientConfirmMismatch && (
+                <p style={{margin:'0.35rem 0 0',fontSize:'0.8rem',color:'#E53935'}}>
+                  Emails don&apos;t match.
+                </p>
+              )}
+            </div>
+          </div>
           <div className="gift-input-group"><label>Personal message (optional)</label><textarea maxLength={200} value={form.message} onChange={e => setForm({...form, message: e.target.value})} placeholder="I found something that helps me with phone calls. I want you to have it too." /></div>
-          <button type="submit" className="btn-primary" style={{width:'100%',justifyContent:'center',border:'none'}} disabled={loading}>
+          <button type="submit" className="btn-primary" style={{width:'100%',justifyContent:'center',border:'none'}} disabled={loading || !emailsMatch}>
             {loading ? 'Preparing checkout...' : `Send Gift${tier === 'monthly' ? ` — €${monthlyTotal}` : tier === 'annual' ? ' — €19.99' : ' — €67'}`}
           </button>
           <p className="gift-redeem-note" style={{marginTop:'1rem',fontSize:'0.8rem',lineHeight:1.6,color:'var(--text-secondary)',textAlign:'center'}}>Your gift is reserved the moment you buy. Your recipient redeems it inside the app — they'll be able to download Yapper and enter their code as soon as it's live on Google Play. We'll email you both the moment it's ready.</p>
@@ -208,6 +234,39 @@ function WaitlistForm() {
       <button type="submit" className="btn-primary" disabled={state === 'loading'} style={{border:'none'}}>{state === 'loading' ? 'Joining…' : 'Notify me'}</button>
       {state === 'error' && <p style={{flexBasis:'100%',fontSize:'0.82rem',color:'var(--text-secondary)',marginTop:'0.3rem'}}>Couldn&apos;t reach the server — please <a href={DISCORD} target="_blank" rel="noopener noreferrer" style={{color:'var(--yapper-green)'}}>join the Discord</a> and we&apos;ll keep you posted.</p>}
     </form>
+  )
+}
+
+function MobileNavDrawer({open, onClose, ctaHref, ctaLabel, ctaExternal}) {
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => { if (e.key === 'Escape') onClose() }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [open, onClose])
+
+  return (
+    <>
+      <div className={`mobile-nav-backdrop ${open ? 'open' : ''}`}
+           onClick={onClose} aria-hidden="true" />
+      <aside id="mobile-nav-drawer"
+             className={`mobile-nav-drawer ${open ? 'open' : ''}`}
+             role="dialog" aria-modal="true" aria-label="Site navigation">
+        <button className="mobile-nav-close" onClick={onClose} aria-label="Close menu">✕</button>
+        <nav className="mobile-nav-links" aria-label="Mobile navigation">
+          <a href="/features" onClick={onClose}>Features</a>
+          <a href="/gift" onClick={onClose}>Gift</a>
+          <a href="/privacy" onClick={onClose}>Privacy</a>
+        </nav>
+        <div className="mobile-nav-cta-wrap">
+          {ctaExternal
+            ? <a href={ctaHref} className="btn-primary mobile-nav-cta"
+                 target="_blank" rel="noopener noreferrer" onClick={onClose}>{ctaLabel}</a>
+            : <a href={ctaHref} className="btn-primary mobile-nav-cta"
+                 onClick={onClose}>{ctaLabel}</a>}
+        </div>
+      </aside>
+    </>
   )
 }
 
@@ -248,8 +307,18 @@ function LandingPage({giftAutoOpen = false}) {
   const [lightboxSrc, setLightboxSrc] = useState(null)
   const [activeCallType, setActiveCallType] = useState(null)
   const [giftOpen, setGiftOpen] = useState(giftAutoOpen)
+  const [foundersCount, setFoundersCount] = useState(null)
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
   const mainRef = useRef(null)
   const scrollTimer = useRef(null)
+
+  useEffect(() => {
+    let cancelled = false
+    getFoundersCount().then(c => { if (!cancelled) setFoundersCount(c) })
+    return () => { cancelled = true }
+  }, [])
+
+  const nextFounderNumber = foundersCount != null ? foundersCount + 1 : null
 
   const handleScroll = useCallback(() => {
     const y = window.scrollY
@@ -297,6 +366,11 @@ function LandingPage({giftAutoOpen = false}) {
       <a href={FOUNDERS_STRIPE} className="btn-primary" target="_blank" rel="noopener noreferrer">Become a Founder — €67</a>
       <a href={DISCORD} className="secondary-link" target="_blank" rel="noopener noreferrer">Join the Discord →</a>
       <span className="micro-text">Not in the app stores yet — Founders get access first.</span>
+      {nextFounderNumber != null && (
+        <span className="micro-text" style={{marginTop:'0.25rem',color:'var(--yapper-green)',fontWeight:600}}>
+          Be Founder #{nextFounderNumber} — only 1,000 ever
+        </span>
+      )}
     </>
   )
 
@@ -316,7 +390,11 @@ function LandingPage({giftAutoOpen = false}) {
 
       {/* ═══ ORIGINALS BANNER ═══ */}
       <div className={`originals-banner ${bannerVisible ? '' : 'hidden'}`} role="banner">
-        <span>🟢 YAPPER FOUNDERS — First 1,000. Lifetime access. €67.{!LAUNCHED && ' Now.'}</span>
+        <span>
+          🟢 YAPPER FOUNDERS — {nextFounderNumber != null
+            ? `be #${nextFounderNumber} of the first 1,000 · Lifetime €67`
+            : 'First 1,000. Lifetime access. €67.'}{!LAUNCHED && ' Now.'}
+        </span>
         <a href="#founders">Learn More ↓</a>
       </div>
 
@@ -334,7 +412,23 @@ function LandingPage({giftAutoOpen = false}) {
         {LAUNCHED
           ? <a href={PLAY_STORE} className="navbar-cta" target="_blank" rel="noopener noreferrer">Try Free</a>
           : <a href="#founders" className="navbar-cta">Get Yapper</a>}
+        <button
+          type="button"
+          className="navbar-hamburger"
+          aria-label="Open menu"
+          aria-expanded={mobileNavOpen}
+          aria-controls="mobile-nav-drawer"
+          onClick={() => setMobileNavOpen(true)}>
+          <span /><span /><span />
+        </button>
       </nav>
+      <MobileNavDrawer
+        open={mobileNavOpen}
+        onClose={() => setMobileNavOpen(false)}
+        ctaHref={LAUNCHED ? PLAY_STORE : '#founders'}
+        ctaLabel={LAUNCHED ? 'Try Free' : 'Get Yapper'}
+        ctaExternal={LAUNCHED}
+      />
 
       {/* ═══ 1. HERO ═══ */}
       <div className="hero-wrapper">
@@ -493,6 +587,18 @@ function LandingPage({giftAutoOpen = false}) {
             <h2>Yapper Founders</h2>
             <p className="originals-subtitle">The Founding 1,000</p>
             <p className="originals-price">€67 <span>one-time</span></p>
+            {nextFounderNumber != null && (
+              <p style={{
+                margin:'0.5rem 0 1rem',
+                fontFamily:'var(--font-mono)',
+                fontSize:'0.85rem',
+                color:'var(--yapper-green)',
+                fontWeight:600,
+                letterSpacing:'0.04em'
+              }}>
+                Be Founder #{nextFounderNumber} of 1,000
+              </p>
+            )}
             <p className="originals-desc">This is for the people who see what Yapper Phone is before the world catches up. The ones who know that phone calls needed this twenty years ago. The founding members who make the mission real.</p>
             <ul className="originals-perks">
               <li>Lifetime access — every feature, every update, forever</li>

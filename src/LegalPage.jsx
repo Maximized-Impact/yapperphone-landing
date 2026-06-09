@@ -284,7 +284,7 @@ function TermsOfService() {
       <h2>6. Yapper Founders</h2>
       <p>Yapper Founders is a one-time lifetime purchase for €67, processed through Stripe, limited to the first 1,000 purchasers globally. It includes:</p>
       <ul>
-        <li>Lifetime access to all current and future Yapper Pro features</li>
+        <li>Lifetime access to all current and future Yapper Phone features</li>
         <li>Your name permanently displayed on the Founders screen inside the app</li>
         <li>Early access to new features before public release</li>
       </ul>
@@ -302,13 +302,13 @@ function TermsOfService() {
       <p>Yapper Founders is tied to one Google account and cannot be transferred, sold, or shared. Attempted transfers may result in termination without refund.</p>
 
       <h2>7. Finnish Type 1 diabetic grant program</h2>
-      <p>As part of the mission of the Institute for The Study Of Humanity and Maximized Impact ry, free lifetime Yapper Pro access is offered to Finnish residents living with Type 1 diabetes. To apply, email <a href="mailto:janne@yapperphone.app">janne@yapperphone.app</a> with reasonable evidence of diagnosis and Finnish residence. Verification is conducted manually and at our reasonable discretion. Grants are not transferable.</p>
+      <p>As part of the mission of the Institute for The Study Of Humanity and Maximized Impact ry, free lifetime Yapper Phone access is offered to Finnish residents living with Type 1 diabetes. To apply, email <a href="mailto:janne@yapperphone.app">janne@yapperphone.app</a> with reasonable evidence of diagnosis and Finnish residence. Verification is conducted manually and at our reasonable discretion. Grants are not transferable.</p>
 
       <h2>8. Gifts (planned feature)</h2>
-      <p>A gift mechanic is planned for a future release. When it launches, each paying subscriber will be able to gift one free month of Yapper Pro to another person. Further details — eligibility, redemption, and terms — will be published when the feature ships and these Terms will be updated accordingly.</p>
+      <p>A gift mechanic is planned for a future release. When it launches, each paying subscriber will be able to gift one free month of Yapper Phone to another person. Further details — eligibility, redemption, and terms — will be published when the feature ships and these Terms will be updated accordingly.</p>
 
       <h2>9. Promo codes</h2>
-      <p>We may from time to time distribute promo codes that grant temporary Yapper Pro entitlement (typically 30 days). Promo codes:</p>
+      <p>We may from time to time distribute promo codes that grant temporary Yapper Phone entitlement (typically 30 days). Promo codes:</p>
       <ul>
         <li>Are limited to one per Google account</li>
         <li>Are not transferable or sellable</li>

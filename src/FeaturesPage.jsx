@@ -4,8 +4,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const PLAY_STORE = 'https://play.google.com/store/apps/details?id=com.yapperphone.app'
 
-// ⚠️ TEST LINK — REPLACE WITH THE LIVE STRIPE PAYMENT LINK BEFORE DRIVING ANY TRAFFIC.
-const FOUNDERS_STRIPE = 'https://buy.stripe.com/test_cNi9ATdiVcBu0gjfQp8g000'
+// LIVE Stripe Payment Link — Yapper Founders €67 self-purchase (kept in sync with App.jsx:15).
+const FOUNDERS_STRIPE = 'https://buy.stripe.com/cNi9ATdiVcBu0gjfQp8g000'
 
 // Master launch switch — keep in sync with App.jsx. false while in Google Play review.
 const LAUNCHED = false
