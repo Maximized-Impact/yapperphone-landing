@@ -2178,3 +2178,18 @@ body {
   .mobile-nav-backdrop,
   .mobile-nav-drawer { transition: none; }
 }
+
+/* ═══ Hero centering on desktop wide (v7.3.2) ═══
+   Fires only at >768px. Mobile/tablet centering at ≤768px is unchanged
+   (handled by .hero-content { text-align: center } at line 314).
+   Touches alignment only — no vertical margin/padding/gap changes. */
+@media (min-width: 769px) {
+  .hero-text { text-align: center; }
+  .hero-sub { margin-left: auto; margin-right: auto; }
+}
+
+/* ═══ Anchor scroll offset for #waitlist jump (v7.3.2) ═══
+   Pricing-card "Start free when we launch" buttons href="#waitlist".
+   Without this, the navbar overlaps "Not ready to found? Be first to know."
+   on jump. */
+#waitlist { scroll-margin-top: 7rem; }
