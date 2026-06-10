@@ -681,7 +681,7 @@ function LandingPage({giftAutoOpen = false}) {
       <FAQAccordion />
 
       {/* ═══ 14. FINAL CTA + TRUST BAR ═══ */}
-      <section className="section section-dark trust-section">
+      <section id="waitlist" className="section section-dark trust-section">
         <div className="section-inner reveal">
           <h2 className="trust-headline">Your phone call, finally on your terms.</h2>
           <div style={{display:'flex',justifyContent:'center',gap:'1rem',flexWrap:'wrap',alignItems:'center'}}>
@@ -691,7 +691,7 @@ function LandingPage({giftAutoOpen = false}) {
           </div>
           <p style={{textAlign:'center',marginTop:'0.75rem',fontSize:'0.8rem',color:'var(--text-muted)',fontFamily:'var(--font-mono)'}}>{LAUNCHED ? '7-day free trial · Cancel anytime · €2.99/month' : 'Not in the app stores yet — Founders get access first. €67 one-time, charged in EUR.'}</p>
           {!LAUNCHED && (
-            <div id="waitlist" style={{maxWidth:460,margin:'2.25rem auto 0',textAlign:'center'}}>
+            <div style={{maxWidth:460,margin:'2.25rem auto 0',textAlign:'center'}}>
               <p style={{fontFamily:'var(--font-display)',fontWeight:700,fontSize:'1.05rem',color:'var(--text-primary)',marginBottom:'0.4rem'}}>Not ready to found? Be first to know.</p>
               <p style={{color:'var(--text-secondary)',fontSize:'0.9rem',marginBottom:'1rem'}}>Get free access the day Yapper launches — and follow the build along the way.</p>
               <WaitlistForm />

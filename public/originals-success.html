@@ -403,6 +403,122 @@ body {
   0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
   100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
 }
+
+/* ═══ HERO FINALIZING / LANDING STATES (v7.4) ═══ */
+.member-number.is-finalizing {
+  font-size: clamp(48px, 11vw, 88px);
+  letter-spacing: 0.3em;
+  animation: pulse-finalizing 1.6s ease-in-out infinite;
+}
+@keyframes pulse-finalizing {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 0.85; }
+}
+.member-number.is-landing {
+  animation: scale-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.member-neutral-message {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 10px auto 0;
+  max-width: 360px;
+  line-height: 1.5;
+}
+
+/* ═══ EARLY-ACCESS CAPTURE CARD (v7.4) ═══ */
+.capture-card {
+  background: var(--bg-card);
+  border: 1px solid var(--bg-card-border);
+  border-radius: 16px;
+  padding: 28px 28px 24px;
+  text-align: left;
+  margin-bottom: 32px;
+  animation: fade-in 0.8s ease-out 1.0s both;
+  position: relative;
+  overflow: hidden;
+}
+.capture-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--yapper-green), transparent);
+  opacity: 0.5;
+}
+.capture-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--yapper-green);
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+.capture-body {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+}
+.capture-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.capture-form input[type="email"] {
+  flex: 1 1 220px;
+  min-width: 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--bg-card-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.capture-form input[type="email"]:focus {
+  border-color: var(--yapper-green);
+}
+.capture-form button {
+  flex: 0 0 auto;
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: 0;
+  background: var(--yapper-green);
+  color: #000;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+.capture-form button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 24px var(--yapper-green-glow);
+}
+.capture-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+.capture-confirm {
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--yapper-green);
+  margin-top: 4px;
+}
+.capture-error {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: #ff6b6b;
+  margin-top: 10px;
+}
 </style>
 </head>
 <body>
@@ -426,8 +542,9 @@ body {
   <!-- Member number -->
   <div class="member-number-wrap">
     <div class="member-label">Founding Member</div>
-    <div class="member-number" id="memberNum">#47</div>
-    <div class="member-of">of 1,000</div>
+    <div class="member-number is-finalizing" id="memberNum">· · ·</div>
+    <div class="member-of" id="memberOf" hidden>of 1,000</div>
+    <p class="member-neutral-message" id="memberNeutralMessage" hidden></p>
   </div>
 
   <!-- Congratulations -->
@@ -463,18 +580,36 @@ body {
     <div class="spots-section">
       <div class="spots-label">
         <span>Spots claimed</span>
-        <strong id="spotsClaimed">47 / 1,000</strong>
+        <strong id="spotsClaimed">—</strong>
       </div>
       <div class="progress-bar">
-        <div class="progress-fill" id="progressFill" style="width: 4.7%"></div>
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
       </div>
     </div>
   </div>
 
-  <!-- CTA -->
+  <!-- Early-access capture (v7.4) — appears only when session_id is present -->
+  <div class="capture-card" id="captureCard" hidden>
+    <div class="capture-title">Get the app before launch</div>
+    <p class="capture-body">
+      Enter the Google account signed in on your Android phone
+      (Settings → Accounts). That is the address we add to early access —
+      it can differ from the email you paid with. We will add you within
+      a day or two.
+    </p>
+    <form id="captureForm" class="capture-form" autocomplete="off">
+      <input type="email" id="googleEmail" name="googleEmail"
+             placeholder="your.android.account@gmail.com" required
+             autocomplete="email" inputmode="email" />
+      <button type="submit" id="captureSubmit">Claim early access</button>
+    </form>
+    <p class="capture-error" id="captureError" hidden></p>
+  </div>
+
+  <!-- CTA — hidden initially when session_id present, revealed after capture -->
   <div class="cta-area">
-    <!-- ⚠️ REPLACE href with your Google Play testing-track OPT-IN link so Founders can install before public launch. After LAUNCH, switch to the public listing: https://play.google.com/store/apps/details?id=com.yapperphone.app -->
-    <a href="REPLACE_WITH_TESTING_OPT_IN_LINK" class="btn-download" target="_blank" rel="noopener noreferrer">
+    <!-- After public LAUNCH, switch to the public listing: https://play.google.com/store/apps/details?id=com.yapperphone.app -->
+    <a href="https://play.google.com/apps/internaltest/4701702603647560560" class="btn-download" target="_blank" rel="noopener noreferrer">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
       Get your early access
     </a>
@@ -553,26 +688,186 @@ function createParticles() {
   }
 }
 
-// ═══ DYNAMIC NUMBER (replace with Firestore read in production) ═══
-function setMemberNumber(num, total) {
-  document.getElementById('memberNum').textContent = `#${num}`;
-  document.getElementById('spotsClaimed').textContent = `${num} / ${total.toLocaleString()}`;
-  const pct = (num / total) * 100;
-  document.getElementById('progressFill').style.width = `${pct}%`;
+// ═══ SPOTS + PROGRESS — public counter REST (decoupled from hero) ═══
+const FIRESTORE_REST = 'https://firestore.googleapis.com/v1/projects/org-maximpact-yapper/databases/(default)/documents/counters/originals?key=AIzaSyBIBwEbzAQ2Y9awNZLYqRCA7iGquwIkuf8';
+
+async function loadFoundersCount() {
+  try {
+    const res = await fetch(FIRESTORE_REST);
+    if (!res.ok) throw new Error('rest_failed');
+    const data = await res.json();
+    const raw = data?.fields?.count?.integerValue;
+    const n = raw != null ? parseInt(raw, 10) : NaN;
+    if (!Number.isFinite(n) || n < 0) throw new Error('invalid_count');
+    applySpotsAndProgress(n, 1000);
+  } catch (err) {
+    console.warn('Founders count read failed:', err);
+    applySpotsFallback();
+  }
+}
+
+function applySpotsAndProgress(num, total) {
+  // Drives ONLY #spotsClaimed + #progressFill. Hero is owned by resolveFounderNumber.
+  const spots = document.getElementById('spotsClaimed');
+  if (spots) spots.textContent = `${num} / ${total.toLocaleString()}`;
+  const pct = Math.max(0, Math.min(100, (num / total) * 100));
+  const fill = document.getElementById('progressFill');
+  if (fill) fill.style.width = `${pct}%`;
+}
+
+function applySpotsFallback() {
+  // Counter unreachable — spots/progress neutral. Hero untouched. NEVER #47.
+  const spots = document.getElementById('spotsClaimed');
+  if (spots) spots.textContent = '—';
+  const fill = document.getElementById('progressFill');
+  if (fill) fill.style.width = '0%';
+}
+
+// ═══ PER-BUYER HERO NUMBER — getFounderNumber poll ═══
+const NUMBER_FN_URL = 'https://us-central1-org-maximpact-yapper.cloudfunctions.net/getFounderNumber';
+
+function resolveFounderNumber(sessionId) {
+  let attempts = 0;
+  const MAX_NOT_YET_ATTEMPTS = 15;  // ~30s at 2s interval
+  const MAX_ERROR_RETRIES = 3;
+  let errorRetries = 0;
+
+  const tick = async () => {
+    try {
+      const res = await fetch(NUMBER_FN_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ session_id: sessionId }),
+      });
+      if (!res.ok) throw new Error('http_' + res.status);
+      const data = await res.json();
+
+      if (data.status === 'ready' && typeof data.number === 'number') {
+        showFounderNumber(data.number);
+        return;
+      }
+      if (data.status === 'pending' && data.reason === 'unpaid') {
+        // Async payment still in flight; polling won't help.
+        applyNeutralHero('Your Founder number arrives by email the moment your payment clears.');
+        return;
+      }
+      // not_yet_written — keep polling
+      attempts += 1;
+      if (attempts >= MAX_NOT_YET_ATTEMPTS) {
+        applyNeutralHero('Your Founder number is on its way to your inbox.');
+        return;
+      }
+      setTimeout(tick, 2000);
+    } catch (err) {
+      console.warn('getFounderNumber error:', err);
+      errorRetries += 1;
+      if (errorRetries >= MAX_ERROR_RETRIES) {
+        applyNeutralHero('Your Founder number is on its way to your inbox.');
+        return;
+      }
+      setTimeout(tick, 2000);
+    }
+  };
+
+  tick();
+}
+
+function showFounderNumber(n) {
+  const memberNum = document.getElementById('memberNum');
+  const memberOf = document.getElementById('memberOf');
+  const neutral = document.getElementById('memberNeutralMessage');
+  if (!memberNum) return;
+  memberNum.classList.remove('is-finalizing');
+  memberNum.textContent = `#${n}`;
+  // Re-trigger landing animation: remove + force reflow + add
+  memberNum.classList.remove('is-landing');
+  void memberNum.offsetWidth;
+  memberNum.classList.add('is-landing');
+  if (memberOf) memberOf.hidden = false;
+  if (neutral) neutral.hidden = true;
+}
+
+function applyNeutralHero(message) {
+  const memberNum = document.getElementById('memberNum');
+  const memberOf = document.getElementById('memberOf');
+  const neutral = document.getElementById('memberNeutralMessage');
+  if (memberNum) {
+    memberNum.classList.remove('is-finalizing', 'is-landing');
+    memberNum.style.display = 'none';
+  }
+  if (memberOf) memberOf.hidden = true;
+  if (neutral && message) {
+    neutral.textContent = message;
+    neutral.hidden = false;
+  }
+}
+
+// ═══ EARLY-ACCESS CAPTURE — saveFounderTestingEmail POST ═══
+const CAPTURE_FN_URL = 'https://us-central1-org-maximpact-yapper.cloudfunctions.net/saveFounderTestingEmail';
+
+function initCapture(sessionId) {
+  const card = document.getElementById('captureCard');
+  const ctaArea = document.querySelector('.cta-area');
+  if (!sessionId) {
+    // Direct visit — leave capture hidden, CTA visible
+    return;
+  }
+  card.hidden = false;
+  if (ctaArea) ctaArea.style.display = 'none';
+
+  const form = document.getElementById('captureForm');
+  const input = document.getElementById('googleEmail');
+  const btn = document.getElementById('captureSubmit');
+  const errEl = document.getElementById('captureError');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = input.value.trim();
+    if (!email) return;
+    btn.disabled = true;
+    btn.textContent = 'Saving…';
+    errEl.hidden = true;
+    try {
+      const res = await fetch(CAPTURE_FN_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ session_id: sessionId, google_email: email }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || 'Server error');
+      }
+      form.innerHTML = '<p class="capture-confirm">✓ Saved. We will add you to early access within a day or two — keep an eye on your inbox.</p>';
+      if (ctaArea) ctaArea.style.display = '';
+    } catch (err) {
+      console.warn('Capture failed:', err);
+      errEl.textContent = "Couldn't save — please try again. If it keeps failing, message us on Discord.";
+      errEl.hidden = false;
+      btn.disabled = false;
+      btn.textContent = 'Claim early access';
+    }
+  });
 }
 
 // ═══ INIT ═══
 window.addEventListener('load', () => {
   createConfetti();
   createParticles();
-  
-  // In production, read from Firestore:
-  // const doc = await getDoc(doc(db, 'counters', 'originals'));
-  // const num = doc.data().count;
-  // setMemberNumber(num, 1000);
-  
-  // For now, placeholder:
-  setMemberNumber(47, 1000);
+
+  const sessionId = new URLSearchParams(location.search).get('session_id');
+
+  // Hero: resolve real per-buyer number when session_id present; neutral otherwise.
+  if (sessionId) {
+    resolveFounderNumber(sessionId);
+  } else {
+    applyNeutralHero();  // no message — direct visit, just label
+  }
+
+  // Spots + progress: independent public counter REST read, always.
+  loadFoundersCount();
+
+  // Capture form: only when session_id present.
+  initCapture(sessionId);
 });
 </script>
 
