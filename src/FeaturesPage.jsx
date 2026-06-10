@@ -145,6 +145,7 @@ export default function FeaturesPage() {
         <ul className="navbar-links">
           <li><a href="/">Home</a></li>
           <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/gift">Gift</a></li>
           <li><a href="/#mission">Mission</a></li>
         </ul>
         {launched

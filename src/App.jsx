@@ -363,14 +363,14 @@ function LandingPage({giftAutoOpen = false}) {
     </>
   ) : (
     <>
-      <a href={FOUNDERS_STRIPE} className="btn-primary" target="_blank" rel="noopener noreferrer">Become a Founder — €67</a>
-      <a href={DISCORD} className="secondary-link" target="_blank" rel="noopener noreferrer">Join the Discord →</a>
       <span className="micro-text">Not in the app stores yet — Founders get access first.</span>
       {nextFounderNumber != null && (
         <span className="micro-text" style={{marginTop:'0.25rem',color:'var(--yapper-green)',fontWeight:600}}>
           Be Founder #{nextFounderNumber} — only 1,000 ever
         </span>
       )}
+      <a href="#founders" className="btn-primary">Become a Founder — €67</a>
+      <a href={DISCORD} className="secondary-link" target="_blank" rel="noopener noreferrer">Join the Discord →</a>
     </>
   )
 
@@ -407,6 +407,12 @@ function LandingPage({giftAutoOpen = false}) {
         <ul className="navbar-links">
           <li><a href="/features">Features</a></li>
           <li><a href="#pricing">Pricing</a></li>
+          <li>
+            <a href="/gift"
+               onClick={(e) => { e.preventDefault(); setGiftOpen(true) }}>
+              Gift
+            </a>
+          </li>
           <li><a href="#mission">Mission</a></li>
         </ul>
         {LAUNCHED
