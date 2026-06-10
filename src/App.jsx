@@ -203,7 +203,7 @@ function GiftModal({open, onClose}) {
           <button type="submit" className="btn-primary" style={{width:'100%',justifyContent:'center',border:'none'}} disabled={loading || !emailsMatch}>
             {loading ? 'Preparing checkout...' : `Send Gift${tier === 'monthly' ? ` — €${monthlyTotal}` : tier === 'annual' ? ' — €19.99' : ' — €67'}`}
           </button>
-          <p className="gift-redeem-note" style={{marginTop:'1rem',fontSize:'0.8rem',lineHeight:1.6,color:'var(--text-secondary)',textAlign:'center'}}>Your gift is reserved the moment you buy. Your recipient redeems it inside the app — they'll be able to download Yapper and enter their code as soon as it's live on Google Play. We'll email you both the moment it's ready.</p>
+          <p className="gift-redeem-note" style={{marginTop:'1rem',fontSize:'0.8rem',lineHeight:1.6,color:'var(--text-secondary)',textAlign:'center'}}>Your gift is reserved the moment you buy. We&apos;ll email both of you the moment Yapper is available — with the recipient&apos;s redemption code and clear install instructions.</p>
           <div className="gift-trust"><span>🔒 Secure payment via Stripe</span><span>📨 Gift code emailed instantly</span><span>🇫🇮 Built in Finland</span></div>
         </form>
       </div>
@@ -717,7 +717,7 @@ function LandingPage({giftAutoOpen = false}) {
           </div>
           <div>
             <h5>Product</h5>
-            <ul className="footer-links"><li><a href="/features">Features</a></li><li><a href="#pricing">Pricing</a></li><li><a href={PLAY_STORE} target="_blank" rel="noopener noreferrer">Google Play</a></li></ul>
+            <ul className="footer-links"><li><a href="/features">Features</a></li><li><a href="#pricing">Pricing</a></li></ul>
           </div>
           <div>
             <h5>Community</h5>
