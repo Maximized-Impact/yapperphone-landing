@@ -590,28 +590,28 @@ body {
 
   <!-- Early-access capture (v7.4) — appears only when session_id is present -->
   <div class="capture-card" id="captureCard" hidden>
-    <div class="capture-title">Get the app before launch</div>
+    <div class="capture-title">Register your Google account</div>
     <p class="capture-body">
       Enter the Google account signed in on your Android phone
-      (Settings → Accounts). That is the address we add to early access —
-      it can differ from the email you paid with. We will add you within
-      a day or two.
+      (Settings → Accounts). We register this with your Founder slot so
+      we can verify membership later — it can differ from the email you
+      paid with. After registering you'll get the install link.
     </p>
     <form id="captureForm" class="capture-form" autocomplete="off">
       <input type="email" id="googleEmail" name="googleEmail"
              placeholder="your.android.account@gmail.com" required
              autocomplete="email" inputmode="email" />
-      <button type="submit" id="captureSubmit">Claim early access</button>
+      <button type="submit" id="captureSubmit">Register and install</button>
     </form>
     <p class="capture-error" id="captureError" hidden></p>
   </div>
 
   <!-- CTA — hidden initially when session_id present, revealed after capture -->
   <div class="cta-area">
-    <!-- After public LAUNCH, switch to the public listing: https://play.google.com/store/apps/details?id=com.yapperphone.app -->
-    <a href="https://play.google.com/apps/internaltest/4701702603647560560" class="btn-download" target="_blank" rel="noopener noreferrer">
+    <!-- Live on Google Play. Internal-testing fallback (if production listing is ever pulled): https://play.google.com/apps/internaltest/4701702603647560560 -->
+    <a href="https://play.google.com/store/apps/details?id=com.yapperphone.app" class="btn-download" target="_blank" rel="noopener noreferrer">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
-      Get your early access
+      Install Yapper from Google Play
     </a>
   </div>
 
@@ -837,7 +837,7 @@ function initCapture(sessionId) {
       if (!res.ok || !data.ok) {
         throw new Error(data.error || 'Server error');
       }
-      form.innerHTML = '<p class="capture-confirm">✓ Saved. We will add you to early access within a day or two — keep an eye on your inbox.</p>';
+      form.innerHTML = '<p class="capture-confirm">✓ Registered. Install from Google Play below.</p>';
       if (ctaArea) ctaArea.style.display = '';
     } catch (err) {
       console.warn('Capture failed:', err);

@@ -14,9 +14,11 @@ const DISCORD = 'https://discord.gg/GN37uWKn9k'
 // LIVE Stripe Payment Link — Yapper Founders €67 self-purchase (swapped from test 2026-06-08).
 const FOUNDERS_STRIPE = 'https://buy.stripe.com/cNi9ATdiVcBu0gjfQp8g000'
 
-// Master launch switch. Keep false while the app is in Google Play review.
-// Flip to true the moment it is approved — this restores every store + free-trial CTA.
-const LAUNCHED = false
+// Master launch switch. true = app live on Google Play.
+// The hero, final-CTA section, and banner still show Founders alongside the Play Store CTA
+// — dual-state launch window while the 1,000-cap Founders is selling.
+// When Founders sells out, drop the Founders pieces from heroCta + final-CTA + banner.
+const LAUNCHED = true
 
 const characters = [
   'yapper-bud','yapper-jade','yapper-sam','yapper-nami',
@@ -358,8 +360,15 @@ function LandingPage({giftAutoOpen = false}) {
 
   const heroCta = LAUNCHED ? (
     <>
-      <a href={PLAY_STORE} className="btn-primary" target="_blank" rel="noopener noreferrer">Try Free for 7 Days</a>
-      <span className="micro-text">7-day free trial · Cancel anytime · €2.99/month</span>
+      {nextFounderNumber != null && (
+        <span className="micro-text" style={{marginTop:'0.25rem',color:'var(--yapper-green)',fontWeight:600}}>
+          Be Founder #{nextFounderNumber} — only 1,000 ever
+        </span>
+      )}
+      <a href="#founders" className="btn-primary">Become a Founder — €67</a>
+      <a href={PLAY_STORE} className="btn-secondary" target="_blank" rel="noopener noreferrer">Try Free for 7 Days</a>
+      <span className="micro-text">Or start a free 7-day trial on Google Play · From €2.99/month or €19.99/year · Coming soon to Samsung Galaxy Store</span>
+      <a href={DISCORD} className="secondary-link" target="_blank" rel="noopener noreferrer">Join the Discord →</a>
     </>
   ) : (
     <>
@@ -393,7 +402,7 @@ function LandingPage({giftAutoOpen = false}) {
         <span>
           🟢 YAPPER FOUNDERS — {nextFounderNumber != null
             ? `be #${nextFounderNumber} of the first 1,000 · Lifetime €67`
-            : 'First 1,000. Lifetime access. €67.'}{!LAUNCHED && ' Now.'}
+            : 'First 1,000. Lifetime access. €67.'}{LAUNCHED ? ' · Live on Google Play now' : ' Now.'}
         </span>
         <a href="#founders">Learn More ↓</a>
       </div>
@@ -686,10 +695,10 @@ function LandingPage({giftAutoOpen = false}) {
           <h2 className="trust-headline">Your phone call, finally on your terms.</h2>
           <div style={{display:'flex',justifyContent:'center',gap:'1rem',flexWrap:'wrap',alignItems:'center'}}>
             {LAUNCHED
-              ? <a href={PLAY_STORE} className="btn-primary" target="_blank" rel="noopener noreferrer">Try Free for 7 Days</a>
+              ? <><a href="#founders" className="btn-primary">Become a Founder — €67</a><a href={PLAY_STORE} className="btn-secondary" target="_blank" rel="noopener noreferrer">Try Free for 7 Days</a></>
               : <><a href={FOUNDERS_STRIPE} className="btn-primary" target="_blank" rel="noopener noreferrer">Become a Founder — €67</a><a href={DISCORD} className="btn-secondary" target="_blank" rel="noopener noreferrer">Join the Discord</a></>}
           </div>
-          <p style={{textAlign:'center',marginTop:'0.75rem',fontSize:'0.8rem',color:'var(--text-muted)',fontFamily:'var(--font-mono)'}}>{LAUNCHED ? '7-day free trial · Cancel anytime · €2.99/month' : 'Not in the app stores yet — Founders get access first. €67 one-time, charged in EUR.'}</p>
+          <p style={{textAlign:'center',marginTop:'0.75rem',fontSize:'0.8rem',color:'var(--text-muted)',fontFamily:'var(--font-mono)'}}>{LAUNCHED ? 'Free 7-day trial · Cancel anytime · From €2.99/month or €19.99/year — or become a Founder for €67 lifetime · Coming soon to Samsung Galaxy Store' : 'Not in the app stores yet — Founders get access first. €67 one-time, charged in EUR.'}</p>
           {!LAUNCHED && (
             <div style={{maxWidth:460,margin:'2.25rem auto 0',textAlign:'center'}}>
               <p style={{fontFamily:'var(--font-display)',fontWeight:700,fontSize:'1.05rem',color:'var(--text-primary)',marginBottom:'0.4rem'}}>Not ready to found? Be first to know.</p>
@@ -717,7 +726,7 @@ function LandingPage({giftAutoOpen = false}) {
           </div>
           <div>
             <h5>Product</h5>
-            <ul className="footer-links"><li><a href="/features">Features</a></li><li><a href="#pricing">Pricing</a></li></ul>
+            <ul className="footer-links"><li><a href="/features">Features</a></li><li><a href="#pricing">Pricing</a></li><li><a href={PLAY_STORE} target="_blank" rel="noopener noreferrer">Google Play</a></li></ul>
           </div>
           <div>
             <h5>Community</h5>
@@ -735,11 +744,11 @@ function LandingPage({giftAutoOpen = false}) {
       </footer>
 
       {/* ═══ SMART STICKY CTA ═══ */}
+      {/* During the dual-state launch window, the sticky CTA pushes Founders
+          (the scarce offer); Try Free is reachable from the hero/footer/navbar. */}
       <div className={`sticky-cta ${stickyCta ? 'active' : ''} ${stickyVisible ? 'visible' : ''}`}>
-        {LAUNCHED
-          ? <a href={PLAY_STORE} className="btn-primary" target="_blank" rel="noopener noreferrer">Try Free</a>
-          : <a href="#founders" className="btn-primary">Become a Founder — €67</a>}
-        <span className="price-hint">{LAUNCHED ? '7-day trial · Cancel anytime' : 'Lifetime access · €67'}</span>
+        <a href="#founders" className="btn-primary">Become a Founder — €67</a>
+        <span className="price-hint">{LAUNCHED ? 'Lifetime · Live on Google Play' : 'Lifetime access · €67'}</span>
       </div>
     </div>
   )
