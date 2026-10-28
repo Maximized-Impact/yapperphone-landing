@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Welcome, Founding Member — Yapper Phone</title>
+<title>Welcome, Founding Member - Yapper Phone</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap');
 
@@ -117,7 +117,7 @@ body {
   letter-spacing: -0.3px;
 }
 
-/* ═══ MEMBER NUMBER — THE HERO ═══ */
+/* ═══ MEMBER NUMBER - THE HERO ═══ */
 .member-number-wrap {
   margin-bottom: 12px;
   animation: scale-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
@@ -559,28 +559,28 @@ body {
 
     <div class="benefit-item">
       <div class="benefit-check"><svg viewBox="0 0 24 24" fill="none" stroke="#e8c547" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-      <div class="benefit-text">Lifetime access <span>— every feature, every update, forever</span></div>
+      <div class="benefit-text">Lifetime access <span> - every feature, every update, forever</span></div>
     </div>
 
     <div class="benefit-item">
       <div class="benefit-check"><svg viewBox="0 0 24 24" fill="none" stroke="#e8c547" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-      <div class="benefit-text">Your name on the Founders screen <span>— permanently displayed inside the app</span></div>
+      <div class="benefit-text">Your name on the Founders screen <span> - permanently displayed inside the app</span></div>
     </div>
 
     <div class="benefit-item">
       <div class="benefit-check"><svg viewBox="0 0 24 24" fill="none" stroke="#e8c547" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-      <div class="benefit-text">Early access <span>— every new feature before public release</span></div>
+      <div class="benefit-text">Early access <span> - every new feature before public release</span></div>
     </div>
 
     <div class="benefit-item">
       <div class="benefit-check"><svg viewBox="0 0 24 24" fill="none" stroke="#e8c547" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-      <div class="benefit-text">A founding role <span>— in building Health Communications Technology</span></div>
+      <div class="benefit-text">A founding role <span> - in building Health Communications Technology</span></div>
     </div>
 
     <div class="spots-section">
       <div class="spots-label">
         <span>Spots claimed</span>
-        <strong id="spotsClaimed">—</strong>
+        <strong id="spotsClaimed">-</strong>
       </div>
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill" style="width: 0%"></div>
@@ -588,13 +588,13 @@ body {
     </div>
   </div>
 
-  <!-- Early-access capture (v7.4) — appears only when session_id is present -->
+  <!-- Early-access capture (v7.4) - appears only when session_id is present -->
   <div class="capture-card" id="captureCard" hidden>
     <div class="capture-title">Register your Google account</div>
     <p class="capture-body">
       Enter the Google account signed in on your Android phone
       (Settings → Accounts). We register this with your Founder slot so
-      we can verify membership later — it can differ from the email you
+      we can verify membership later - it can differ from the email you
       paid with. After registering you'll get the install link.
     </p>
     <form id="captureForm" class="capture-form" autocomplete="off">
@@ -606,7 +606,7 @@ body {
     <p class="capture-error" id="captureError" hidden></p>
   </div>
 
-  <!-- CTA — hidden initially when session_id present, revealed after capture -->
+  <!-- CTA - hidden initially when session_id present, revealed after capture -->
   <div class="cta-area">
     <!-- Live on Google Play. Internal-testing fallback (if production listing is ever pulled): https://play.google.com/apps/internaltest/4701702603647560560 -->
     <a href="https://play.google.com/store/apps/details?id=com.yapperphone.app" class="btn-download" target="_blank" rel="noopener noreferrer">
@@ -615,7 +615,7 @@ body {
     </a>
   </div>
 
-  <p class="email-note">Check your inbox — your Founder access link and confirmation are on the way.</p>
+  <p class="email-note">Check your inbox - your Founder access link and confirmation are on the way.</p>
 
   <div style="text-align:center;">
     <a href="https://yapperphone.app" class="back-link">← Back to Yapper Phone</a>
@@ -630,7 +630,7 @@ body {
       </svg>
       <span class="footer-brand-text">Yapper Phone</span>
     </a>
-    <div class="footer-institute">Institute for The Study Of Humanity and Maximized Impact ry</div>
+    <div class="footer-institute">Institute for The Study Of Humanity, a research initiative of Maximized Impact ry, a Finnish registered association</div>
   </div>
 
 </div>
@@ -688,7 +688,7 @@ function createParticles() {
   }
 }
 
-// ═══ SPOTS + PROGRESS — public counter REST (decoupled from hero) ═══
+// ═══ SPOTS + PROGRESS - public counter REST (decoupled from hero) ═══
 const FIRESTORE_REST = 'https://firestore.googleapis.com/v1/projects/org-maximpact-yapper/databases/(default)/documents/counters/originals?key=AIzaSyBIBwEbzAQ2Y9awNZLYqRCA7iGquwIkuf8';
 
 async function loadFoundersCount() {
@@ -716,14 +716,14 @@ function applySpotsAndProgress(num, total) {
 }
 
 function applySpotsFallback() {
-  // Counter unreachable — spots/progress neutral. Hero untouched. NEVER #47.
+  // Counter unreachable - spots/progress neutral. Hero untouched. NEVER #47.
   const spots = document.getElementById('spotsClaimed');
-  if (spots) spots.textContent = '—';
+  if (spots) spots.textContent = ' - ';
   const fill = document.getElementById('progressFill');
   if (fill) fill.style.width = '0%';
 }
 
-// ═══ PER-BUYER HERO NUMBER — getFounderNumber poll ═══
+// ═══ PER-BUYER HERO NUMBER - getFounderNumber poll ═══
 const NUMBER_FN_URL = 'https://us-central1-org-maximpact-yapper.cloudfunctions.net/getFounderNumber';
 
 function resolveFounderNumber(sessionId) {
@@ -751,7 +751,7 @@ function resolveFounderNumber(sessionId) {
         applyNeutralHero('Your Founder number arrives by email the moment your payment clears.');
         return;
       }
-      // not_yet_written — keep polling
+      // not_yet_written - keep polling
       attempts += 1;
       if (attempts >= MAX_NOT_YET_ATTEMPTS) {
         applyNeutralHero('Your Founder number is on its way to your inbox.');
@@ -802,14 +802,14 @@ function applyNeutralHero(message) {
   }
 }
 
-// ═══ EARLY-ACCESS CAPTURE — saveFounderTestingEmail POST ═══
+// ═══ EARLY-ACCESS CAPTURE - saveFounderTestingEmail POST ═══
 const CAPTURE_FN_URL = 'https://us-central1-org-maximpact-yapper.cloudfunctions.net/saveFounderTestingEmail';
 
 function initCapture(sessionId) {
   const card = document.getElementById('captureCard');
   const ctaArea = document.querySelector('.cta-area');
   if (!sessionId) {
-    // Direct visit — leave capture hidden, CTA visible
+    // Direct visit - leave capture hidden, CTA visible
     return;
   }
   card.hidden = false;
@@ -841,7 +841,7 @@ function initCapture(sessionId) {
       if (ctaArea) ctaArea.style.display = '';
     } catch (err) {
       console.warn('Capture failed:', err);
-      errEl.textContent = "Couldn't save — please try again. If it keeps failing, message us on Discord.";
+      errEl.textContent = "Couldn't save - please try again. If it keeps failing, message us on Discord.";
       errEl.hidden = false;
       btn.disabled = false;
       btn.textContent = 'Claim early access';
@@ -860,7 +860,7 @@ window.addEventListener('load', () => {
   if (sessionId) {
     resolveFounderNumber(sessionId);
   } else {
-    applyNeutralHero();  // no message — direct visit, just label
+    applyNeutralHero();  // no message - direct visit, just label
   }
 
   // Spots + progress: independent public counter REST read, always.

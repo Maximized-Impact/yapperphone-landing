@@ -2193,3 +2193,15 @@ body {
    Without this, the navbar overlaps "Not ready to found? Be first to know."
    on jump. */
 #waitlist { scroll-margin-top: 7rem; }
+
+/* ---------- Institute block (v7.7): lotus mark + formula, mirrors research.maximized-impact.org masthead ---------- */
+.lotus-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.institute-block { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; margin-bottom: 2rem; }
+.institute-block > svg { width: 88px; height: 79px; display: block; fill: var(--text-primary); opacity: 0.9; }
+.institute-block .inst { font-size: 14.4px; line-height: 1.5; color: var(--text-secondary); max-width: 44ch; margin: 0; }
+.institute-block .inst strong { display: block; font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+@media (max-width: 640px) {
+  .institute-block { gap: 18px; }
+  .institute-block > svg { width: 72px; height: 65px; }
+  .institute-block .inst { font-size: 14px; }
+}

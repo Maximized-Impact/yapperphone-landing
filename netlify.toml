@@ -16,6 +16,19 @@
   to = "/originals-success.html"
   status = 200
 
+# /research moved to the Institute site - keep above the catch-all
+[[redirects]]
+  from = "/research"
+  to = "https://research.maximized-impact.org/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/research/*"
+  to = "https://research.maximized-impact.org/"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
