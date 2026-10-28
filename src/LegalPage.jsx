@@ -31,7 +31,7 @@ function Footer() {
       <div className="footer-grid">
         <div className="footer-brand">
           <div style={{display:'flex',alignItems:'center',gap:'0.5rem',marginBottom:'0.5rem'}}><img src="/yapper_logo.svg" alt="" width="24" height="24" style={{background:'none'}} /><h4 style={{margin:0}}>Yapper Phone</h4></div>
-          <p>Health Communications Technology - a category invented by Yapper.</p>
+          <p>Health Communications Technology: a category invented by Yapper.</p>
           <p style={{marginTop:'0.5rem'}}>© 2026 SUPER SINCE BIRTH</p>
         </div>
         <div>
@@ -69,7 +69,7 @@ function PrivacyPolicy() {
       <p>For any question about your data, including the rights described in Section 9, write to that email. You will receive a response within 30 days.</p>
 
       <h2>2. Our approach to your data</h2>
-      <p>Yapper Phone was built to keep your personal life on your phone. Most of what the app generates - your calls, your notes, your contacts, your relationships, and your behavioral dashboard - is stored locally on your device and never transmitted to us or to any third party.</p>
+      <p>Yapper Phone was built to keep your personal life on your phone. Most of what the app generates (your calls, your notes, your contacts, your relationships, and your behavioral dashboard) is stored locally on your device and never transmitted to us or to any third party.</p>
       <p>A small amount of data leaves your device, and only when strictly necessary:</p>
       <ul>
         <li>Your Google account identifier, so your paid subscription follows you across devices and reinstalls</li>
@@ -85,12 +85,12 @@ function PrivacyPolicy() {
       <ul>
         <li>Contacts and contact details, tags, relationship notes</li>
         <li>Medications, medical conditions, blood type, allergies, and emergency contacts that you record for loved ones</li>
-        <li>Your own medical information - conditions, medications, blood type, allergies - if you choose to enable the ICE lock-screen emergency info feature</li>
+        <li>Your own medical information (conditions, medications, blood type, allergies), if you choose to enable the ICE lock-screen emergency info feature</li>
         <li>Call history, call durations, call types, call agendas, and call participants</li>
         <li>Call notes that you type</li>
-        <li>Your phone number, stored as a SHA-256 hash - the raw number is hashed on your device and the hash never leaves it</li>
-        <li>Behavioral dashboard data, including call patterns, focus usage, and time-signal usage - derived only from your call metadata (durations, times, frequency, contacts), never from the content or audio of your calls</li>
-        <li>A one-time location snapshot, if you tap "Capture GPS" to record where you met a contact in your personal Networks - stored on your device only (latitude, longitude, and an address label), never transmitted, with no background or continuous location tracking</li>
+        <li>Your phone number, stored as a SHA-256 hash. The raw number is hashed on your device and the hash never leaves it</li>
+        <li>Behavioral dashboard data, including call patterns, focus usage, and time-signal usage, derived only from your call metadata (durations, times, frequency, contacts), never from the content or audio of your calls</li>
+        <li>A one-time location snapshot, if you tap "Capture GPS" to record where you met a contact in your personal Networks, stored on your device only (latitude, longitude, and an address label), never transmitted, with no background or continuous location tracking</li>
         <li>Settings, preferences, language, timer profiles, focus sound preferences, time signal intervals, battery alert thresholds</li>
         <li>Any file, folder, or note you create within the app</li>
       </ul>
@@ -101,7 +101,7 @@ function PrivacyPolicy() {
       <h3>4.1 Google account identifier</h3>
       <p>When you start a free trial, subscribe, redeem Yapper Founders, or redeem a promo code, you are asked to sign in with Google. A stable identifier for your Google account, along with the associated email, is transmitted from your device to our backend (Firebase Firestore, operated on Google Cloud) and stored there for a single purpose: tracking whether your account has a paid entitlement. This allows your subscription to follow you when you reinstall the app, change devices, or replace your phone.</p>
       <p>We do not access your Google Drive, Contacts, Calendar, Photos, or any other Google service. The only scopes requested are <code>profile</code> and <code>email</code>.</p>
-      <p><strong>Legal basis:</strong> performance of a contract (GDPR Art. 6(1)(b)) - processing is necessary to provide the paid service you have purchased.</p>
+      <p><strong>Legal basis:</strong> performance of a contract (GDPR Art. 6(1)(b)). Processing is necessary to provide the paid service you have purchased.</p>
 
       <h3>4.2 Firebase Anonymous Authentication and call-duration negotiation</h3>
       <p>The app uses Firebase Anonymous Authentication to manage your session. This generates a randomized session identifier that is not tied to your identity and changes when you reinstall the app.</p>
@@ -111,18 +111,18 @@ function PrivacyPolicy() {
         <li>Permit only the two parties to a given call to read or write that call's negotiation data</li>
         <li>Do not expose your identity, your Google account, your contacts, your call content, or any other personal data to Google or to any third party</li>
       </ul>
-      <p>What passes through Firestore during negotiation is limited to the minimal information the two devices need to agree: the proposed duration, the accepted duration, and the call type. The raw phone numbers are never transmitted - only their hashes.</p>
+      <p>What passes through Firestore during negotiation is limited to the minimal information the two devices need to agree: the proposed duration, the accepted duration, and the call type. The raw phone numbers are never transmitted, only their hashes.</p>
       <p><strong>Legal basis:</strong> legitimate interest (GDPR Art. 6(1)(f)) for session security; performance of a contract (GDPR Art. 6(1)(b)) for the call-duration negotiation feature.</p>
 
       <h3>4.3 Firebase Firestore writes</h3>
       <p>Firestore stores only the following records:</p>
       <ul>
-        <li>Entitlement records keyed to your Google account - whether you have an active subscription, Yapper Founders lifetime access, Finnish Type 1 diabetic grant, or promo code entitlement, and the period of validity</li>
-        <li>Gift records - who sent a gift to whom and whether it has been redeemed</li>
+        <li>Entitlement records keyed to your Google account: whether you have an active subscription, Yapper Founders lifetime access, Finnish Type 1 diabetic grant, or promo code entitlement, and the period of validity</li>
+        <li>Gift records: who sent a gift to whom and whether it has been redeemed</li>
         <li>Subscription state mirrored from Google Play Billing</li>
         <li>Call-duration negotiation data between two Yapper users, keyed to hashed phone numbers (see Section 4.2)</li>
       </ul>
-      <p><strong>Firestore stores only the records listed above. It has no access to any data on your device - not your contacts, not your call history, not your notes, not your health information, not your behavioral dashboard.</strong> The data flow is strictly one direction: your device writes specific minimal records to Firestore for the purposes above. Firestore does not read from your device and cannot reach into it.</p>
+      <p><strong>Firestore stores only the records listed above. It has no access to any data on your device: not your contacts, not your call history, not your notes, not your health information, not your behavioral dashboard.</strong> The data flow is strictly one direction: your device writes specific minimal records to Firestore for the purposes above. Firestore does not read from your device and cannot reach into it.</p>
       <p><strong>Legal basis:</strong> performance of a contract (GDPR Art. 6(1)(b)).</p>
 
       <h3>4.4 Stripe</h3>
@@ -136,15 +136,15 @@ function PrivacyPolicy() {
         <li>The crash stack trace and error type</li>
         <li>Device model and operating system version</li>
         <li>A pseudonymous Firebase installation identifier</li>
-        <li>The app state at the time of the crash - not the content of your calls, notes, contacts, or health data</li>
+        <li>The app state at the time of the crash, not the content of your calls, notes, contacts, or health data</li>
       </ul>
       <p>You can reset the installation identifier by clearing the app's data in Android settings.</p>
-      <p><strong>Legal basis:</strong> legitimate interest (GDPR Art. 6(1)(f)) - identifying and fixing defects in the software.</p>
+      <p><strong>Legal basis:</strong> legitimate interest (GDPR Art. 6(1)(f)), identifying and fixing defects in the software.</p>
 
       <h3>4.6 Firebase SDK technical identifiers</h3>
-      <p>Using Firebase SDKs (Anonymous Authentication, Firestore, Crashlytics) inherently involves pseudonymous technical identifiers that Firebase generates to operate those SDKs - including a Firebase Installations identifier. These identifiers are not tied to your name, your phone number, your contacts, your Google account, or the content of your calls. They allow Firebase to distinguish one app instance from another for technical purposes such as crash attribution and session management.</p>
+      <p>Using Firebase SDKs (Anonymous Authentication, Firestore, Crashlytics) inherently involves pseudonymous technical identifiers that Firebase generates to operate those SDKs, including a Firebase Installations identifier. These identifiers are not tied to your name, your phone number, your contacts, your Google account, or the content of your calls. They allow Firebase to distinguish one app instance from another for technical purposes such as crash attribution and session management.</p>
       <p>You can reset these identifiers by clearing the app's data in Android settings.</p>
-      <p><strong>Legal basis:</strong> legitimate interest (GDPR Art. 6(1)(f)) - technical operation of the application.</p>
+      <p><strong>Legal basis:</strong> legitimate interest (GDPR Art. 6(1)(f)), technical operation of the application.</p>
 
       <h3>4.7 Google Play Billing</h3>
       <p>If you subscribe through the Google Play Store, your payment and subscription management is handled entirely by Google Play Billing. We receive confirmation of your subscription status from Google; we do not process your payment information.</p>
@@ -166,7 +166,7 @@ function PrivacyPolicy() {
 
       <h2>6. Your control over your health data</h2>
       <p>Yapper Phone is not a medical device and does not diagnose, treat, cure, or prevent any condition. The features described in this section let you store your own emergency medical information on your device for first responders; they do not perform any health analysis or provide medical advice. For medical advice, please consult a qualified healthcare professional.</p>
-      <p>If you use Yapper's ICE emergency features, you may choose to enter medical information about yourself - conditions, medications, blood type, allergies, emergency contacts. You may also choose to display some or all of this information on your device's lock screen so that anyone who picks up your phone in an emergency can see it and call your emergency contact.</p>
+      <p>If you use Yapper's ICE emergency features, you may choose to enter medical information about yourself: conditions, medications, blood type, allergies, emergency contacts. You may also choose to display some or all of this information on your device's lock screen so that anyone who picks up your phone in an emergency can see it and call your emergency contact.</p>
       <p><strong>This is always your choice.</strong> Nothing is displayed on the lock screen by default. You activate it. You control what is shown. You turn it off at any time. There is no setting that exposes your medical information without your explicit action.</p>
       <p>The same applies to medical information you record for loved ones: it is stored on your device only, visible only to you inside the app, and never transmitted or shared.</p>
 
@@ -187,14 +187,14 @@ function PrivacyPolicy() {
       <h2>9. Your rights under GDPR</h2>
       <p>You have the following rights concerning your personal data:</p>
       <ul>
-        <li><strong>Right of access</strong> - request a copy of the personal data we hold about you.</li>
-        <li><strong>Right to rectification</strong> - ask us to correct inaccurate data.</li>
-        <li><strong>Right to erasure</strong> - ask us to delete your data. For entitlement records, erasure may end your paid subscription.</li>
-        <li><strong>Right to restriction</strong> - ask us to pause processing of your data.</li>
-        <li><strong>Right to data portability</strong> - request your data in a machine-readable format.</li>
-        <li><strong>Right to object</strong> - object to processing based on legitimate interest.</li>
-        <li><strong>Right to withdraw consent</strong> - where processing is based on consent, withdraw it at any time.</li>
-        <li><strong>Right to lodge a complaint</strong> - if you believe we have mishandled your data, you have the right to complain to the Finnish supervisory authority, the <strong>Office of the Data Protection Ombudsman</strong> (Tietosuojavaltuutetun toimisto, <a href="https://www.tietosuoja.fi" target="_blank" rel="noopener noreferrer">www.tietosuoja.fi</a>), or the supervisory authority in your country of residence.</li>
+        <li><strong>Right of access:</strong> request a copy of the personal data we hold about you.</li>
+        <li><strong>Right to rectification:</strong> ask us to correct inaccurate data.</li>
+        <li><strong>Right to erasure:</strong> ask us to delete your data. For entitlement records, erasure may end your paid subscription.</li>
+        <li><strong>Right to restriction:</strong> ask us to pause processing of your data.</li>
+        <li><strong>Right to data portability:</strong> request your data in a machine-readable format.</li>
+        <li><strong>Right to object:</strong> object to processing based on legitimate interest.</li>
+        <li><strong>Right to withdraw consent:</strong> where processing is based on consent, withdraw it at any time.</li>
+        <li><strong>Right to lodge a complaint:</strong> if you believe we have mishandled your data, you have the right to complain to the Finnish supervisory authority, the <strong>Office of the Data Protection Ombudsman</strong> (Tietosuojavaltuutetun toimisto, <a href="https://www.tietosuoja.fi" target="_blank" rel="noopener noreferrer">www.tietosuoja.fi</a>), or the supervisory authority in your country of residence.</li>
       </ul>
       <p>To exercise any of these rights, write to <a href="mailto:janne@yapperphone.app">janne@yapperphone.app</a>. You will receive a response within 30 days. You do not need to justify your request.</p>
       <p>Since we do not have access to the data stored on your device, requests under these rights apply only to the data listed in Section 4 (entitlement records, Stripe payment records, Crashlytics data, Firebase technical identifiers).</p>
@@ -247,8 +247,8 @@ function TermsOfService() {
       <h2>4. Accounts and identity</h2>
       <p>Yapper Phone uses two identity layers:</p>
       <ul>
-        <li><strong>Anonymous local session</strong> - a randomized identifier tied to your app installation. Used to operate features within the app. Not tied to your name or contact details.</li>
-        <li><strong>Google account</strong> - required only when you start a paid subscription, redeem Yapper Founders, or redeem a promo code. Used to anchor your paid entitlement so it follows you across reinstalls and devices.</li>
+        <li><strong>Anonymous local session:</strong> a randomized identifier tied to your app installation. Used to operate features within the app. Not tied to your name or contact details.</li>
+        <li><strong>Google account:</strong> required only when you start a paid subscription, redeem Yapper Founders, or redeem a promo code. Used to anchor your paid entitlement so it follows you across reinstalls and devices.</li>
       </ul>
       <p>You are responsible for maintaining the security of your Google account. We cannot restore a paid entitlement to a Google account you no longer control.</p>
 
@@ -276,7 +276,7 @@ function TermsOfService() {
 
       <h3>5.4 Refunds</h3>
       <p>Refunds are handled by Google Play according to <a href="https://support.google.com/googleplay/answer/2479637" target="_blank" rel="noopener noreferrer">Google's refund policy</a>.</p>
-      <p>Under the EU Consumer Rights Directive, consumers in the EU have a 14-day right of withdrawal from digital service purchases. By starting your free trial or by using paid features, you expressly agree to begin the service before the 14-day withdrawal period ends, which - under the Directive - forfeits the withdrawal right for digital content supplied with your prior express consent.</p>
+      <p>Under the EU Consumer Rights Directive, consumers in the EU have a 14-day right of withdrawal from digital service purchases. By starting your free trial or by using paid features, you expressly agree to begin the service before the 14-day withdrawal period ends, which, under the Directive, forfeits the withdrawal right for digital content supplied with your prior express consent.</p>
 
       <h3>5.5 Price changes</h3>
       <p>We may change subscription prices. Any price change takes effect at your next renewal, and only after we have notified you in advance through the app, by email at the address associated with your Google Play account, or both. You can cancel at any time before a price change takes effect.</p>
@@ -293,7 +293,7 @@ function TermsOfService() {
       <p>After purchase, you redeem your Yapper Founders entitlement by signing into the app with the same Google account you intend to use on your device. If the email used at Stripe checkout does not match a Google account you can sign into, contact <a href="mailto:janne@yapperphone.app">janne@yapperphone.app</a> for manual verification.</p>
 
       <h3>6.2 What "lifetime" means</h3>
-      <p>"Lifetime" refers to the operational lifetime of Yapper Phone and its successor products operated by SUPER SINCE BIRTH or its successors. If the service is permanently discontinued, you are not automatically entitled to a refund, but we will give you advance notice and - where legally required - a reasonable prorated refund.</p>
+      <p>"Lifetime" refers to the operational lifetime of Yapper Phone and its successor products operated by SUPER SINCE BIRTH or its successors. If the service is permanently discontinued, you are not automatically entitled to a refund, but we will give you advance notice and, where legally required, a reasonable prorated refund.</p>
 
       <h3>6.3 Refunds for Founders</h3>
       <p>Under the EU Consumer Rights Directive, you have a 14-day right of withdrawal from a Yapper Founders purchase. After 14 days, the purchase is non-refundable. If you request a refund within 14 days and have not yet redeemed your Founders entitlement in the app, you will receive a full refund. If you have redeemed the entitlement, you have begun the service and waived the right of withdrawal.</p>
@@ -330,7 +330,7 @@ function TermsOfService() {
 
       <h2>11. ICE Emergency features</h2>
       <p>Yapper Phone includes ICE Emergency calling, ICE Checkup, and a lock-screen emergency info card. These features are designed to increase the likelihood of reaching help in an emergency. <strong>They are not a substitute for emergency services or professional medical supervision.</strong> In a life-threatening emergency, call your country's emergency number directly (112 in the EU, 911 in the United States).</p>
-      <p>We make no guarantee that ICE features will function in every circumstance. Factors outside our control - including cellular coverage, device state, battery level, recipient availability, and operating system behavior - can prevent calls from being placed or received.</p>
+      <p>We make no guarantee that ICE features will function in every circumstance. Factors outside our control, including cellular coverage, device state, battery level, recipient availability, and operating system behavior, can prevent calls from being placed or received.</p>
 
       <h2>12. Intellectual property</h2>
       <p>Yapper Phone, including all code, designs, trademarks, and the name "Yapper," is the property of SUPER SINCE BIRTH and its successors. A single USPTO provisional patent application containing 667+ innovation disclosures covering the technology in Yapper Phone was filed on February 27, 2026.</p>

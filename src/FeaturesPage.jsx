@@ -14,46 +14,46 @@ const SECTIONS = [
   {
     id: 'duration', icon: '⏱', title: 'Duration-First Calling', subtitle: 'Because every call deserves a plan',
     features: [
-      { title: 'Set the time before you dial', desc: 'Every outgoing call starts with one question: how long should this be? Pick Short, Long, or set a custom duration down to the second. Your personal call caps define what "Short" and "Long" mean for you. Request more time than your Long cap and the call is flagged as Extended - a clear signal that this is a big time commitment. No call is placed until you\'ve decided how long it should take.' },
-      { title: 'Two-sided duration negotiation', desc: 'When both people use Yapper, calling becomes a conversation before the conversation. You propose a duration. They see your request alongside their own caps - four clear buttons, one choice. The receiver always has the final say. Their choice becomes the agreed duration on both sides. When only one side has Yapper, you still get your own countdown timer - the time-awareness benefit works either way.' },
-      { title: 'Synchronised countdown timer', desc: 'A shared clock on both devices - colour-coded from green (fine) through orange (getting close) to red (wrap up now). Runs to overtime if needed, counting up instead of down.' },
-      { title: 'Time signals & wrap-up warnings', desc: 'Configurable chimes at intervals from 10 seconds to 30 minutes - both in-call and system-wide. Escalating alerts as agreed time approaches. Independent volume controls. Runs as a native background service that survives app kill and reboots. A temporal anchor for time-blind brains.' },
+      { title: 'Set the time before you dial', desc: 'Every outgoing call starts with one question: how long should this be? Pick Short, Long, or set a custom duration down to the second. Your personal call caps define what "Short" and "Long" mean for you. Request more time than your Long cap and the call is flagged as Extended, a clear signal that this is a big time commitment. No call is placed until you\'ve decided how long it should take.' },
+      { title: 'Two-sided duration negotiation', desc: 'When both people use Yapper, calling becomes a conversation before the conversation. You propose a duration. They see your request alongside their own caps: four clear buttons, one choice. The receiver always has the final say. Their choice becomes the agreed duration on both sides. When only one side has Yapper, you still get your own countdown timer. The time-awareness benefit works either way.' },
+      { title: 'Synchronised countdown timer', desc: 'A shared clock on both devices, colour-coded from green (fine) through orange (getting close) to red (wrap up now). Runs to overtime if needed, counting up instead of down.' },
+      { title: 'Time signals & wrap-up warnings', desc: 'Configurable chimes at intervals from 10 seconds to 30 minutes, both in-call and system-wide. Escalating alerts as agreed time approaches. Independent volume controls. Runs as a native background service that survives app kill and reboots. A temporal anchor for time-blind brains.' },
     ]
   },
   {
     id: 'call-types', icon: '📞', title: 'Six Call Types', subtitle: 'Every call has an intention. Now your phone knows it.',
-    intro: 'Each type transforms the entire call experience - timer, buttons, badges, and notification cards all change colour to match.',
+    intro: 'Each type transforms the entire call experience: timer, buttons, badges, and notification cards all change colour to match.',
     features: [
       { title: '📞 Standard Call', desc: 'The everyday call with time awareness built in. Default colour scheme. Duration negotiation, countdown timer, all core features active.' },
-      { title: '🤝 Body Double Call', desc: 'ADHD accountability sessions. Not a conversation - a passive co-presence session for task activation. Someone is on the other end, and that\'s enough to start working. A widely used ADHD strategy. Now built into your phone.', color: '#7B1FA2' },
+      { title: '🤝 Body Double Call', desc: 'ADHD accountability sessions. Not a conversation: a passive co-presence session for task activation. Someone is on the other end, and that\'s enough to start working. A widely used ADHD strategy. Now built into your phone.', color: '#7B1FA2' },
       { title: '📋 Agenda Call', desc: 'Write a short agenda, receiving side sees it before answering and both sides see it under the timer the entire call. You can save agendas, set presets for contacts and Yapper also saves the incoming agendas for you to use yourself later if you want. Saves the first two minutes of every call.', color: '#2196F3' },
       { title: '🆘 ICE Emergency', desc: 'Urgent calls that bypass silent mode, Do Not Disturb, and all restrictions. Lock screen emergency card. Your emergency contacts can reach you through silent mode too. Bidirectional. Available with any active subscription or trial.', color: '#E53935' },
-      { title: '🩺 ICE Checkup', desc: 'If you\'ve set someone as your ICE contact, they can reach you with a Checkup call that bypasses silent mode and Do Not Disturb - when they suspect danger or have a reason to worry. Your safety net, even when your phone is on mute. Requires active subscription or trial.', color: '#F57C00' },
-      { title: '🎨 Custom Duration', desc: 'Set any duration down to the second. The interface adapts. For calls that don\'t fit a label - the only rule is that you chose the time before the call connected.', color: '#00BCD4' },
+      { title: '🩺 ICE Checkup', desc: 'If you\'ve set someone as your ICE contact, they can reach you with a Checkup call that bypasses silent mode and Do Not Disturb when they suspect danger or have a reason to worry. Your safety net, even when your phone is on mute. Requires active subscription or trial.', color: '#F57C00' },
+      { title: '🎨 Custom Duration', desc: 'Set any duration down to the second. The interface adapts. For calls that don\'t fit a label. The only rule is that you chose the time before the call connected.', color: '#00BCD4' },
     ]
   },
   {
     id: 'focus', icon: '🎧', title: 'Focus & Sensory Tools', subtitle: 'Your brain\'s environment, under your control',
     features: [
-      { title: 'Focus Sound - in-call and system-wide', desc: 'Six sounds - brown, white and pink noise, rain, ocean and forest - mixed directly into live phone call audio. Also plays system-wide through a separate audio stream. Two independent volume controls. Hearing-safe maximum levels. This requires system dialer privileges - no third-party app can do this. Only a true dialer replacement can mix audio into the telephony stream.' },
-      { title: 'Time Signal - in-call and system-wide', desc: 'Configurable chimes at intervals from 10 seconds to 30 minutes - both during calls and as a standalone background service that survives app kill and reboots. Visual, audible, and haptic. Tap to turn on and off. Long press to adjust volume independently for earpiece, speaker, and Bluetooth. Adjustable from the in-call screen, from the system-wide Focus Sound overlay, and from Settings after toggling on Gyro Mode for deeper tinkering. Your external clock for when the internal one goes quiet.' },
-      { title: 'In-call Ambient Timer', desc: 'Ambient Timer display shows the in-call screen\'s big timer on an OLED-black ambient background - accessible from the in-call screen. Tap the Ambient display button left of the End call button to enter the view with only the timer and the information you want about the call, on a pitch-black background that saves battery on OLED screens. Long press to toggle autostart on and off from the in-call screen. In Yapper Settings, you can choose to also show the Elapsed Time timer, contact name, and system clock in the ambient timer display and set the auto-timer to your liking. Tap the screen to exit Ambient Display mode.' },
-      { title: 'Social Media Break', desc: 'Block apps by category - but let the people you love through. VIP contacts bypass every block, every filter, every category you\'ve silenced. Eight categories, three states each (Blocked, VIP Only, Allowed), up to 40 individual notification groups. It learns your patterns passively as you go. Runs in the background even when Yapper is closed. Survives reboots.' },
+      { title: 'Focus Sound - in-call and system-wide', desc: 'Six sounds (brown, white and pink noise, rain, ocean and forest) mixed directly into live phone call audio. Also plays system-wide through a separate audio stream. Two independent volume controls. Hearing-safe maximum levels. This requires system dialer privileges. No third-party app can do this. Only a true dialer replacement can mix audio into the telephony stream.' },
+      { title: 'Time Signal - in-call and system-wide', desc: 'Configurable chimes at intervals from 10 seconds to 30 minutes, both during calls and as a standalone background service that survives app kill and reboots. Visual, audible, and haptic. Tap to turn on and off. Long press to adjust volume independently for earpiece, speaker, and Bluetooth. Adjustable from the in-call screen, from the system-wide Focus Sound overlay, and from Settings after toggling on Gyro Mode for deeper tinkering. Your external clock for when the internal one goes quiet.' },
+      { title: 'In-call Ambient Timer', desc: 'Ambient Timer display shows the in-call screen\'s big timer on an OLED-black ambient background, accessible from the in-call screen. Tap the Ambient display button left of the End call button to enter the view with only the timer and the information you want about the call, on a pitch-black background that saves battery on OLED screens. Long press to toggle autostart on and off from the in-call screen. In Yapper Settings, you can choose to also show the Elapsed Time timer, contact name, and system clock in the ambient timer display and set the auto-timer to your liking. Tap the screen to exit Ambient Display mode.' },
+      { title: 'Social Media Break', desc: 'Block apps by category, but let the people you love through. VIP contacts bypass every block, every filter, every category you\'ve silenced. Eight categories, three states each (Blocked, VIP Only, Allowed), up to 40 individual notification groups. It learns your patterns passively as you go. Runs in the background even when Yapper is closed. Survives reboots.' },
     ]
   },
   {
     id: 'documentation', icon: '📝', title: 'Documentation & File Management', subtitle: 'Your calls, your records, your files',
     features: [
-      { title: 'Call Notes', desc: 'Capture key points as you talk. Notes saved to folders you choose via Android\'s Storage Access Framework. They exist as normal files on your device - accessible by any file manager, surviving app uninstalls. No consent required. No storage overhead. Just clarity.' },
+      { title: 'Call Notes', desc: 'Capture key points as you talk. Notes saved to folders you choose via Android\'s Storage Access Framework. They exist as normal files on your device, accessible by any file manager, surviving app uninstalls. No consent required. No storage overhead. Just clarity.' },
     ]
   },
   {
     id: 'relationships', icon: '💜', title: 'Relationship Intelligence', subtitle: 'Your phone knows who matters',
     features: [
-      { title: 'Contact Tagging', desc: 'Tag contacts as ICE, ICE4 (you are their ICE), or Mutual ICE - and create your own custom tags. Tags propagate everywhere in the UI: contact lists, recents, dialer, in-call, PIP.' },
-      { title: 'Networks - Relationship CRM', desc: 'A full contact details screen: where you met, notes, tags, social media handles, mutual friends, and the groups you\'ve added them to. "When you met" is set automatically - Yapper checks your call history and uses the first timestamp as the date. Create groups in Setup that propagate to every contact\'s Details page. Build a memory repository of your relationships. You can also add medications and medical conditions for loved ones whose health information is important to know.' },
+      { title: 'Contact Tagging', desc: 'Tag contacts as ICE, ICE4 (you are their ICE), or Mutual ICE, and create your own custom tags. Tags propagate everywhere in the UI: contact lists, recents, dialer, in-call, PIP.' },
+      { title: 'Networks - Relationship CRM', desc: 'A full contact details screen: where you met, notes, tags, social media handles, mutual friends, and the groups you\'ve added them to. "When you met" is set automatically: Yapper checks your call history and uses the first timestamp as the date. Create groups in Setup that propagate to every contact\'s Details page. Build a memory repository of your relationships. You can also add medications and medical conditions for loved ones whose health information is important to know.' },
       { title: 'Favourites Strip', desc: 'Scrollable strip of starred contacts. Four sort modes. ICE4 Priority Mode forces emergency contacts first. Collapsible with one tap.' },
-      { title: 'People Missing You', desc: 'Gentle nudges when someone you care about hasn\'t heard from you in a while. Not guilt - awareness. Shame-free, by design.' },
+      { title: 'People Missing You', desc: 'Gentle nudges when someone you care about hasn\'t heard from you in a while. Not guilt. Awareness. Shame-free, by design.' },
       { title: 'Communication Patterns Dashboard', desc: 'Call Science, Social Graph, Chronobiology, Focus & Presence, Relationship Intelligence, Self-Mastery. Six behavioral domains. Coach and Research modes. PDF/JSON/CSV export. All processing on-device.' },
       { title: 'Battery Alert Intelligence', desc: 'Configurable alerts at custom battery levels. Full-screen alerts that cut through lock screen, Do Not Disturb, silent mode. Colour-coded from green to orange to red. Alert tones that descend in pitch. Designed from medical alarm research.' },
     ]
@@ -61,13 +61,13 @@ const SECTIONS = [
   {
     id: 'accessibility', icon: '🎯', title: 'Built For Your Brain', subtitle: 'Neurodivergent-first, not an afterthought',
     features: [
-      { title: 'Ambient Clock - Lock Screen Widget', desc: 'Your lock screen finally does something. A big adjustable clock, date, missed calls with one-tap call-back, Now Playing from any music app with transport controls, a freely movable Focus Sound on/off button, and a Quick Timer with instant presets - Pomodoro daisy-chaining coming in the next update. Less unlocking. More living.' },
+      { title: 'Ambient Clock - Lock Screen Widget', desc: 'Your lock screen finally does something. A big adjustable clock, date, missed calls with one-tap call-back, Now Playing from any music app with transport controls, a freely movable Focus Sound on/off button, and a Quick Timer with instant presets. Pomodoro daisy-chaining coming in the next update. Less unlocking. More living.' },
       { title: 'Gyro Mode - Progressive Disclosure', desc: 'A master toggle controlling how much you see in settings. Off: only essentials. On: advanced controls animate into view. Reduces cognitive load for everyday use while making full depth available to power users.' },
       { title: 'Settings Profiles', desc: 'Save, load, rename named profiles. Built-in ADHD/Autism preset at launch. Work mode, sleep mode, whatever you need. One tap to switch.' },
-      { title: 'Picture-in-Picture', desc: 'Minimize the in-call screen to a floating window and navigate anywhere in Yapper - Recents, Keypad, Contacts, settings, all features. Access everything the app offers while on a call.' },
-      { title: 'Full-Featured Dialer', desc: 'T9 dialpad with real-time contact suggestions. Paste from clipboard. Country code auto-detection. Every call goes through call setup - no call is placed without a duration choice first.' },
+      { title: 'Picture-in-Picture', desc: 'Minimize the in-call screen to a floating window and navigate anywhere in Yapper: Recents, Keypad, Contacts, settings, all features. Access everything the app offers while on a call.' },
+      { title: 'Full-Featured Dialer', desc: 'T9 dialpad with real-time contact suggestions. Paste from clipboard. Country code auto-detection. Every call goes through call setup. No call is placed without a duration choice first.' },
       { title: 'Action Dock', desc: 'Configurable shortcut toolbar. Each screen has its own independently customisable buttons. Adjustable opacity for foldable devices.' },
-      { title: 'Yapper Menu', desc: 'Accessible from your main screens - Recents, Keypad, Contacts. Three floating buttons at the bottom: Social Media Break, System-Wide Time Signal, System-Wide Focus Sound. Long press for settings.' },
+      { title: 'Yapper Menu', desc: 'Accessible from your main screens: Recents, Keypad, Contacts. Three floating buttons at the bottom: Social Media Break, System-Wide Time Signal, System-Wide Focus Sound. Long press for settings.' },
     ]
   },
   {
@@ -233,7 +233,7 @@ export default function FeaturesPage() {
         <div className="footer-grid">
           <div className="footer-brand">
             <div style={{display:'flex',alignItems:'center',gap:'0.5rem',marginBottom:'0.5rem'}}><img src="/yapper_logo.svg" alt="" width="24" height="24" style={{background:'none'}} /><h4 style={{margin:0}}>Yapper Phone</h4></div>
-            <p>Health Communications Technology - a category invented by Yapper.</p>
+            <p>Health Communications Technology: a category invented by Yapper.</p>
             <p style={{marginTop:'0.5rem'}}>© 2026 SUPER SINCE BIRTH</p>
           </div>
           <div>
